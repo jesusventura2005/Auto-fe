@@ -1,73 +1,71 @@
-// screens/MaintenanceLog.tsx
-
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
+const upcomingTasks = [
+  {
+    title: 'Brake Inspection',
+    description: 'Check brake pads and replace if necessary',
+    date: 'Jan 10, 2024',
+    mileage: '35.000 miles',
+    status: 'Pending',
+  },
+  {
+    title: 'Air Filter Replacement',
+    description: 'Replace engine and cabin air filters',
+    date: 'Feb 5, 2024',
+    mileage: '37.500 miles',
+    status: 'Pending',
+  },
+  {
+    title: 'Coolant Flush',
+    description: 'Replace coolant and inspect cooling system',
+    date: 'Mar 20, 2024',
+    mileage: '40.000 miles',
+    status: 'Pending',
+  },
+  {
+    title: 'Transmission Service',
+    description: 'Change transmission fluid and filter',
+    date: 'Apr 20, 2024',
+    mileage: '42.000 miles',
+    status: 'Pending',
+  },
+  {
+    title: 'Tire Replacement',
+    description: 'Replace all four tires due to wear',
+    date: 'May 10, 2024',
+    mileage: '43.000 miles',
+    status: 'Pending',
+  },
+];
+
+const completedTasks = [
+  {
+    title: 'Oil Change',
+    description: 'Regular oil change with filter replacement',
+    date: 'Sep 15, 2023',
+    mileage: '30.000 miles',
+    status: 'Completed',
+  },
+  {
+    title: 'Tire Rotation',
+    description: 'Rotate and balance all four tires',
+    date: 'Sep 15, 2023',
+    mileage: '30.000 miles',
+    status: 'Completed',
+  },
+  {
+    title: 'Brake Fluid Change',
+    description: 'Replace brake fluid and inspect brake lines',
+    date: 'Sep 15, 2023',
+    mileage: '30.000 miles',
+    status: 'Completed',
+  },
+];
+
 const MaintenanceLog = () => {
-  const upcomingTasks = [
-    {
-      title: 'Brake Inspection',
-      description: 'Check brake pads and replace if necessary',
-      date: 'Jan 10, 2024',
-      mileage: '35.000 miles',
-      status: 'Pending',
-    },
-    {
-      title: 'Air Filter Replacement',
-      description: 'Replace engine and cabin air filters',
-      date: 'Feb 5, 2024',
-      mileage: '37.500 miles',
-      status: 'Pending',
-    },
-    {
-      title: 'Coolant Flush',
-      description: 'Replace coolant and inspect cooling system',
-      date: 'Mar 20, 2024',
-      mileage: '40.000 miles',
-      status: 'Pending',
-    },
-    {
-      title: 'Transmission Service',
-      description: 'Change transmission fluid and filter',
-      date: 'Apr 20, 2024',
-      mileage: '42.000 miles',
-      status: 'Pending',
-    },
-    {
-      title: 'Tire Replacement',
-      description: 'Replace all four tires due to wear',
-      date: 'May 10, 2024',
-      mileage: '43.000 miles',
-      status: 'Pending',
-    },
-  ];
-
-  const completedTasks = [
-    {
-      title: 'Oil Change',
-      description: 'Regular oil change with filter replacement',
-      date: 'Sep 15, 2023',
-      mileage: '30.000 miles',
-      status: 'Completed',
-    },
-    {
-      title: 'Tire Rotation',
-      description: 'Rotate and balance all four tires',
-      date: 'Sep 15, 2023',
-      mileage: '30.000 miles',
-      status: 'Completed',
-    },
-    {
-      title: 'Brake Fluid Change',
-      description: 'Replace brake fluid and inspect brake lines',
-      date: 'Sep 15, 2023',
-      mileage: '30.000 miles',
-      status: 'Completed',
-    },
-  ];
-
   const renderItem = (item: any) => (
-    <TouchableOpacity key={item.title} style={styles.card}>
+    <TouchableOpacity key={item.title + item.date} style={styles.card}>
       <View>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>

@@ -1,4 +1,4 @@
-import MaintenanceLog from './components/MaintenanceLog';
+import MaintenanceLog from './pages/MaintenanceLog';
 
 export default function App() {
   return <MaintenanceLog />;
