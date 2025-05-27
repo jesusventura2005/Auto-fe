@@ -67,7 +67,7 @@ const MaintenanceLog = () => {
   ];
 
   const renderItem = (item: any) => (
-    <TouchableOpacity key={item.title} style={styles.card}>
+    <TouchableOpacity  key={item.title} className='flex-1 p-4'>
       <View>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
