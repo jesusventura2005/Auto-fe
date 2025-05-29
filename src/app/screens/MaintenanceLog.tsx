@@ -65,18 +65,17 @@ const completedTasks = [
 
 const MaintenanceLog = () => {
   const renderItem = (item: any) => (
+<<<<<<<< HEAD:pages/MaintenanceLog.tsx
     <TouchableOpacity key={item.title + item.date} style={styles.card}>
-      <View style={styles.cardContent}>
+========
+    <TouchableOpacity  key={item.title} className='flex-1 p-4'>
+>>>>>>>> develop:src/app/screens/MaintenanceLog.tsx
+      <View>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
         <Text style={styles.detail}>{item.date} • {item.mileage}</Text>
       </View>
-      <Text
-        style={[
-          styles.status,
-          item.status === 'Completed' ? styles.completed : styles.pending,
-        ]}
-      >
+      <Text style={[styles.status, item.status === 'Completed' ? styles.completed : styles.pending]}>
         {item.status}
       </Text>
     </TouchableOpacity>
@@ -105,7 +104,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 12,
-    color: '#1e1e1e',
   },
   card: {
     backgroundColor: '#fff',
@@ -120,10 +118,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  cardContent: {
-    flex: 1,
-    paddingRight: 10,
   },
   title: {
     fontSize: 16,
