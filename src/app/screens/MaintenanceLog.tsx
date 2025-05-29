@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 
 const upcomingTasks = [
   {
@@ -65,88 +65,42 @@ const completedTasks = [
 
 const MaintenanceLog = () => {
   const renderItem = (item: any) => (
-<<<<<<<< HEAD:pages/MaintenanceLog.tsx
-    <TouchableOpacity key={item.title + item.date} style={styles.card}>
-========
-    <TouchableOpacity  key={item.title} className='flex-1 p-4'>
->>>>>>>> develop:src/app/screens/MaintenanceLog.tsx
-      <View>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.detail}>{item.date} • {item.mileage}</Text>
+    <TouchableOpacity
+      key={item.title + item.date}
+      className="bg-white p-4 rounded-xl mb-3 shadow-md flex-row justify-between items-center"
+    >
+      <View className="flex-1 pr-2">
+        <Text className="text-base font-bold text-gray-900">{item.title}</Text>
+        <Text className="text-sm text-gray-600 my-1">{item.description}</Text>
+        <Text className="text-xs text-gray-400">
+          {item.date} • {item.mileage}
+        </Text>
       </View>
-      <Text style={[styles.status, item.status === 'Completed' ? styles.completed : styles.pending]}>
+      <Text
+        className={`text-xs font-semibold px-3 py-1 rounded-full ${
+          item.status === 'Completed'
+            ? 'bg-teal-500 text-white'
+            : 'bg-gray-200 text-gray-800'
+        }`}
+      >
         {item.status}
       </Text>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.sectionTitle}>Upcoming Maintenance</Text>
+    <ScrollView className="flex-1 bg-blue-50 p-4">
+      <Text className="text-xl font-bold text-gray-800 mb-3">
+        Upcoming Maintenance
+      </Text>
       {upcomingTasks.map(renderItem)}
 
-      <Text style={styles.sectionTitle}>Completed Maintenance</Text>
+      <Text className="text-xl font-bold text-gray-800 mt-6 mb-3">
+        Completed Maintenance
+      </Text>
       {completedTasks.map(renderItem)}
     </ScrollView>
   );
 };
 
 export default MaintenanceLog;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f2f8ff',
-    padding: 16,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginVertical: 12,
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 2 },
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1e1e1e',
-  },
-  description: {
-    fontSize: 14,
-    color: '#555',
-    marginVertical: 4,
-  },
-  detail: {
-    fontSize: 13,
-    color: '#888',
-  },
-  status: {
-    fontSize: 13,
-    fontWeight: '600',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  pending: {
-    backgroundColor: '#f0f0f0',
-    color: '#333',
-  },
-  completed: {
-    backgroundColor: '#00c4a7',
-    color: '#fff',
-  },
-});
