@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const upcomingTasks = [
   {
@@ -38,7 +39,6 @@ const upcomingTasks = [
     status: 'Pending',
   },
 ];
-
 const completedTasks = [
   {
     title: 'Oil Change',
@@ -80,7 +80,7 @@ const MaintenanceLog = () => {
         className={`text-xs font-semibold px-3 py-1 rounded-full ${
           item.status === 'Completed'
             ? 'bg-teal-500 text-white'
-            : 'bg-gray-200 text-gray-800'
+            : 'bg-yellow-300 text-blue-900'
         }`}
       >
         {item.status}
@@ -89,17 +89,19 @@ const MaintenanceLog = () => {
   );
 
   return (
-    <ScrollView className="flex-1 bg-blue-50 p-4">
-      <Text className="text-xl font-bold text-gray-800 mb-3">
-        Upcoming Maintenance
-      </Text>
-      {upcomingTasks.map(renderItem)}
+    <SafeAreaView className="flex-1 bg-sky-200">
+      <ScrollView className="flex-1 px-4 pt-6 pb-6">
+        <Text className="text-xl font-bold text-gray-800 mb-3">
+          Upcoming Maintenance
+        </Text>
+        {upcomingTasks.map(renderItem)}
 
-      <Text className="text-xl font-bold text-gray-800 mt-6 mb-3">
-        Completed Maintenance
-      </Text>
-      {completedTasks.map(renderItem)}
-    </ScrollView>
+        <Text className="text-xl font-bold text-gray-800 mt-6 mb-3">
+          Completed Maintenance
+        </Text>
+        {completedTasks.map(renderItem)}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
