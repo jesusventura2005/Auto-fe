@@ -14,7 +14,7 @@ const RegisterScreen = () => {
       <View className="bg-white rounded-2xl p-6 shadow-lg max-w-md w-[90%]">
         <Text className="text-3xl font-bold text-violet-600 text-center mb-2">Crea tu cuenta</Text>
         <Text className="text-base text-purple-500 text-center mb-8">Únete a nuestra comunidad</Text>
-
+{/* 
         <Input
           label="Nombre"
           icon="👤"
@@ -38,7 +38,7 @@ const RegisterScreen = () => {
           icon="🔒"
           placeholder="••••••••"
           secureTextEntry
-        />
+        /> */}
 
         <View className="mt-2 mb-6">
           <Text className="text-gray-700 font-semibold mb-3">Soy un:</Text>

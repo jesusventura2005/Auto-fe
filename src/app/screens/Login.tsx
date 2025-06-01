@@ -2,8 +2,33 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+
+
+
+
+const useLoginMutation = () => {
+  return useMutation({
+    mutationFn: ({email, password}: any) => {
+      const body = { email, password }
+      console.log('Enviando al servidor:', JSON.stringify(body, null, 2))
+      return axios.post("http://localhost:3000/auth/login", body)
+    },
+    onSuccess: (response) => {
+      console.log('Respuesta del servidor:', response.data)
+    },
+    onError: (error) => console.log('Error:', error)
+  })
+}
 
 const LoginScreen = () => {
+
+  const loginMutation = useLoginMutation()
+
+  const {control, handleSubmit } = useForm()
+
   return (
     <ScrollView
       className="bg-blue-50"
@@ -14,21 +39,25 @@ const LoginScreen = () => {
         <Text className="text-base text-purple-500 text-center mb-8">Bienvenido de nuevo</Text>
 
         <Input
+          control={control}
           label="Correo electrónico"
           icon="✉️"
           placeholder="tucorreo@ejemplo.com"
           keyboardType="email-address"
           autoCapitalize="none"
+          name='email'
         />
         <Input
           label="Contraseña"
           icon="🔒"
           placeholder="••••••••"
-          secureTextEntry
+          secureTextEntry={true}
+          control={control}
+          name='password'
         />
 
         <Link href="/" asChild>
-          <Button title="Entrar" />
+          <Button onPress={handleSubmit((data) => loginMutation.mutateAsync(data) )} title="Entrar" />
         </Link>
 
         <View className="flex-row justify-center mt-6">
