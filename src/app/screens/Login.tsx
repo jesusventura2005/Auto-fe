@@ -13,7 +13,6 @@ const useLoginMutation = () => {
   return useMutation({
     mutationFn: ({email, password}: any) => {
       const body = { email, password }
-      console.log('Enviando al servidor:', JSON.stringify(body, null, 2))
       return axios.post("http://localhost:3000/auth/login", body)
     },
     onSuccess: (response) => {

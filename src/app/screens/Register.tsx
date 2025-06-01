@@ -2,10 +2,34 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+
 
 const userType = 'owner';
 
+
+const useRegisterMutation = () => {
+  return useMutation({
+    mutationFn: ({email, password , name , lastName }: any) => {
+      const body = { email, password , lastName , name }
+      return axios.post("http://localhost:3000/auth/register", body)
+    },
+    onSuccess: (response) => {
+      console.log('Respuesta del servidor:', response.data)
+    },
+    onError: (error) => console.log('Error:', error)
+  })
+}
+
 const RegisterScreen = () => {
+
+  const registerMutation = useRegisterMutation()
+
+
+  const {control , handleSubmit} = useForm()
+
   return (
     <ScrollView
       className="bg-blue-50"
@@ -14,13 +38,24 @@ const RegisterScreen = () => {
       <View className="bg-white rounded-2xl p-6 shadow-lg max-w-md w-[90%]">
         <Text className="text-3xl font-bold text-violet-600 text-center mb-2">Crea tu cuenta</Text>
         <Text className="text-base text-purple-500 text-center mb-8">Únete a nuestra comunidad</Text>
-{/* 
+
         <Input
+          control={control}
+          name='name'
           label="Nombre"
           icon="👤"
-          placeholder="Juan Pérez"
+          placeholder="Juan"
+        />
+                <Input
+          control={control}
+          name='lastName'
+          label="Nombre"
+          icon="👤"
+          placeholder="Pérez"
         />
         <Input
+          control={control}
+          name='email'
           label="Correo electrónico"
           icon="✉️"
           placeholder="tucorreo@ejemplo.com"
@@ -28,17 +63,21 @@ const RegisterScreen = () => {
           autoCapitalize="none"
         />
         <Input
+          control={control}
+          name='password'
           label="Contraseña"
           icon="🔒"
           placeholder="••••••••"
           secureTextEntry
         />
         <Input
+          control={control}
+          name='passwordConfirm'        
           label="Confirmar Contraseña"
           icon="🔒"
           placeholder="••••••••"
           secureTextEntry
-        /> */}
+        />
 
         <View className="mt-2 mb-6">
           <Text className="text-gray-700 font-semibold mb-3">Soy un:</Text>
@@ -73,7 +112,14 @@ const RegisterScreen = () => {
         </View>
 
         <Link href="/" asChild>
-          <Button title="Crear cuenta" />
+          <Button onPress={handleSubmit((data) => {
+            if(data.password === data.passwordConfirm){
+              registerMutation.mutateAsync(data)
+            }
+            else{
+              console.log("the password is incorrect")
+            }
+          })} title="Crear cuenta" />
         </Link>
 
         <View className="flex-row justify-center mt-6">
