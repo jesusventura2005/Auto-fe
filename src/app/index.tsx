@@ -13,6 +13,7 @@ const Index = () => {
                 <Text>tsadsad</Text>
                 <Link href='/screens/MaintenanceLog'>hola</Link>
                 <Link href='/screens/Register'>hola</Link>
+                <Link href='/screens/RegisterVehicle'>bazinga</Link>
             </View>
     )
 };

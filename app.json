@@ -4,37 +4,36 @@
     "slug": "my-expo-app",
     "version": "1.0.0",
     "scheme": "your-app-scheme",
-
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro" 
+      "bundler": "metro"
     },
-
     "experiments": {
       "tsconfigPaths": true
     },
-
-    "plugins": ["expo-router"],
-
+    "plugins": [
+      "expo-router"
+    ],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-
+    "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
-
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.myexpoapp"
     }
   }
 }
