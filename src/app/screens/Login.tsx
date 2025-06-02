@@ -4,38 +4,41 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-
-
-
-
-const useLoginMutation = () => {
-  return useMutation({
-    mutationFn: ({email, password}: any) => {
-      const body = { email, password }
-      return axios.post("http://localhost:3000/auth/login", body)
-    },
-    onSuccess: (response) => {
-      console.log('Respuesta del servidor:', response.data)
-    },
-    onError: (error) => console.log('Error:', error)
-  })
-}
+import { useAuth } from '../context/AuthContext';
 
 const LoginScreen = () => {
+  const { onLogin } = useAuth();
 
-  const loginMutation = useLoginMutation()
+  const useLoginMutation = () => {
+    return useMutation({
+      mutationFn: async ({ email, password }: any) => {
+        if (onLogin) {
+          return await onLogin(email, password);
+        }
+      },
+      onSuccess: (response) => {
+        console.log('Respuesta del servidor:', response.data);
+      },
+      onError: (error) => console.log('Error:', error),
+    });
+  };
 
-  const {control, handleSubmit } = useForm()
+  const loginMutation = useLoginMutation();
+
+  const { control, handleSubmit } = useForm();
 
   return (
     <ScrollView
       className="bg-blue-50"
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 32 }}
-    >
-      <View className="bg-white rounded-2xl p-6 shadow-lg max-w-md w-[90%]">
-        <Text className="text-3xl font-bold text-violet-600 text-center mb-2">Iniciar sesión</Text>
-        <Text className="text-base text-purple-500 text-center mb-8">Bienvenido de nuevo</Text>
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 32,
+      }}>
+      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
+        <Text className="mb-2 text-center text-3xl font-bold text-violet-600">Iniciar sesión</Text>
+        <Text className="mb-8 text-center text-base text-purple-500">Bienvenido de nuevo</Text>
 
         <Input
           control={control}
@@ -44,7 +47,7 @@ const LoginScreen = () => {
           placeholder="tucorreo@ejemplo.com"
           keyboardType="email-address"
           autoCapitalize="none"
-          name='email'
+          name="email"
         />
         <Input
           label="Contraseña"
@@ -52,18 +55,21 @@ const LoginScreen = () => {
           placeholder="••••••••"
           secureTextEntry={true}
           control={control}
-          name='password'
+          name="password"
         />
 
         <Link href="/" asChild>
-          <Button onPress={handleSubmit((data) => loginMutation.mutateAsync(data) )} title="Entrar" />
+          <Button
+            onPress={handleSubmit((data) => loginMutation.mutateAsync(data))}
+            title="Entrar"
+          />
         </Link>
 
-        <View className="flex-row justify-center mt-6">
-          <Text className="text-gray-600 text-base">¿No tienes una cuenta? </Text>
+        <View className="mt-6 flex-row justify-center">
+          <Text className="text-base text-gray-600">¿No tienes una cuenta? </Text>
           <Link href="/screens/Register" asChild>
             <TouchableOpacity>
-              <Text className="text-orange-500 font-bold text-base">Regístrate</Text>
+              <Text className="text-base font-bold text-orange-500">Regístrate</Text>
             </TouchableOpacity>
           </Link>
         </View>
