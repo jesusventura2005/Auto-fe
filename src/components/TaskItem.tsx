@@ -7,10 +7,10 @@ type Props = {
 };
 
 const TaskItem = ({ task, onPress }: Props) => {
-  const backgroundColor = task.completed ? 'bg-emerald-100' : 'bg-sky-100';
-  const statusColor = task.completed ? 'bg-teal-300' : 'bg-amber-300';
-  const statusTextColor = task.completed ? 'text-indigo-950' : 'text-indigo-950';
-  const statusLabel = task.completed ? 'Completed' : 'Pending';
+  const backgroundColor = task.completado ? 'bg-emerald-100' : 'bg-sky-100';
+  const statusColor = task.completado ? 'bg-teal-300' : 'bg-amber-300';
+  const statusTextColor = task.completado ? 'text-indigo-950' : 'text-indigo-950';
+  const statusLabel = task.completado ? 'Completado' : 'Pendiente';
 
   return (
     <TouchableOpacity
@@ -21,7 +21,7 @@ const TaskItem = ({ task, onPress }: Props) => {
         <View className="flex-1 pr-3">
           <Text className="text-black font-semibold text-base">{task.title}</Text>
           <Text className="text-black text-sm mt-1">{task.description}</Text>
-          <Text className="text-black text-sm mt-1">{task.date} • {task.mileage}</Text>
+          <Text className="text-black text-sm mt-1">{task.date} • {task.kilometraje}</Text>
         </View>
         <View className={`px-3 py-1 rounded-full ${statusColor}`}>
           <Text className={`text-s font-medium ${statusTextColor}`}>{statusLabel}</Text>

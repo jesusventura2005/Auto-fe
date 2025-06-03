@@ -1,9 +1,10 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 import { useState } from 'react';
 import TaskItem from '../../../components/TaskItem';
 import SectionTitle from '../../../components/SectionTitle';
 import EditTaskModal from '../../../components/EditTaskModal';
-import { useTaskManager, Task } from '../../../components/useTaskManager';
+import { useTaskManager } from '../../../components/useTaskManager';
+import type { Task } from '../../../components/useTaskManager';
 
 const MaintenanceLog = () => {
   const initialTasks: Task[] = [
@@ -12,51 +13,83 @@ const MaintenanceLog = () => {
       description: 'Changed engine oil and oil filter',
       type: 'Oil Change',
       date: '2025-06-01',
-      mileage: '50,000 km',
-      completed: true,
+      kilometraje: '50,000 km',
+      completado: true,
     },
     {
       title: 'Tire Rotation',
       description: 'Rotated all four tires',
       type: 'Tire Rotation',
       date: '2025-06-15',
-      mileage: '52,000 km',
-      completed: false,
+      kilometraje: '52,000 km',
+      completado: false,
     },
   ];
 
-  const { tasks, updateTask } = useTaskManager(initialTasks);
+  const { tasks, updateTask, addTask } = useTaskManager(initialTasks);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleTaskPress = (task: Task) => {
     setSelectedTask(task);
+    setIsCreating(false);
     setModalVisible(true);
   };
 
   const handleModalClose = () => {
     setModalVisible(false);
     setSelectedTask(null);
+    setIsCreating(false);
   };
 
   const handleTaskUpdate = (updatedTask: Task) => {
-    updateTask(updatedTask);
+    if (isCreating) {
+      addTask(updatedTask);
+    } else {
+      updateTask(updatedTask);
+    }
+    handleModalClose();
   };
 
-  const pendingTasks = tasks.filter((t) => !t.completed);
-  const completedTasks = tasks.filter((t) => t.completed);
+  const handleAddPress = () => {
+    const today = new Date().toISOString().split('T')[0];
+    setSelectedTask({
+      title: '',
+      description: '',
+      type: 'Other',
+      date: today,
+      kilometraje: '',
+      completado: false,
+    });
+    setIsCreating(true);
+    setModalVisible(true);
+  };
+
+  const pendingTasks = tasks.filter((t) => !t.completado);
+  const completedTasks = tasks.filter((t) => t.completado);
 
   return (
-    <ScrollView className="min-h-screen bg-blue-50 p-4 pt-10">
-      <SectionTitle title="Upcoming Maintenance" />
-      {pendingTasks.map((task) => (
-        <TaskItem key={task.title + task.date} task={task} onPress={() => handleTaskPress(task)} />
-      ))}
+    <View className="flex-1 bg-blue-50">
+      <ScrollView className="p-4 pt-10">
+        <SectionTitle title="Mantenimiento Pendiente" />
+        {pendingTasks.map((task) => (
+          <TaskItem
+            key={task.title + task.date}
+            task={task}
+            onPress={() => handleTaskPress(task)}
+          />
+        ))}
 
-      <SectionTitle title="Completed Maintenance" />
-      {completedTasks.map((task) => (
-        <TaskItem key={task.title + task.date} task={task} onPress={() => handleTaskPress(task)} />
-      ))}
+        <SectionTitle title=" Mantenimiento Completado" />
+        {completedTasks.map((task) => (
+          <TaskItem
+            key={task.title + task.date}
+            task={task}
+            onPress={() => handleTaskPress(task)}
+          />
+        ))}
+      </ScrollView>
 
       {selectedTask && (
         <EditTaskModal
@@ -66,7 +99,14 @@ const MaintenanceLog = () => {
           onUpdate={handleTaskUpdate}
         />
       )}
-    </ScrollView>
+
+      {/* Botón flotante */}
+      <TouchableOpacity
+        onPress={handleAddPress}
+        className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
+        <Text className="text-3xl text-white">+</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

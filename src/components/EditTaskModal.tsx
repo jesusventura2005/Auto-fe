@@ -47,23 +47,23 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
     <Modal visible={visible} animationType="fade" transparent>
       <Pressable onPress={onClose} className="flex-1 bg-black/40 justify-center items-center">
         <Pressable onPress={(e) => e.stopPropagation()} className="bg-white rounded-lg p-6 w-11/12">
-          <Text className="text-xl font-bold text-blue-900 mb-4">Edit Task</Text>
+          <Text className="text-xl font-bold text-blue-900 mb-4">Datos de la tarea</Text>
 
-          <Text className="text-sm font-medium text-blue-800 mb-1">Title</Text>
+          <Text className="text-sm font-medium text-blue-800 mb-1">Título</Text>
           <TextInput
             value={updatedTask.title}
             onChangeText={(text) => handleChange('title', text)}
             className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
           />
 
-          <Text className="text-sm font-medium text-blue-800 mb-1">Description</Text>
+          <Text className="text-sm font-medium text-blue-800 mb-1">Descripción</Text>
           <TextInput
             value={updatedTask.description}
             onChangeText={(text) => handleChange('description', text)}
             className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
           />
 
-          <Text className="text-sm font-medium text-blue-800 mb-1">Type</Text>
+          <Text className="text-sm font-medium text-blue-800 mb-1">Tipo</Text>
           <View className="border rounded-md px-3 py-2 mb-3 border-blue-300">
             <Picker
               selectedValue={updatedTask.type}
@@ -77,7 +77,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             </Picker>
           </View>
 
-          <Text className="text-sm font-medium text-blue-800 mb-1">Date</Text>
+          <Text className="text-sm font-medium text-blue-800 mb-1">Fecha</Text>
           <TouchableOpacity
             onPress={() => setShowDatePicker(true)}
             className="border rounded-md px-3 py-2 mb-3 border-blue-300"
@@ -93,33 +93,33 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             />
           )}
 
-          <Text className="text-sm font-medium text-blue-800 mb-1">Mileage</Text>
+          <Text className="text-sm font-medium text-blue-800 mb-1">Kilometraje</Text>
           <View className="flex-row items-center border rounded-md px-3 py-2 mb-3 border-blue-300">
             <TextInput
-              value={updatedTask.mileage.replace(' km', '')}
+              value={updatedTask.kilometraje.replace(' km', '')}
               keyboardType="numeric"
-              onChangeText={(text) => handleChange('mileage', `${text}`)}
+              onChangeText={(text) => handleChange('kilometraje', `${text}`)}
               className="flex-1 text-blue-900"
             />
             <Text className="text-blue-500 ml-2">km</Text>
           </View>
 
           <View className="flex-row items-center justify-between mb-4">
-            <Text className="text-sm font-medium text-blue-800">Completed</Text>
+            <Text className="text-sm font-medium text-blue-800">Completado</Text>
             <Switch
-              value={updatedTask.completed}
-              onValueChange={(val) => handleChange('completed', val)}
-              thumbColor={updatedTask.completed ? '#2563eb' : '#e5e7eb'}
+              value={updatedTask.completado}
+              onValueChange={(val) => handleChange('completado', val)}
+              thumbColor={updatedTask.completado ? '#2563eb' : '#e5e7eb'}
               trackColor={{ true: '#93c5fd', false: '#cbd5e1' }}
             />
           </View>
 
           <View className="flex-row justify-between mt-4">
             <TouchableOpacity onPress={onClose} className="bg-gray-300 rounded-md px-4 py-2">
-              <Text className="text-gray-800 font-semibold">Cancel</Text>
+              <Text className="text-gray-800 font-semibold">Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSave} className="bg-blue-500 rounded-md px-4 py-2">
-              <Text className="text-white font-semibold">Update Task</Text>
+              <Text className="text-white font-semibold">Aceptar</Text>
             </TouchableOpacity>
           </View>
         </Pressable>
