@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
 
 /// aqui ven como se enrutan las screens recuerden hacer componentes para  reutilizarlos no hagan

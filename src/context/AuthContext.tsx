@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: any) => {
 
   const register = async (name: string, lastName: string, email: string, password: string) => {
     try {
-      return await axios.post(`${process.env.API_URL}/auth/register`, {
+      return await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/register/`, {
         name,
         lastName,
         email,
@@ -54,7 +54,11 @@ export const AuthProvider = ({ children }: any) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const result = await axios.post(`${process.env.API_URL}/auth/login`, { email, password });
+      const result = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/login/`, {
+        email,
+        password,
+      });
+      console.log('Login result:', result.data);
       setAuthState({
         token: result.data.token,
         authenticated: true,
@@ -65,6 +69,7 @@ export const AuthProvider = ({ children }: any) => {
       await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
       return result;
     } catch (e) {
+      console.error('Login error:', e);
       return { error: true, msg: (e as any).response.data.msg };
     }
   };

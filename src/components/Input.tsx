@@ -6,7 +6,7 @@ type InputProps = {
   icon?: string;
   placeholder: string;
 } & TextInputProps &
-  Pick<ControllerProps, 'control' | 'name'>;
+  Pick<ControllerProps<any>, 'control' | 'name' | 'rules'>;
 
 const Input = ({ label, icon, control, name, placeholder, ...props }: InputProps) => (
   <View className="mb-5">

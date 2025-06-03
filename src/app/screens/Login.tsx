@@ -1,31 +1,43 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginScreen = () => {
-  const { onLogin } = useAuth();
+  const { onLogin, authState } = useAuth();
 
-  const useLoginMutation = () => {
-    return useMutation({
-      mutationFn: async ({ email, password }: any) => {
-        if (onLogin) {
-          return await onLogin(email, password);
-        }
-      },
-      onSuccess: (response) => {
-        console.log('Respuesta del servidor:', response.data);
-      },
-      onError: (error) => console.log('Error:', error),
-    });
+  const loginMutation = useMutation({
+    mutationFn: async ({ email, password }: { email: string; password: string }) => {
+      if (!onLogin) throw new Error('Metodo onLogin no definido');
+      const response = await onLogin(email, password);
+      if (response.error) {
+        throw new Error(response.msg);
+      }
+      return response;
+    },
+    onSuccess: (response) => {
+      console.log('Respuesta del servidor:', response.data);
+      router.push('/');
+    },
+    onError: (error) => {
+      console.error('Error:', error);
+    },
+  });
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = (data: { email: string; password: string }) => {
+    console.log('Datos del formulario:', data);
+    loginMutation.mutateAsync(data);
   };
-
-  const loginMutation = useLoginMutation();
-
-  const { control, handleSubmit } = useForm();
 
   return (
     <ScrollView
@@ -59,10 +71,7 @@ const LoginScreen = () => {
         />
 
         <Link href="/" asChild>
-          <Button
-            onPress={handleSubmit((data) => loginMutation.mutateAsync(data))}
-            title="Entrar"
-          />
+          <Button onPress={handleSubmit(onSubmit)} title="Entrar" />
         </Link>
 
         <View className="mt-6 flex-row justify-center">
