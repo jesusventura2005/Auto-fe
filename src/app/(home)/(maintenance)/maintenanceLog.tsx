@@ -1,9 +1,9 @@
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useState } from 'react';
-import TaskItem from '../../components/TaskItem';
-import SectionTitle from '../../components/SectionTitle';
-import EditTaskModal from '../../components/EditTaskModal';
-import { useTaskManager, Task } from '../../components/useTaskManager';
+import TaskItem from '../../../components/TaskItem';
+import SectionTitle from '../../../components/SectionTitle';
+import EditTaskModal from '../../../components/EditTaskModal';
+import { useTaskManager, Task } from '../../../components/useTaskManager';
 
 const MaintenanceLog = () => {
   const initialTasks: Task[] = [
@@ -47,7 +47,7 @@ const MaintenanceLog = () => {
   const completedTasks = tasks.filter((t) => t.completed);
 
   return (
-    <ScrollView className="pt-10 p-4 bg-blue-50 min-h-screen">
+    <ScrollView className="min-h-screen bg-blue-50 p-4 pt-10">
       <SectionTitle title="Upcoming Maintenance" />
       {pendingTasks.map((task) => (
         <TaskItem key={task.title + task.date} task={task} onPress={() => handleTaskPress(task)} />
