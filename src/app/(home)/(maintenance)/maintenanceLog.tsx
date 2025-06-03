@@ -1,10 +1,10 @@
 import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 import { useState } from 'react';
-import TaskItem from '../../components/TaskItem';
-import SectionTitle from '../../components/SectionTitle';
-import EditTaskModal from '../../components/EditTaskModal';
-import { useTaskManager } from '../../components/useTaskManager';
-import type { Task } from '../../components/useTaskManager';
+import TaskItem from '../../../components/TaskItem';
+import SectionTitle from '../../../components/SectionTitle';
+import EditTaskModal from '../../../components/EditTaskModal';
+import { useTaskManager } from '../../../components/useTaskManager';
+import type { Task } from '../../../components/useTaskManager';
 
 const MaintenanceLog = () => {
   const initialTasks: Task[] = [
@@ -71,15 +71,23 @@ const MaintenanceLog = () => {
 
   return (
     <View className="flex-1 bg-blue-50">
-      <ScrollView className="pt-10 p-4">
+      <ScrollView className="p-4 pt-10">
         <SectionTitle title="Mantenimiento Pendiente" />
         {pendingTasks.map((task) => (
-          <TaskItem key={task.title + task.date} task={task} onPress={() => handleTaskPress(task)} />
+          <TaskItem
+            key={task.title + task.date}
+            task={task}
+            onPress={() => handleTaskPress(task)}
+          />
         ))}
 
         <SectionTitle title=" Mantenimiento Completado" />
         {completedTasks.map((task) => (
-          <TaskItem key={task.title + task.date} task={task} onPress={() => handleTaskPress(task)} />
+          <TaskItem
+            key={task.title + task.date}
+            task={task}
+            onPress={() => handleTaskPress(task)}
+          />
         ))}
       </ScrollView>
 
@@ -95,9 +103,8 @@ const MaintenanceLog = () => {
       {/* Botón flotante */}
       <TouchableOpacity
         onPress={handleAddPress}
-        className="absolute bottom-6 right-6 bg-blue-600 rounded-full w-14 h-14 items-center justify-center shadow-md"
-      >
-        <Text className="text-white text-3xl">+</Text>
+        className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
+        <Text className="text-3xl text-white">+</Text>
       </TouchableOpacity>
     </View>
   );
