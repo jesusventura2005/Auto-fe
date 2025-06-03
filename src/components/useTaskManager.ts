@@ -5,12 +5,12 @@ export type Task = {
   description: string;
   type: string;
   date: string;
-  mileage: string;
-  completed: boolean;
+  kilometraje: string;
+  completado: boolean;
 };
 
 export const useTaskManager = (initialTasks: Task[]) => {
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
   const updateTask = (updatedTask: Task) => {
     setTasks((prevTasks) =>
@@ -22,8 +22,13 @@ export const useTaskManager = (initialTasks: Task[]) => {
     );
   };
 
+  const addTask = (newTask: Task) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   return {
     tasks,
     updateTask,
+    addTask,
   };
 };
