@@ -13,9 +13,9 @@ const Index = () => {
 
   useEffect(() => {
     if (authState?.authenticated) {
-      router.replace('/screens/MaintenanceLog');
+      router.replace('/home/maintenance/maintenanceLog');
     }
-  });
+  }, [authState?.authenticated, router]);
 
   if (authState?.authenticated) {
     return null;

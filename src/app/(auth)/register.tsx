@@ -12,7 +12,7 @@ const useRegisterMutation = () => {
   return useMutation({
     mutationFn: ({ email, password, name, lastName }: any) => {
       const body = { email, password, lastName, name };
-      return axios.post('http://localhost:3000/auth/register', body);
+      return axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/register`, body);
     },
     onSuccess: (response) => {
       console.log('Respuesta del servidor:', response.data);
