@@ -76,7 +76,7 @@ const LoginScreen = () => {
 
         <View className="mt-6 flex-row justify-center">
           <Text className="text-base text-gray-600">¿No tienes una cuenta? </Text>
-          <Link href="/screens/Register" asChild>
+          <Link href="auth/register" asChild>
             <TouchableOpacity>
               <Text className="text-base font-bold text-orange-500">Regístrate</Text>
             </TouchableOpacity>

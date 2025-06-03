@@ -41,12 +41,23 @@ export const AuthProvider = ({ children }: any) => {
 
   const register = async (name: string, lastName: string, email: string, password: string) => {
     try {
-      return await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/register/`, {
+      const result = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/register/`, {
         name,
         lastName,
         email,
         password,
       });
+      if (result.data.token) {
+        setAuthState({
+          token: result.data.token,
+          authenticated: true,
+        });
+        axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`;
+        await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
+      } else {
+        console.error('Token not found in response:', result.data);
+      }
+      return result;
     } catch (e) {
       return { error: true, msg: (e as any).response.data.msg };
     }
