@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
 
 const LoginScreen = () => {
-  const { onLogin, authState } = useAuth();
+  const { onLogin } = useAuth();
 
   const loginMutation = useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {

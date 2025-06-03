@@ -23,8 +23,8 @@ const Index = () => {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <Link href="/screens/MaintenanceLog">Historial de Mantenimiento</Link>
-      <Link href="/screens/Register">Registrarse</Link>
+      <Link href="/home/maintenance/maintenanceLog">Historial de Mantenimiento</Link>
+      <Link href="/auth/register">Registrarse</Link>
     </View>
   );
 };
