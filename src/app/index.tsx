@@ -11,9 +11,9 @@ const Index = () => {
     return(
             <View className="flex-1 items-center justify-center">
                 <Text>tsadsad</Text>
-                <Link href='/screens/MaintenanceLog'>hola</Link>
-                <Link href='/screens/Register'>hola</Link>
-                <Link href='/screens/RegisterVehicle'>bazinga</Link>
+                <Link href='/screens/MaintenanceLog'>Historial de Mantenimiento</Link>
+                <Link href='/screens/Register'>Registrarse</Link>
+                <Link href='/screens/RegisterVehicle'>Formulario de registro de vehículo</Link> 
             </View>
     )
 };
