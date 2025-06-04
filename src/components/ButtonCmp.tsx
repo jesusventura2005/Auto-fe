@@ -9,7 +9,7 @@ type ButtonProps = {
 const Button = ({ title, onPress, className }: ButtonProps) => (
   <TouchableOpacity
     onPress={onPress}
-    className={`bg-pink-400 rounded-xl py-4 mt-4 shadow-md ${className || ''}`}
+    className={`${className || ''}`}
   >
     <Text className="text-white text-center font-bold text-xl">{title}</Text>
   </TouchableOpacity>

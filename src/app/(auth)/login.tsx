@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
-import Button from '../../components/Button';
+import ButtonCmp from '../../components/ButtonCmp';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
@@ -48,6 +48,14 @@ const LoginScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
+
+        <Link href="/" asChild>
+          <TouchableOpacity>
+            <Text className="text-2xl">{"<"}</Text>
+          </TouchableOpacity>
+        </Link>
+        
+
       <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
         <Text className="mb-2 text-center text-3xl font-bold text-violet-600">Iniciar sesión</Text>
         <Text className="mb-8 text-center text-base text-purple-500">Bienvenido de nuevo</Text>
@@ -71,12 +79,12 @@ const LoginScreen = () => {
         />
 
         <Link href="/" asChild>
-          <Button onPress={handleSubmit(onSubmit)} title="Entrar" />
+          <ButtonCmp onPress={handleSubmit(onSubmit)} title="Entrar" />
         </Link>
 
         <View className="mt-6 flex-row justify-center">
           <Text className="text-base text-gray-600">¿No tienes una cuenta? </Text>
-          <Link href="auth/register" asChild>
+          <Link href="(auth)/register" asChild>
             <TouchableOpacity>
               <Text className="text-base font-bold text-orange-500">Regístrate</Text>
             </TouchableOpacity>

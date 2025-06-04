@@ -96,7 +96,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
           <Text className="text-sm font-medium text-blue-800 mb-1">Kilometraje</Text>
           <View className="flex-row items-center border rounded-md px-3 py-2 mb-3 border-blue-300">
             <TextInput
-              value={updatedTask.kilometraje.replace(' km', '')}
+              value={updatedTask.kilometraje ? updatedTask.kilometraje.replace(' km', '') : ''}
               keyboardType="numeric"
               onChangeText={(text) => handleChange('kilometraje', `${text}`)}
               className="flex-1 text-blue-900"

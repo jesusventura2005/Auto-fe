@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
 import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Button from '../../components/ButtonCmp';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -114,7 +114,7 @@ const RegisterScreen = () => {
 
         <View className="mt-6 flex-row justify-center">
           <Text className="text-base text-gray-600">¿Ya tienes una cuenta? </Text>
-          <Link href="/auth/login" asChild>
+          <Link href="/(auth)/login" asChild>
             <TouchableOpacity>
               <Text className="text-base font-bold text-orange-500">Iniciar sesión</Text>
             </TouchableOpacity>

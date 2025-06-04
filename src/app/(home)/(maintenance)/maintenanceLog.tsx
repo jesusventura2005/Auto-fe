@@ -5,6 +5,7 @@ import SectionTitle from '../../../components/SectionTitle';
 import EditTaskModal from '../../../components/EditTaskModal';
 import { useTaskManager } from '../../../components/useTaskManager';
 import type { Task } from '../../../components/useTaskManager';
+import { router } from 'expo-router';
 
 const MaintenanceLog = () => {
   const initialTasks: Task[] = [
@@ -99,6 +100,13 @@ const MaintenanceLog = () => {
           onUpdate={handleTaskUpdate}
         />
       )}
+
+      {/* Botón flotante */}
+      <TouchableOpacity
+        onPress={() => router.push("/")}
+        className="absolute bottom-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
+        <Text className="text-3xl text-white">+</Text>
+      </TouchableOpacity>
 
       {/* Botón flotante */}
       <TouchableOpacity
