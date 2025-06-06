@@ -1,7 +1,6 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
-import ButtonCmp from '../../components/ButtonCmp';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
@@ -79,7 +78,7 @@ const LoginScreen = () => {
         />
 
         <Link href="/" asChild>
-          <ButtonCmp onPress={handleSubmit(onSubmit)} title="Entrar" />
+          <Button onPress={handleSubmit(onSubmit)} title="Entrar" />
         </Link>
 
         <View className="mt-6 flex-row justify-center">

@@ -2,6 +2,7 @@ import { View, ScrollView, Text } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
 import Header from '~/components/Header';
+import { Card } from '~/components/Card';
 // import { useEffect } from 'react';
 
 const Index = () => {
@@ -19,23 +20,25 @@ const Index = () => {
   // }
 
   return (
-
-
-   
-
-      <ScrollView className='m-2 pt-12'>
+      <ScrollView className='m-4 pt-12'>
         <Header />
-        <View className="flex-1 ">
-          <Text style={{ color: 'white' }}>
-            <Link href="/(home)/(maintenance)/maintenanceLog">Historial de Mantenimiento</Link>
+        <View className='mt-12 flex justify-center items-center'>
+          <Text className='font-bold color-white text-4xl'>
+            Manten tu vehiculo en
           </Text>
-          <Text style={{ color: 'white' }}>
-            <Link href="/(auth)/register">Registrarse</Link>
+          <Text className='font-bold color-[#005ee2] text-4xl'>
+            perfecto estado
           </Text>
-          <Text style={{ color: 'white' }}>
-            <Link href="/(home)/(maintenance)/RegisterVehicle">Registrar vehiculo</Link>
+
+          <Text className='mt-5 font-light text-center text-2xl color-white'>
+          La aplicación más completa para el seguimiento del mantenimiento de tu vehículo. Nunca olvides una revisión importante y mantén tu auto funcionando como nuevo.
           </Text>
         </View>
+
+        <Card>
+          
+        </Card>
+
       </ScrollView>
 
 

@@ -1,7 +1,6 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { Link } from 'expo-router';
 import Input from '../../components/Input';
-import Button from '../../components/ButtonCmp';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
