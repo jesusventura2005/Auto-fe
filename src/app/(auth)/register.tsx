@@ -47,8 +47,15 @@ const RegisterScreen = () => {
     },
   });
 
-  const onSubmit = (data: { name: string; lastName: string; email: string; password: string }) => {
-    registerMutation.mutateAsync(data);
+  const onSubmit = (data: {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }) => {
+    const { name, lastName, email, password } = data;
+    registerMutation.mutateAsync({ name, lastName, email, password });
   };
 
   return (
