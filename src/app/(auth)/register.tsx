@@ -1,29 +1,55 @@
 import { View, Text, TouchableOpacity, ScrollView, Button } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { useAuth } from '~/context/AuthContext';
 
 const userType = 'owner';
 
-const useRegisterMutation = () => {
-  return useMutation({
-    mutationFn: ({ email, password, name, lastName }: any) => {
-      const body = { email, password, lastName, name };
-      return axios.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/register`, body);
+const RegisterScreen = () => {
+  const { onRegister } = useAuth();
+  const registerMutation = useMutation({
+    mutationFn: async ({
+      name,
+      lastName,
+      email,
+      password,
+    }: {
+      name: string;
+      lastName: string;
+      email: string;
+      password: string;
+    }) => {
+      if (!onRegister) throw new Error('Metodo onRegister no definido');
+      const response = await onRegister(name, lastName, email, password);
+      if (response.error) {
+        throw new Error(response.msg);
+      }
+      return response;
     },
     onSuccess: (response) => {
       console.log('Respuesta del servidor:', response.data);
+      router.push('/');
     },
-    onError: (error) => console.log('Error:', error),
+    onError: (error) => {
+      console.error('Error:', error);
+    },
   });
-};
 
-const RegisterScreen = () => {
-  const registerMutation = useRegisterMutation();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      name: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
+  });
 
-  const { control, handleSubmit } = useForm();
+  const onSubmit = (data: { name: string; lastName: string; email: string; password: string }) => {
+    registerMutation.mutateAsync(data);
+  };
 
   return (
     <ScrollView
@@ -99,16 +125,7 @@ const RegisterScreen = () => {
         </View>
 
         <Link href="/" asChild>
-          <Button
-            onPress={handleSubmit((data) => {
-              if (data.password === data.passwordConfirm) {
-                registerMutation.mutateAsync(data);
-              } else {
-                console.log('the password is incorrect');
-              }
-            })}
-            title="Crear cuenta"
-          />
+          <Button onPress={handleSubmit(onSubmit)} title="Crear cuenta" />
         </Link>
 
         <View className="mt-6 flex-row justify-center">
