@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }: any) => {
         email,
         password,
       });
+      console.log(result);
       if (result.data.token) {
         setAuthState({
           token: result.data.token,
@@ -59,6 +60,7 @@ export const AuthProvider = ({ children }: any) => {
       }
       return result;
     } catch (e) {
+      console.error('Registration error:', e);
       return { error: true, msg: (e as any).response.data.msg };
     }
   };

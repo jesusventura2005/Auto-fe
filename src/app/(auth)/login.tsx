@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
+import Button from '../../components/ButtonCmp';
 
 const LoginScreen = () => {
   const { onLogin } = useAuth();
@@ -46,14 +47,16 @@ const LoginScreen = () => {
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 32,
-      }}>
-
+      }}
+    >
+      <View className="w-[90%] max-w-md mb-2">
         <Link href="/" asChild>
-          <TouchableOpacity>
-            <Text className="text-2xl">{"<"}</Text>
+          <TouchableOpacity className="flex-row items-center">
+            <Text className="text-2x1 text-blue-500 mr-2">{'<'}</Text>
+            <Text className="text-blue-500 text-lg font-bold">volver</Text>
           </TouchableOpacity>
         </Link>
-        
+      </View>
 
       <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
         <Text className="mb-2 text-center text-3xl font-bold text-violet-600">Iniciar sesión</Text>
@@ -77,9 +80,11 @@ const LoginScreen = () => {
           name="password"
         />
 
-        <Link href="/" asChild>
-          <Button onPress={handleSubmit(onSubmit)} title="Entrar" />
-        </Link>
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          title="Entrar"
+          className="bg-blue-500 w-full py-5 rounded-3xl text-lg mt-2"
+        />
 
         <View className="mt-6 flex-row justify-center">
           <Text className="text-base text-gray-600">¿No tienes una cuenta? </Text>
