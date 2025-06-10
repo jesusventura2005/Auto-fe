@@ -44,6 +44,7 @@ const Index = () => {
         </View>
       </View>
     </ScrollView>
+
   );
 };
 
