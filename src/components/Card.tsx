@@ -10,10 +10,10 @@ export const Card = () => {
 
       </View>
 
-      <Text className="font-bold text-white text-xl">
+      <Text className="font-bold text-black text-xl">
           Seguimiento Completo
       </Text>
-      <Text className="text-center text-white font-light">
+      <Text className="text-center text-black font-light">
       Registra todos los mantenimientos, reparaciones y revisiones de tus vehículos en un solo lugar.
       </Text>
       
