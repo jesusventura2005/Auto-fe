@@ -20,7 +20,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
     <View
       className="absolute bottom-10 mx-5 w-11/12 flex-1
      flex-row items-center justify-between rounded-3xl bg-white p-4 
-     shadow-md shadow-black
+     shadow-md shadow-black 
      
     ">
       {visibleRoutes.map((route: any, index: any) => {
@@ -55,11 +55,11 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
 
         return (
           <TabBarButtonCustom
-            text={`${label === '+' ? 'text-4xl text-white' : isFocused ? 'text-lg text-blue-600' : 'text-lg'}`}
+            text={`${label === '+' ? 'text-4xl text-white' : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px]'}`}
             key={index}
-            className={` rounded-lg ${
+            className={` rounded-lg  w-[55px] ${
               label === '+'
-                ? 'bottom-7 flex h-[60px] w-[60px] items-center justify-center rounded-[100px] border-4 border-white bg-blue-600 shadow-xl shadow-blue-500'
+                ? 'flex bottom-2  items-center h-[55px]  justify-center rounded-[100px]   bg-blue-600 shadow-xl shadow-blue-500'
                 : isFocused
                   ? 'color-blue-600'
                   : 'bg-transparent'
