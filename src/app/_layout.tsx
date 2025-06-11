@@ -1,9 +1,8 @@
-import { Slot, SplashScreen } from 'expo-router';
-import { View } from 'react-native';
+import { SplashScreen, Tabs } from 'expo-router';
+import TabBar from '~/components/TabBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import '../../global.css';
-import { LinearGradient } from 'expo-linear-gradient';
 import { AuthProvider } from '../context/AuthContext';
 import { useEffect } from 'react';
 
@@ -27,14 +26,41 @@ export default function Layout() {
   }
 
   return (
-    <View className="flex-1">
-      <LinearGradient colors={['#111827', '#0369a1']} style={{ width: '100%', height: '100%' }}>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <Slot></Slot>
-          </AuthProvider>
-        </QueryClientProvider>
-      </LinearGradient>
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <TabBar {...props} />}>
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: 'Home',
+            }}
+          />
+          <Tabs.Screen
+            name="(home)/(maintenance)/maintenanceLog"
+            options={{
+              title: 'Maintenance',
+            }}
+          />
+          <Tabs.Screen
+            name="(home)/(maintenance)/RegisterVehicle"
+            options={{
+              title: '+',
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Profile',
+            }}
+          />
+          <Tabs.Screen
+            name="checklist"
+            options={{
+              title: 'Checklist',
+            }}
+          />
+        </Tabs>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

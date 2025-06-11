@@ -1,36 +1,36 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '../../components/Input';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
-const userType = 'owner';
+import { useState } from 'react';
 
 const RegisterScreen = () => {
   const { onRegister } = useAuth();
+  const [userType, setUserType] = useState<'owner' | 'mechanic'>('owner');
+
   const registerMutation = useMutation({
     mutationFn: async ({
-      name,
-      lastName,
       email,
       password,
+      name,
+      userType,
     }: {
-      name: string;
-      lastName: string;
       email: string;
       password: string;
+      name: string;
+      userType: 'owner' | 'mechanic';
     }) => {
       if (!onRegister) throw new Error('Metodo onRegister no definido');
-      const response = await onRegister(name, lastName, email, password);
+      const response = await onRegister(email, password, name, userType);
       if (response.error) {
         throw new Error(response.msg);
       }
       return response;
     },
     onSuccess: (response) => {
-      console.log('Respuesta del servidor:', response.data);
       router.push('/');
     },
     onError: (error) => {
@@ -41,22 +41,13 @@ const RegisterScreen = () => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       name: '',
-      lastName: '',
       email: '',
       password: '',
-      passwordConfirm: '',
     },
   });
 
-  const onSubmit = (data: {
-    name: string;
-    lastName: string;
-    email: string;
-    password: string;
-    passwordConfirm: string;
-  }) => {
-    const { name, lastName, email, password } = data;
-    registerMutation.mutateAsync({ name, lastName, email, password });
+  const onSubmit = (data: { name: string; email: string; password: string }) => {
+    registerMutation.mutateAsync({ ...data, userType });
   };
 
   return (
@@ -87,12 +78,12 @@ const RegisterScreen = () => {
         />
         <Input
           control={control}
-          name="email"
           label="Correo electrónico"
           icon={<Ionicons name="mail-outline" size={16} color="black" className="mr-2" />}
           placeholder="tucorreo@ejemplo.com"
           keyboardType="email-address"
           autoCapitalize="none"
+          name="email"
         />
         <Input
           control={control}
@@ -115,7 +106,8 @@ const RegisterScreen = () => {
           <Text className="mb-3 font-semibold text-gray-700">Soy un:</Text>
           <View className="flex-row justify-between space-x-4">
             <TouchableOpacity
-              className={`flex-1 justify-center rounded-xl border-2 px-4 py-3 ${
+              onPress={() => setUserType('owner')}
+              className={`flex-1 rounded-xl border-2 px-4 py-3 ${
                 userType === 'owner' ? 'border-sky-500 bg-sky-400' : 'border-gray-300 bg-gray-200'
               }`}>
               <Text
@@ -126,13 +118,14 @@ const RegisterScreen = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`flex-1 justify-center rounded-xl border-2 px-4 py-3 ${
+              onPress={() => setUserType('mechanic')}
+              className={`flex-1 rounded-xl border-2 px-4 py-3 ${
                 userType === 'mechanic'
                   ? 'border-sky-500 bg-sky-400'
                   : 'border-gray-300 bg-gray-200'
               }`}>
               <Text
-                className={`text-center text-lg font-bold ${
+                className={`text-center text-base font-bold ${
                   userType === 'mechanic' ? 'text-white' : 'text-gray-700'
                 }`}>
                 Mecánico
@@ -143,15 +136,15 @@ const RegisterScreen = () => {
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="rounded-xl bg-sky-500 px-4 py-3">
-          <Text className="text-center text-lg font-bold text-white">Crear cuenta</Text>
+          className="mt-4 rounded-xl bg-blue-500 py-4 shadow-md">
+          <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-lg text-gray-600">¿Ya tienes una cuenta? </Text>
+          <Text className="text-base text-gray-600">¿Ya tienes una cuenta? </Text>
           <Link href="/(auth)/login" asChild>
             <TouchableOpacity>
-              <Text className="text-lg font-bold text-orange-500">Iniciar sesión</Text>
+              <Text className="text-base font-bold text-sky-400">Iniciar sesión</Text>
             </TouchableOpacity>
           </Link>
         </View>
