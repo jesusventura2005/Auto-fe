@@ -18,10 +18,9 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
 
   return (
     <View
-      className="absolute bottom-10 mx-5 w-11/12 flex-1
+      className="absolute bottom-20 mx-5 w-11/12 flex-1
      flex-row items-center justify-between rounded-3xl bg-white p-4 
      shadow-md shadow-black 
-     
     ">
       {visibleRoutes.map((route: any, index: any) => {
         const { options } = descriptors[route.key];
