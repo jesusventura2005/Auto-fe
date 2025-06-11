@@ -1,9 +1,9 @@
 import { View } from 'react-native';
 import TabBarButtonCustom from './TabBarButtonCustom';
 import Home from '../assets/home.svg';
-import Maintenance from '../assets/maintenance.svg'
-import User from '../assets/user.svg'
-import Checklist from '../assets/checklist.svg'
+import Maintenance from '../assets/maintenance.svg';
+import User from '../assets/user.svg';
+import Checklist from '../assets/checklist.svg';
 
 const VISIBLE_TABS = [
   'index',
@@ -57,9 +57,9 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
           <TabBarButtonCustom
             text={`${label === '+' ? 'text-4xl text-white' : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px]'}`}
             key={index}
-            className={` rounded-lg  w-[55px] ${
+            className={` w-[55px]  rounded-full ${
               label === '+'
-                ? 'flex bottom-2  items-center h-[55px]  justify-center rounded-[100px]   bg-blue-600 shadow-xl shadow-blue-500'
+                ? 'bottom-2 flex  h-[55px] items-center  justify-center bg-blue-600 shadow-xl shadow-blue-500'
                 : isFocused
                   ? 'color-blue-600'
                   : 'bg-transparent'
@@ -70,11 +70,19 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
             onLongPress={onLongPress}
             label={label}
             isFocused={isFocused}
-            icon={label === 'Home' ? <Home width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'}/> : 
-                  label === 'Maintenance' ? <Maintenance width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'}/> : 
-                  label === 'Profile' ? <User width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} /> : 
-                  label === 'Checklist' ? <Checklist width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} /> : 
-                  label}
+            icon={
+              label === 'Home' ? (
+                <Home width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} />
+              ) : label === 'Maintenance' ? (
+                <Maintenance width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} />
+              ) : label === 'Profile' ? (
+                <User width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} />
+              ) : label === 'Checklist' ? (
+                <Checklist width={24} height={24} stroke={isFocused ? '#2563eb' : '#000000'} />
+              ) : (
+                label
+              )
+            }
           />
         );
       })}
