@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useState } from 'react';
 
 const LoginScreen = () => {
   const { onLogin } = useAuth();
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const loginMutation = useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {
@@ -20,14 +22,20 @@ const LoginScreen = () => {
     },
     onSuccess: (response) => {
       console.log('Respuesta del servidor:', response.data);
+      setServerError(null); // Limpiar el error del servidor al iniciar sesión correctamente
       router.push('/');
     },
     onError: (error) => {
+      setServerError(error.message || 'Error al iniciar sesión');
       console.error('Error:', error);
     },
   });
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitted },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -65,6 +73,14 @@ const LoginScreen = () => {
           keyboardType="email-address"
           autoCapitalize="none"
           name="email"
+          rules={{
+            required: 'El correo electrónico es obligatorio',
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Formato de correo electrónico inválido',
+            },
+          }}
+          error={isSubmitted ? errors.email : undefined}
         />
         <Input
           label="Contraseña"
@@ -73,7 +89,21 @@ const LoginScreen = () => {
           secureTextEntry={true}
           control={control}
           name="password"
+          rules={{
+            required: 'La contraseña es obligatoria',
+            minLength: {
+              value: 6,
+              message: 'La contraseña debe tener al menos 6 caracteres',
+            },
+          }}
+          error={isSubmitted ? errors.password : undefined}
         />
+
+        {serverError && (
+          <Text className="mb-4 rounded-lg bg-red-400 py-2 text-center text-white">
+            {serverError}
+          </Text>
+        )}
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
