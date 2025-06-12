@@ -47,7 +47,11 @@ const Input = ({
                 {...props}
               />
               {secureTextEntry && (
-                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="ml-2">
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  className="ml-2"
+                  accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
+                >
                   <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#999" />
                 </TouchableOpacity>
               )}
