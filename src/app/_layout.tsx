@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { SplashScreen, Tabs } from 'expo-router';
-=======
-import { Tabs } from 'expo-router';
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
->>>>>>> develop
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBar from '~/components/TabBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';

@@ -136,7 +136,7 @@ const RegisterScreen = () => {
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="mt-4 rounded-xl bg-blue-500 py-4 shadow-md">
+          className="mt-4 rounded-xl bg-sky-500 py-4 shadow-md">
           <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
         </TouchableOpacity>
 
