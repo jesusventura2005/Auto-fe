@@ -56,11 +56,6 @@ const LoginScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <Link href="/" asChild>
-        <TouchableOpacity>
-          <Text className="text-2xl">{'<'}</Text>
-        </TouchableOpacity>
-      </Link>
       <Text className="mb-2 text-center text-4xl font-bold text-sky-600">Iniciar sesión</Text>
       <Text className="mb-8 text-center text-xl text-black">Bienvenido de nuevo</Text>
 

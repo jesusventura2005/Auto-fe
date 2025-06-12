@@ -102,41 +102,35 @@ const RegisterScreen = () => {
           secureTextEntry
         />
 
-        <View className="mb-6 mt-2">
+        <View className="my-2">
           <Text className="mb-3 font-semibold text-gray-700">Soy un:</Text>
-          <View className="flex-row justify-between space-x-4">
+          <View className="flex-row gap-3 space-x-4">
             <TouchableOpacity
               onPress={() => setUserType('owner')}
-              className={`flex-1 rounded-xl border-2 px-4 py-3 ${
-                userType === 'owner' ? 'border-sky-500 bg-sky-400' : 'border-gray-300 bg-gray-200'
-              }`}>
-              <Text
-                className={`text-center text-base font-bold ${
-                  userType === 'owner' ? 'text-white' : 'text-gray-700'
-                }`}>
-                Propietario de Vehículo
-              </Text>
+              className="flex-row items-center gap-2 space-x-2">
+              <Ionicons
+                name={userType === 'owner' ? 'radio-button-on' : 'radio-button-off'}
+                size={24}
+                color={userType === 'owner' ? '#2563eb' : 'gray'}
+              />
+              <Text className="text-base font-bold text-gray-700">Propietario de Vehículo</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setUserType('mechanic')}
-              className={`flex-1 rounded-xl border-2 px-4 py-3 ${
-                userType === 'mechanic'
-                  ? 'border-sky-500 bg-sky-400'
-                  : 'border-gray-300 bg-gray-200'
-              }`}>
-              <Text
-                className={`text-center text-base font-bold ${
-                  userType === 'mechanic' ? 'text-white' : 'text-gray-700'
-                }`}>
-                Mecánico
-              </Text>
+              className="flex-row items-center gap-2 space-x-2">
+              <Ionicons
+                name={userType === 'mechanic' ? 'radio-button-on' : 'radio-button-off'}
+                size={24}
+                color={userType === 'mechanic' ? '#2563eb' : 'gray'}
+              />
+              <Text className="text-base font-bold text-gray-700">Mecánico</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="mt-4 rounded-xl bg-sky-500 py-4 shadow-md">
+          className="mt-2 rounded-xl bg-sky-500 py-4 shadow-md">
           <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
         </TouchableOpacity>
 
