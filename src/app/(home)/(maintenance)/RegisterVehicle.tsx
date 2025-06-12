@@ -34,7 +34,7 @@ const RegisterVehicle = () => {
   const types = ['Carro', 'Camioneta', 'Moto'];
 
   return (
-    <ScrollView className="flex-1 bg-blue-50" contentContainerStyle={{ paddingVertical: 30 }}>
+    <ScrollView className="flex-1 bg-black" contentContainerStyle={{ paddingVertical: 30 }}>
       <View className="mx-6 rounded-2xl bg-white p-8 mt-10 shadow-lg">
         <Text className="mb-8 text-center text-3xl font-bold text-blue-800">Agregar Vehículo</Text>
 

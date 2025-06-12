@@ -1,23 +1,36 @@
-import { View, Text } from "react-native"
-import Shield from '../assets/shield.svg'
+import { View, Text, Image } from "react-native"
+import Clock from '../assets/clock.svg'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export const Card = () => {
+interface CardProps {
+  age: number;
+  kilometers: number;
+  lastService: string;
+  brand: string;
+  model: string;
+}
+
+export const Card = ({ kilometers, lastService , age , brand , model }: CardProps) => {
   return (
-    <View className=" mt-16 p-8 flex flex-col border border-[#ffff] justify-center items-center bg-[#0000001b]">
-
-      <View className="rounded-full bg-[#15367c] flex justify-center items-center p-4">
-      <Shield width={30} height={30} stroke={"#005ee1"}></Shield>
-
+    <View className="flex flex-col  w-11/12 rounded-xl bg-white shadow-md">
+      <View className=" rounded-t-xl p-3 bg-red-700 flex items-center justify-center"> 
+        <Ionicons name="car-outline" size={86} color="white" />
+        <Text className="font-bold text-white">2020 Toyota</Text>
+        <Text className="text-white ">Camry</Text>
       </View>
 
-      <Text className="font-bold text-black text-xl">
-          Seguimiento Completo
-      </Text>
-      <Text className="text-center text-black font-light">
-      Registra todos los mantenimientos, reparaciones y revisiones de tus vehículos en un solo lugar.
-      </Text>
-      
+      <View className="p-4 gap-3">
+        <View className="flex flex-row items-center gap-2">
+          <Clock width={25} height={25} stroke="#EF4444" strokeWidth={1.5} />
+          <Text className="text-black text-base">{kilometers} kilometers</Text>
+        </View>
 
+        <View className="bg-slate-100 flex p-1.5 flex-row items-center rounded-md">
+        <Ionicons className="mx-2" name="speedometer-outline" size={16} color="#65768a" />
+            <Text className="text-[#65768a]">Last service: September 15, 2023</Text>
+        </View>
+
+      </View>
     </View>
   )
 }

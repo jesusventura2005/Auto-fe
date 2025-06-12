@@ -1,7 +1,8 @@
-import { TouchableOpacity, Text, View } from "react-native"
+import { ReactNode } from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
 
 interface TabBarButtonCustomProps {
-  className: string,
+  className: string;
   label: string;
   isFocused?: boolean;
   accessibilityLabel?: string;
@@ -9,7 +10,7 @@ interface TabBarButtonCustomProps {
   onPress?: () => void;
   onLongPress?: () => void;
   text: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 const TabBarButtonCustom = ({
@@ -30,14 +31,13 @@ const TabBarButtonCustom = ({
       accessibilityLabel={accessibilityLabel}
       testID={testID}
       onPress={onPress}
-      onLongPress={onLongPress}
-    >
-      <View className={`flex items-center ${{text}}`}>
+      onLongPress={onLongPress}>
+      <View className="flex items-center">
         {icon}
         <Text className={text}>{label}</Text>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default TabBarButtonCustom
+export default TabBarButtonCustom;
