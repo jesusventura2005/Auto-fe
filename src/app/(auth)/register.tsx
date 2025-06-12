@@ -13,18 +13,20 @@ const RegisterScreen = () => {
 
   const registerMutation = useMutation({
     mutationFn: async ({
+      name,
+      lastName,
       email,
       password,
-      name,
       userType,
     }: {
+      name: string;
+      lastName: string;
       email: string;
       password: string;
-      name: string;
       userType: 'owner' | 'mechanic';
     }) => {
       if (!onRegister) throw new Error('Metodo onRegister no definido');
-      const response = await onRegister(email, password, name, userType);
+      const response = await onRegister(name, lastName, email, password, userType);
       if (response.error) {
         throw new Error(response.msg);
       }
@@ -38,16 +40,30 @@ const RegisterScreen = () => {
     },
   });
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitted },
+    getValues,
+  } = useForm({
     defaultValues: {
       name: '',
+      lastName: '',
       email: '',
       password: '',
+      passwordConfirm: '',
     },
   });
 
-  const onSubmit = (data: { name: string; email: string; password: string }) => {
-    registerMutation.mutateAsync({ ...data, userType });
+  const onSubmit = (data: {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }) => {
+    const { name, lastName, email, password } = data;
+    registerMutation.mutateAsync({ name, lastName, email, password, userType });
   };
 
   return (
@@ -61,13 +77,21 @@ const RegisterScreen = () => {
       }}>
       <Text className="mb-2 text-center text-4xl font-bold text-sky-600">Crea tu cuenta</Text>
       <Text className="mb-8 text-center text-lg text-black">Únete a nuestra comunidad</Text>
-      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
+      <View className="flex w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
         <Input
           control={control}
           name="name"
           label="Nombre"
           icon={<Ionicons name="person-outline" size={16} color="black" className="mr-2" />}
           placeholder="Juan"
+          rules={{
+            required: 'El nombre es obligatorio',
+            minLength: {
+              value: 2,
+              message: 'El nombre debe tener al menos 2 caracteres',
+            },
+          }}
+          error={isSubmitted ? errors.name : undefined}
         />
         <Input
           control={control}
@@ -75,6 +99,14 @@ const RegisterScreen = () => {
           label="Apellido"
           icon={<Ionicons name="person" size={16} color="black" className="mr-2" />}
           placeholder="Pérez"
+          rules={{
+            required: 'El apellido es obligatorio',
+            minLength: {
+              value: 2,
+              message: 'El apellido debe tener al menos 2 caracteres',
+            },
+          }}
+          error={isSubmitted ? errors.lastName : undefined}
         />
         <Input
           control={control}
@@ -84,7 +116,16 @@ const RegisterScreen = () => {
           keyboardType="email-address"
           autoCapitalize="none"
           name="email"
+          rules={{
+            required: 'El correo electrónico es obligatorio',
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Formato de correo electrónico inválido',
+            },
+          }}
+          error={isSubmitted ? errors.email : undefined}
         />
+
         <Input
           control={control}
           name="password"
@@ -92,6 +133,14 @@ const RegisterScreen = () => {
           icon={<Ionicons name="lock-closed-outline" size={16} color="black" className="mr-2" />}
           placeholder="••••••••"
           secureTextEntry
+          rules={{
+            required: 'La contraseña es obligatoria',
+            minLength: {
+              value: 6,
+              message: 'La contraseña debe tener al menos 6 caracteres',
+            },
+          }}
+          error={isSubmitted ? errors.password : undefined}
         />
         <Input
           control={control}
@@ -100,6 +149,15 @@ const RegisterScreen = () => {
           icon={<Ionicons name="lock-closed-outline" size={16} color="black" className="mr-2" />}
           placeholder="••••••••"
           secureTextEntry
+          rules={{
+            required: 'La confirmación de contraseña es obligatoria',
+            validate: (value) => {
+              if (value !== getValues('password')) {
+                return 'Las contraseñas no coinciden';
+              }
+            },
+          }}
+          error={isSubmitted ? errors.passwordConfirm : undefined}
         />
 
         <View className="my-2">
