@@ -4,7 +4,7 @@ import { VehicleTypeModal } from '../../../components/ModalRegister';
 import { useForm } from 'react-hook-form';
 import { AnimatedSubmitButton } from '../../../components/AnimatedButton';
 import { RegisterInput } from '~/components/RegisterInput';
-import  useAddVehicle  from '~/app/hooks/useAddVehicle';
+import useAddVehicle from '~/app/hooks/useAddVehicle';
 
 const RegisterVehicle = () => {
   const { control, handleSubmit } = useForm({
@@ -35,14 +35,19 @@ const RegisterVehicle = () => {
 
   return (
     <ScrollView className="flex-1 bg-black" contentContainerStyle={{ paddingVertical: 30 }}>
-      <View className="mx-6 rounded-2xl bg-white p-8 mt-10 shadow-lg">
+      <View className="mx-6 mt-10 rounded-2xl bg-white p-8 shadow-lg">
         <Text className="mb-8 text-center text-3xl font-bold text-blue-800">Agregar Vehículo</Text>
 
         <View className="grid gap-5">
           <RegisterInput label="plate" control={control} name="plate" placeholder="192j9ejs" />
           <RegisterInput label="serial" control={control} name="serial" placeholder="192j9ejs" />
           <RegisterInput label="age" control={control} name="age" placeholder="192j9ejs" />
-          <RegisterInput label="carModel" control={control} name="carModel" placeholder="192j9ejs"/>
+          <RegisterInput
+            label="carModel"
+            control={control}
+            name="carModel"
+            placeholder="192j9ejs"
+          />
 
           <TouchableOpacity
             onPress={() => setModalTypeVisible(true)}

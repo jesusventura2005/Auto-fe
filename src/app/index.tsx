@@ -1,9 +1,22 @@
 import { View, ScrollView, Text, Image } from 'react-native';
-import { Card } from '~/components/Card';
-import { Link } from 'expo-router';
+import { Link , useRouter } from 'expo-router';
 import Button from '~/components/ButtonCmp';
 
+import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
+
 const Index = () => {
+  const { authState } = useAuth();
+  const router = useRouter();
+
+  console.log(authState);
+
+  useEffect(() => {
+    if (authState?.authenticated) {
+      router.replace('(home)/Dashboard');
+      console.log('hola');
+    }
+  });
   return (
     <ScrollView
       className="bg-blue-50 pb-32"

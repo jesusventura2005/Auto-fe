@@ -47,13 +47,12 @@ const LoginScreen = () => {
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 32,
-      }}
-    >
-      <View className="w-[90%] max-w-md mb-2">
+      }}>
+      <View className="mb-2 w-[90%] max-w-md">
         <Link href="/" asChild>
           <TouchableOpacity className="flex-row items-center">
-            <Text className="text-2x1 text-blue-500 mr-2">{'<'}</Text>
-            <Text className="text-blue-500 text-lg font-bold">volver</Text>
+            <Text className="text-2x1 mr-2 text-blue-500">{'<'}</Text>
+            <Text className="text-lg font-bold text-blue-500">volver</Text>
           </TouchableOpacity>
         </Link>
       </View>
@@ -83,7 +82,7 @@ const LoginScreen = () => {
         <Button
           onPress={handleSubmit(onSubmit)}
           title="Entrar"
-          className="bg-blue-500 w-full py-5 rounded-3xl text-lg mt-2"
+          className="mt-2 w-full rounded-3xl bg-blue-500 py-5 text-lg"
         />
 
         <View className="mt-6 flex-row justify-center">

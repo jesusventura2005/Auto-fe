@@ -15,8 +15,8 @@ export const Card = ({ kilometers, lastService , age , brand , model }: CardProp
     <View className="flex flex-col  w-11/12 rounded-xl bg-white shadow-md">
       <View className=" rounded-t-xl p-3 bg-red-700 flex items-center justify-center"> 
         <Ionicons name="car-outline" size={86} color="white" />
-        <Text className="font-bold text-white">2020 Toyota</Text>
-        <Text className="text-white ">Camry</Text>
+        <Text className="font-bold text-white">{age} {brand}</Text>
+        <Text className="text-white ">{model}</Text>
       </View>
 
       <View className="p-4 gap-3">
@@ -27,7 +27,7 @@ export const Card = ({ kilometers, lastService , age , brand , model }: CardProp
 
         <View className="bg-slate-100 flex p-1.5 flex-row items-center rounded-md">
         <Ionicons className="mx-2" name="speedometer-outline" size={16} color="#65768a" />
-            <Text className="text-[#65768a]">Last service: September 15, 2023</Text>
+            <Text className="text-[#65768a]">Last service: {lastService}</Text>
         </View>
 
       </View>

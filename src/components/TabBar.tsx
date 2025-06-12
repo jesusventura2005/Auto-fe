@@ -7,23 +7,29 @@ import User from '../assets/user.svg';
 import Checklist from '../assets/checklist.svg';
 
 const VISIBLE_TABS = [
-  'index',
+  '(home)/Dashboard',
   '(home)/(maintenance)/maintenanceLog',
   '(home)/(maintenance)/RegisterVehicle',
   'profile',
   'checklist',
 ];
 
+const noVisibleScreens = [ '(auth)/register' ,'(auth)/login' ,'index'];
+
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const visibleRoutes = state.routes.filter((route) => VISIBLE_TABS.includes(route.name));
+  const currentRoute = state.routes[state.index];
+  const shouldHide = noVisibleScreens.includes(currentRoute.name);
+
+  if (shouldHide) {
+    return null;
+  }
 
   return (
     <View
-      className="absolute bottom-10 mx-5 w-11/12 flex-1
+      className={`absolute bottom-10 mx-5 w-11/12 flex-1
      flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-md 
-     shadow-black blur-xl 
-     
-    ">
+     shadow-black blur-xl `}>
       {visibleRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -58,11 +64,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
           <TabBarButtonCustom
             text={`${label === '+' ? 'text-4xl text-white' : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px]'}`}
             key={index}
-
             className={` w-[55px]  rounded-full ${
               label === '+'
                 ? 'bottom-2 flex  h-[55px] items-center  justify-center bg-blue-600 shadow-xl shadow-blue-500'
-
                 : isFocused
                   ? 'color-blue-600'
                   : 'bg-transparent'

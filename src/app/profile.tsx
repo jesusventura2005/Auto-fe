@@ -1,8 +1,10 @@
-import { ScrollView } from 'react-native';
-import { Card } from '~/components/Card';
+import { ScrollView , Button } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+// import { useAuth } from '~/context/AuthContext';
 
 export default function ProfileScreen() {
+
+  // const { onLogout } = useAuth();
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['top']}>
@@ -13,10 +15,9 @@ export default function ProfileScreen() {
             alignItems: 'center',
             gap: 24
           }}>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
+
+            <Button title='Logout'></Button>
+         
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
