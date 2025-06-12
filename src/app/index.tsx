@@ -6,15 +6,14 @@ import Button from '~/components/ButtonCmp';
 const Index = () => {
   return (
     <ScrollView
-      className="bg-blue-50"
+      className="bg-blue-50 pb-32"
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 32,
       }}
     >
-      <View className="w-full bg-white rounded-2xl shadow-lg p-8 items-center">
+
         <Image
           className="w-26 h-26 mb-4"
           source={require('../assets/carIcon.png')}
@@ -39,10 +38,7 @@ const Index = () => {
           </Link>
         </View>
 
-        <View className="w-full mt-2">
-          <Card />
-        </View>
-      </View>
+
     </ScrollView>
 
   );

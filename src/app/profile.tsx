@@ -1,9 +1,24 @@
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import { Card } from '~/components/Card';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold">Profile Screen</Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView edges={['top']}>
+        <ScrollView
+          className="flex  bg-white"
+          contentContainerStyle={{
+            flexGrow: 1,
+            alignItems: 'center',
+            gap: 24
+          }}>
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-} 
+}

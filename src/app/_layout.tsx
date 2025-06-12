@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router';
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import TabBar from '~/components/TabBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '../../global.css';
@@ -29,18 +30,18 @@ export default function Layout() {
             options={{
               title: '+',
             }}
-            />
-            <Tabs.Screen 
-            name='profile'
+          />
+          <Tabs.Screen
+            name="checklist"
             options={{
-              title: 'Profile'
+              title: 'Checklist',
             }}
-            />
-          <Tabs.Screen 
-          name='checklist'
-          options={{
-            title: 'Checklist'
-          }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Profile',
+            }}
           />
         </Tabs>
       </AuthProvider>
