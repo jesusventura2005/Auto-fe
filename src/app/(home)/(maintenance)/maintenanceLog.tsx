@@ -103,7 +103,7 @@ const MaintenanceLog = () => {
 
       {/* Botón flotante */}
       <TouchableOpacity
-        onPress={() => router.push("/")}
+        onPress={() => router.push('/')}
         className="absolute bottom-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
         <Text className="text-3xl text-white">+</Text>
       </TouchableOpacity>
