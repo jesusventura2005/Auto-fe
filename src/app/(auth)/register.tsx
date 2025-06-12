@@ -111,7 +111,7 @@ const RegisterScreen = () => {
               <Ionicons
                 name={userType === 'owner' ? 'radio-button-on' : 'radio-button-off'}
                 size={24}
-                color={userType === 'owner' ? '#2563eb' : 'gray'}
+                color={userType === 'owner' ? '#009de2' : 'gray'}
               />
               <Text className="text-base font-bold text-gray-700">Propietario de Vehículo</Text>
             </TouchableOpacity>
@@ -121,7 +121,7 @@ const RegisterScreen = () => {
               <Ionicons
                 name={userType === 'mechanic' ? 'radio-button-on' : 'radio-button-off'}
                 size={24}
-                color={userType === 'mechanic' ? '#2563eb' : 'gray'}
+                color={userType === 'mechanic' ? '#009de2' : 'gray'}
               />
               <Text className="text-base font-bold text-gray-700">Mecánico</Text>
             </TouchableOpacity>
