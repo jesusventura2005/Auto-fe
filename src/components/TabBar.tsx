@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButtonCustom from './TabBarButtonCustom';
 import Home from '../assets/home.svg';
 import Maintenance from '../assets/maintenance.svg';
@@ -9,27 +10,28 @@ const VISIBLE_TABS = [
   'index',
   '(home)/(maintenance)/maintenanceLog',
   '(home)/(maintenance)/RegisterVehicle',
-  'checklist',
   'profile',
+  'checklist',
 ];
 
-const TabBar = ({ state, descriptors, navigation }: any) => {
-  const visibleRoutes = state.routes.filter((route: any) => VISIBLE_TABS.includes(route.name));
+const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+  const visibleRoutes = state.routes.filter((route) => VISIBLE_TABS.includes(route.name));
 
   return (
     <View
-      className="absolute bottom-20 mx-5 w-11/12 flex-1
-     flex-row items-center justify-between rounded-3xl bg-white p-4 
-     shadow-md shadow-black 
+      className="absolute bottom-10 mx-5 w-11/12 flex-1
+     flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-md 
+     shadow-black blur-xl 
+     
     ">
-      {visibleRoutes.map((route: any, index: any) => {
+      {visibleRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
-          options.taBarLabel !== undefined
-            ? options.tarBarLabel
+          options.tabBarLabel !== undefined
+            ? String(options.tabBarLabel)
             : options.title !== undefined
-              ? options.title
-              : route.name;
+              ? String(options.title)
+              : String(route.name);
 
         const isFocused = state.index === index;
 
@@ -56,15 +58,15 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
           <TabBarButtonCustom
             text={`${label === '+' ? 'text-4xl text-white' : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px]'}`}
             key={index}
-            className={` w-[55px]  rounded-lg ${
+            className={` w-[55px]  rounded-full ${
               label === '+'
-                ? 'bottom-2 flex  h-[55px] items-center  justify-center rounded-[100px]   bg-blue-600 shadow-xl shadow-blue-500'
+                ? 'bottom-2 flex  h-[55px] items-center  justify-center bg-blue-600 shadow-xl shadow-blue-500'
                 : isFocused
                   ? 'color-blue-600'
                   : 'bg-transparent'
             }`}
             accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.taBarLabel}
+            testID={options.tabBarLabel ? String(options.tabBarLabel) : undefined}
             onPress={onPress}
             onLongPress={onLongPress}
             label={label}
