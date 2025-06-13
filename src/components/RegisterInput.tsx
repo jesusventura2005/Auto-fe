@@ -1,5 +1,5 @@
 import { View , Text , TextInput , TextInputProps } from "react-native"
-import { Controller , ControllerProps } from "react-hook-form"
+import { Controller , ControllerProps, useFormState, FieldError } from "react-hook-form"
 
 
 type InputProps = {
@@ -10,8 +10,11 @@ type InputProps = {
     Pick<ControllerProps<any>, 'control' | 'name' | 'rules'>;
 
 
+export const RegisterInput = ({name , control , placeholder, label, rules }: InputProps) => {
+  const { errors } = useFormState({ control });
+  const rawError = errors[name];
+  const error = rawError as FieldError | undefined;
 
-export const RegisterInput = ({name , control , placeholder, label}: InputProps) => {
   return (
 
     <View >
@@ -19,6 +22,7 @@ export const RegisterInput = ({name , control , placeholder, label}: InputProps)
     <Controller
       control={control}
       name={name}
+      rules={rules}
       render={({ field: { value , onChange ,onBlur } }) => (
         <TextInput
           className="rounded-xl border-2 border-blue-200 bg-white p-3 text-lg"
@@ -29,6 +33,9 @@ export const RegisterInput = ({name , control , placeholder, label}: InputProps)
           onChangeText={onChange}
         />
       )}></Controller>
+     {error?.message && (
+        <Text className="text-red-500 text-sm">{error.message}</Text>
+      )}
   </View>
   )
 }
