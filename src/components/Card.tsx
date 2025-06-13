@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native"
+import { View, Text } from "react-native"
 import Clock from '../assets/clock.svg'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -12,7 +12,7 @@ interface CardProps {
 
 export const Card = ({ kilometers, lastService , age , brand , model }: CardProps) => {
   return (
-    <View className="flex flex-col  w-11/12 rounded-xl bg-white shadow-md">
+    <View className="flex flex-col  w-11/12 h-[240px] rounded-xl bg-white shadow-md">
       <View className=" rounded-t-xl p-3 bg-red-700 flex items-center justify-center"> 
         <Ionicons name="car-outline" size={86} color="white" />
         <Text className="font-bold text-white">{age} {brand}</Text>

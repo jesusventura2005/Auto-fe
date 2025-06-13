@@ -1,6 +1,7 @@
-import { ScrollView  } from 'react-native';
+import { ScrollView } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Card } from '~/components/Card';
+import CreateVehicleCard from '~/components/CreateVehicleCard';
 
 const Dashboard = () => {
   return (
@@ -11,16 +12,16 @@ const Dashboard = () => {
           contentContainerStyle={{
             flexGrow: 1,
             alignItems: 'center',
-            gap: 24
+            gap: 24,
           }}>
-          <Card 
-          kilometers={200}
-          lastService='20/05/2003'
-          age={2003}
-          brand='Toyota'
-          model='Camry'
-          ></Card>
+          <Card
+            kilometers={200}
+            lastService="20/05/2003"
+            age={2003}
+            brand="Toyota"
+            model="Camry"></Card>
 
+          <CreateVehicleCard></CreateVehicleCard>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
