@@ -1,10 +1,7 @@
 import { View } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButtonCustom from './TabBarButtonCustom';
-import Home from '../assets/home.svg';
-import Maintenance from '../assets/maintenance.svg';
-import User from '../assets/user.svg';
-import Checklist from '../assets/checklist.svg';
+
 
 const VISIBLE_TABS = [
   '(home)/Dashboard',
