@@ -2,6 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '~/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
+import { router } from 'expo-router';
+import { JwtPayload } from 'jsonwebtoken';
 
 interface AddVehicleParams {
   type: string;
@@ -22,7 +24,7 @@ const useAddVehicle = () => {
         throw new Error('No authentication token found');
       }
 
-      const decodedToken = jwtDecode<any>(toDecode);
+      const decodedToken = jwtDecode<JwtPayload>(toDecode);
       const owner = await decodedToken._id;
 
       if (!owner) {
@@ -49,6 +51,9 @@ const useAddVehicle = () => {
     onSuccess: (response) => {
       console.log(response);
       console.log(response.data);
+      router.push('/Dashboard')
+      
+
     },
     onError: (error) => {
       console.error('Mutation error:', error);

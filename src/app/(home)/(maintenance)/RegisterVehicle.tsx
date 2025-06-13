@@ -7,6 +7,8 @@ import { RegisterInput } from '~/components/RegisterInput';
 import useAddVehicle from '~/app/hooks/useAddVehicle';
 
 const RegisterVehicle = () => {
+
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
       type: '',
@@ -34,7 +36,7 @@ const RegisterVehicle = () => {
   const types = ['Carro', 'Camioneta', 'Moto'];
 
   return (
-    <ScrollView className="flex-1 bg-black" contentContainerStyle={{ paddingVertical: 30 }}>
+    <ScrollView className="flex-1" contentContainerStyle={{ paddingVertical: 30 }}>
       <View className="mx-6 mt-10 rounded-2xl bg-white p-8 shadow-lg">
         <Text className="mb-8 text-center text-3xl font-bold text-blue-800">Agregar Vehículo</Text>
 
