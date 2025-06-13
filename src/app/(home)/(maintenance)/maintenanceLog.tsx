@@ -1,119 +1,101 @@
-import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 import { useState } from 'react';
-import TaskItem from '../../../components/TaskItem';
-import SectionTitle from '../../../components/SectionTitle';
-import EditTaskModal from '../../../components/EditTaskModal';
-import { useTaskManager } from '../../../components/useTaskManager';
-import type { Task } from '../../../components/useTaskManager';
-import { router } from 'expo-router';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import TaskItem from '~/components/TaskItem';
+import SectionTitle from '~/components/SectionTitle';
+import EditTaskModal from '~/components/EditTaskModal';
+import { useTaskManager, Task } from '~/components/useTaskManager';
+import { Plus } from 'lucide-react-native';
+import uuid from 'react-native-uuid';
+
+const initialTasks: Task[] = [
+  {
+    id: String(uuid.v4()),
+    title: 'Cambio de aceite',
+    description: 'Aceite sintético 5W-30',
+    type: 'Oil Change',
+    date: '2025-06-10',
+    kilometraje: '5000 km',
+    completado: false,
+  },
+  {
+    id: String(uuid.v4()),
+    title: 'Rotación de neumáticos',
+    description: 'Rotación cada 10.000 km',
+    type: 'Tire Rotation',
+    date: '2025-06-05',
+    kilometraje: '10000 km',
+    completado: true,
+  },
+];
 
 const MaintenanceLog = () => {
-  const initialTasks: Task[] = [
-    {
-      title: 'Oil Change',
-      description: 'Changed engine oil and oil filter',
-      type: 'Oil Change',
-      date: '2025-06-01',
-      kilometraje: '50,000 km',
-      completado: true,
-    },
-    {
-      title: 'Tire Rotation',
-      description: 'Rotated all four tires',
-      type: 'Tire Rotation',
-      date: '2025-06-15',
-      kilometraje: '52,000 km',
-      completado: false,
-    },
-  ];
-
   const { tasks, updateTask, addTask } = useTaskManager(initialTasks);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const sortedTasks = [...tasks].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 
   const handleTaskPress = (task: Task) => {
     setSelectedTask(task);
-    setIsCreating(false);
     setModalVisible(true);
   };
 
-  const handleModalClose = () => {
-    setModalVisible(false);
-    setSelectedTask(null);
-    setIsCreating(false);
-  };
-
-  const handleTaskUpdate = (updatedTask: Task) => {
-    if (isCreating) {
-      addTask(updatedTask);
-    } else {
-      updateTask(updatedTask);
-    }
-    handleModalClose();
-  };
-
-  const handleAddPress = () => {
-    const today = new Date().toISOString().split('T')[0];
-    setSelectedTask({
+  const handleAddNewTask = () => {
+    const newEmptyTask: Task = {
+      id: String(uuid.v4()),
       title: '',
       description: '',
-      type: 'Other',
-      date: today,
+      type: 'Oil Change',
+      date: new Date().toISOString().split('T')[0],
       kilometraje: '',
       completado: false,
-    });
-    setIsCreating(true);
+    };
+    setSelectedTask(newEmptyTask);
     setModalVisible(true);
   };
 
-  const pendingTasks = tasks.filter((t) => !t.completado);
-  const completedTasks = tasks.filter((t) => t.completado);
+  const handleUpdateTask = (updatedTask: Task) => {
+    const existingTask = tasks.find((t) => t.id === updatedTask.id);
+    if (existingTask) {
+      updateTask(updatedTask);
+    } else {
+      addTask(updatedTask);
+    }
+    setModalVisible(false);
+    setSelectedTask(null);
+  };
 
   return (
-    <View className="flex-1 bg-blue-50">
-      <ScrollView className="p-4 pt-10">
-        <SectionTitle title="Mantenimiento Pendiente" />
-        {pendingTasks.map((task) => (
-          <TaskItem
-            key={task.title + task.date}
-            task={task}
-            onPress={() => handleTaskPress(task)}
-          />
+    <View className="flex-1 bg-white px-4 pt-10">
+      <ScrollView>
+        <SectionTitle title="Historial de mantenimiento" />
+        <Text className="text-lg font-semibold text-blue-900 mt-4">Pendientes</Text>
+        {sortedTasks.filter(t => !t.completado).map((task) => (
+          <TaskItem key={task.id} task={task} onPress={() => handleTaskPress(task)} />
         ))}
-
-        <SectionTitle title=" Mantenimiento Completado" />
-        {completedTasks.map((task) => (
-          <TaskItem
-            key={task.title + task.date}
-            task={task}
-            onPress={() => handleTaskPress(task)}
-          />
+        <Text className="text-lg font-semibold text-blue-900 mt-6">Completadas</Text>
+        {sortedTasks.filter(t => t.completado).map((task) => (
+          <TaskItem key={task.id} task={task} onPress={() => handleTaskPress(task)} />
         ))}
       </ScrollView>
 
+      <TouchableOpacity
+        onPress={handleAddNewTask}
+        className="absolute bottom-6 right-6 bg-blue-500 p-4 rounded-full shadow-lg"
+      >
+        <Plus color="white" size={24} />
+      </TouchableOpacity>
+
       {selectedTask && (
         <EditTaskModal
-          visible={modalVisible}
+          visible={isModalVisible}
           task={selectedTask}
-          onClose={handleModalClose}
-          onUpdate={handleTaskUpdate}
+          onClose={() => setModalVisible(false)}
+          onUpdate={handleUpdateTask}
         />
       )}
-
-      {/* Botón flotante */}
-      <TouchableOpacity
-        onPress={() => router.push('/')}
-        className="absolute bottom-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
-        <Text className="text-3xl text-white">+</Text>
-      </TouchableOpacity>
-
-      {/* Botón flotante */}
-      <TouchableOpacity
-        onPress={handleAddPress}
-        className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-md">
-        <Text className="text-3xl text-white">+</Text>
-      </TouchableOpacity>
     </View>
   );
 };

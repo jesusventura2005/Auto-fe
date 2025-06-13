@@ -45,10 +45,17 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
 
   return (
     <Modal visible={visible} animationType="fade" transparent>
-      <Pressable onPress={onClose} className="flex-1 bg-black/40 justify-center items-center">
-        <Pressable onPress={(e) => e.stopPropagation()} className="bg-white rounded-lg p-6 w-11/12">
+      <Pressable
+        onPress={onClose}
+        className="flex-1 bg-black/40 justify-center items-center"
+      >
+        <Pressable
+          onPress={(e) => e.stopPropagation()}
+          className="bg-white rounded-lg p-6 w-11/12"
+        >
           <Text className="text-xl font-bold text-blue-900 mb-4">Datos de la tarea</Text>
 
+          {/* Título */}
           <Text className="text-sm font-medium text-blue-800 mb-1">Título</Text>
           <TextInput
             value={updatedTask.title}
@@ -56,6 +63,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
           />
 
+          {/* Descripción */}
           <Text className="text-sm font-medium text-blue-800 mb-1">Descripción</Text>
           <TextInput
             value={updatedTask.description}
@@ -63,6 +71,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
           />
 
+          {/* Tipo */}
           <Text className="text-sm font-medium text-blue-800 mb-1">Tipo</Text>
           <View className="border rounded-md px-3 py-2 mb-3 border-blue-300">
             <Picker
@@ -77,6 +86,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             </Picker>
           </View>
 
+          {/* Fecha */}
           <Text className="text-sm font-medium text-blue-800 mb-1">Fecha</Text>
           <TouchableOpacity
             onPress={() => setShowDatePicker(true)}
@@ -88,15 +98,16 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             <DateTimePicker
               value={new Date(updatedTask.date)}
               mode="date"
-              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+              display={Platform.OS === 'ios' ? 'spinner' : 'calendar'} // 📅 Calendario emergente
               onChange={handleDateChange}
             />
           )}
 
+          {/* Kilometraje */}
           <Text className="text-sm font-medium text-blue-800 mb-1">Kilometraje</Text>
           <View className="flex-row items-center border rounded-md px-3 py-2 mb-3 border-blue-300">
             <TextInput
-              value={updatedTask.kilometraje ? updatedTask.kilometraje.replace(' km', '') : ''}
+              value={updatedTask.kilometraje.replace(' km', '')}
               keyboardType="numeric"
               onChangeText={(text) => handleChange('kilometraje', `${text}`)}
               className="flex-1 text-blue-900"
@@ -104,6 +115,7 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             <Text className="text-blue-500 ml-2">km</Text>
           </View>
 
+          {/* Completado */}
           <View className="flex-row items-center justify-between mb-4">
             <Text className="text-sm font-medium text-blue-800">Completado</Text>
             <Switch
@@ -114,11 +126,18 @@ const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
             />
           </View>
 
+          {/* Botones */}
           <View className="flex-row justify-between mt-4">
-            <TouchableOpacity onPress={onClose} className="bg-gray-300 rounded-md px-4 py-2">
+            <TouchableOpacity
+              onPress={onClose}
+              className="bg-gray-300 rounded-md px-4 py-2"
+            >
               <Text className="text-gray-800 font-semibold">Cancelar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleSave} className="bg-blue-500 rounded-md px-4 py-2">
+            <TouchableOpacity
+              onPress={handleSave}
+              className="bg-blue-500 rounded-md px-4 py-2"
+            >
               <Text className="text-white font-semibold">Aceptar</Text>
             </TouchableOpacity>
           </View>

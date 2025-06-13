@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 export type Task = {
+  id: string;
   title: string;
   description: string;
   type: string;
@@ -15,9 +16,7 @@ export const useTaskManager = (initialTasks: Task[]) => {
   const updateTask = (updatedTask: Task) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        task.title === updatedTask.title && task.date === updatedTask.date
-          ? updatedTask
-          : task
+        task.id === updatedTask.id ? updatedTask : task
       )
     );
   };
