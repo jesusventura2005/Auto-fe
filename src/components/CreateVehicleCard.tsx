@@ -5,7 +5,7 @@ import { router } from 'expo-router'
 const CreateVehicleCard = () => {
   return (
 
-    <TouchableOpacity className="flex h-[200px]  w-11/12 flex-col items-center justify-center rounded-xl bg-white shadow-md"
+    <TouchableOpacity className="flex h-[200px] mb-80  w-11/12 flex-col items-center justify-center rounded-xl bg-white shadow-md"
     onPress={() => router.push('(maintenance)/RegisterVehicle')}
     >
         <Ionicons name="create" size={120} color="#888" />
