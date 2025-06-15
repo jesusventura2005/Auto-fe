@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '~/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
@@ -15,6 +15,7 @@ interface AddVehicleParams {
 }
 
 const useAddVehicle = () => {
+  const queryClient = useQueryClient();
   const { authState } = useAuth();
 
   const addVehicleMutation = useMutation({
@@ -51,9 +52,8 @@ const useAddVehicle = () => {
     onSuccess: (response) => {
       console.log(response);
       console.log(response.data);
-      router.push('/Dashboard')
-      
-
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+      router.push('/Dashboard');
     },
     onError: (error) => {
       console.error('Mutation error:', error);
