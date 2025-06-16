@@ -1,12 +1,25 @@
-import { useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Card } from '~/components/Card';
 import CreateVehicleCard from '~/components/CreateVehicleCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useAuth } from '~/context/AuthContext';
+import { jwtDecode } from 'jwt-decode';
+import { JwtPayload } from 'jsonwebtoken';
 
 const Dashboard = () => {
+  const { authState } = useAuth();
+
+  const user = authState?.token;
+
+  if (!user) {
+    throw new Error('no User');
+  }
+
+  const decode = jwtDecode<JwtPayload>(user);
+  const owner = decode._id;
+
   const VehiclesList = () => {
     const {
       data: vehicles,
@@ -16,7 +29,7 @@ const Dashboard = () => {
     } = useQuery({
       queryKey: ['vehicles'],
       queryFn: async () => {
-        const response = await axios.get(`http://localhost:3000/cars/6835050ec4e9f8af39fc9314`);
+        const response = await axios.get(`http://localhost:3000/cars/${owner}`);
         return response.data;
       },
     });
@@ -31,7 +44,7 @@ const Dashboard = () => {
 
     return vehicles.map((vehicle: any) => (
       <Card
-        key={vehicle.id}
+        key={vehicle._id}
         kilometers={vehicle.kilometers || 0}
         age={vehicle.age}
         lastService={vehicle.plate}
@@ -50,13 +63,6 @@ const Dashboard = () => {
             alignItems: 'center',
             gap: 24,
           }}>
-          {/* <Card
-            kilometers={200}
-            lastService="20/05/2003"
-            age={2003}
-            brand="Toyota"
-            model="Camry"></Card> */}
-
           <VehiclesList></VehiclesList>
 
           <CreateVehicleCard></CreateVehicleCard>

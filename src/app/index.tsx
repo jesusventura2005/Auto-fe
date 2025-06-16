@@ -14,7 +14,6 @@ const Index = () => {
   useEffect(() => {
     if (authState?.authenticated) {
       router.replace('(home)/Dashboard');
-      console.log('hola');
     }
   });
   return (
