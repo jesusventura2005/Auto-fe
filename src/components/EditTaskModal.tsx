@@ -1,17 +1,8 @@
-import {
-  Modal,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Pressable,
-  Switch,
-  Platform,
-} from 'react-native';
-import { Task } from './useTaskManager';
 import { useState } from 'react';
+import { Modal, View, Text, TextInput, TouchableOpacity, Switch, Pressable } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker';
+import { Task } from './useTaskManager';
+import { CalendarDays, FileText, Fuel, Settings, Wrench } from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
@@ -20,129 +11,115 @@ type Props = {
   onUpdate: (updatedTask: Task) => void;
 };
 
-const types = ['Oil Change', 'Tire Rotation', 'Brake Inspection', 'Other'];
-
 const EditTaskModal = ({ visible, task, onClose, onUpdate }: Props) => {
-  const [updatedTask, setUpdatedTask] = useState<Task>(task);
+  const [editedTask, setEditedTask] = useState<Task>({ ...task });
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleChange = (field: keyof Task, value: string | boolean) => {
-    setUpdatedTask((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleDateChange = (_event: any, selectedDate?: Date) => {
+  const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split('T')[0];
-      handleChange('date', formattedDate);
+      setEditedTask({ ...editedTask, date: selectedDate.toISOString().split('T')[0] });
     }
   };
 
-  const handleSave = () => {
-    onUpdate(updatedTask);
-    onClose();
-  };
+  const inputStyle = "bg-gray-100 rounded-md p-3 pl-10 text-gray-800 mb-4";
+  const labelStyle = "text-gray-700 font-medium mb-1";
 
   return (
-    <Modal visible={visible} animationType="fade" transparent>
-      <Pressable
-        onPress={onClose}
-        className="flex-1 bg-black/40 justify-center items-center"
-      >
-        <Pressable
-          onPress={(e) => e.stopPropagation()}
-          className="bg-white rounded-lg p-6 w-11/12"
-        >
-          <Text className="text-xl font-bold text-blue-900 mb-4">Datos de la tarea</Text>
+    <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
+      <View className="flex-1 justify-center items-center bg-black/70">
+        <View className="bg-white rounded-2xl w-11/12 p-6">
+          <Text className="text-2xl font-bold text-blue-800 mb-6 text-center">Editar Mantenimiento</Text>
 
-          {/* Título */}
-          <Text className="text-sm font-medium text-blue-800 mb-1">Título</Text>
-          <TextInput
-            value={updatedTask.title}
-            onChangeText={(text) => handleChange('title', text)}
-            className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
-          />
-
-          {/* Descripción */}
-          <Text className="text-sm font-medium text-blue-800 mb-1">Descripción</Text>
-          <TextInput
-            value={updatedTask.description}
-            onChangeText={(text) => handleChange('description', text)}
-            className="border rounded-md px-3 py-2 mb-3 border-blue-300 text-blue-900"
-          />
-
-          {/* Tipo */}
-          <Text className="text-sm font-medium text-blue-800 mb-1">Tipo</Text>
-          <View className="border rounded-md px-3 py-2 mb-3 border-blue-300">
-            <Picker
-              selectedValue={updatedTask.type}
-              onValueChange={(itemValue) => handleChange('type', itemValue)}
-              style={{ color: '#1e3a8a', fontSize: 16 }}
-              dropdownIconColor="#1e3a8a"
-            >
-              {types.map((type) => (
-                <Picker.Item key={type} label={type} value={type} />
-              ))}
-            </Picker>
+          <Text className={labelStyle}>Título</Text>
+          <View className="relative">
+            <Wrench className="absolute left-3 top-4 text-gray-500" size={18} />
+            <TextInput
+              value={editedTask.title}
+              onChangeText={(text) => setEditedTask({ ...editedTask, title: text })}
+              placeholder="Título"
+              className={inputStyle}
+            />
           </View>
 
-          {/* Fecha */}
-          <Text className="text-sm font-medium text-blue-800 mb-1">Fecha</Text>
-          <TouchableOpacity
-            onPress={() => setShowDatePicker(true)}
-            className="border rounded-md px-3 py-2 mb-3 border-blue-300"
-          >
-            <Text className="text-blue-900">{updatedTask.date}</Text>
-          </TouchableOpacity>
+          <Text className={labelStyle}>Descripción</Text>
+          <View className="relative">
+            <FileText className="absolute left-3 top-4 text-gray-500" size={18} />
+            <TextInput
+              value={editedTask.description}
+              onChangeText={(text) => setEditedTask({ ...editedTask, description: text })}
+              placeholder="Descripción"
+              className={inputStyle}
+            />
+          </View>
+
+          <Text className={labelStyle}>Tipo</Text>
+          <View className="relative">
+            <Settings className="absolute left-3 top-4 text-gray-500" size={18} />
+            <TextInput
+              value={editedTask.type}
+              onChangeText={(text) => setEditedTask({ ...editedTask, type: text })}
+              placeholder="Tipo"
+              className={inputStyle}
+            />
+          </View>
+
+          <Text className={labelStyle}>Fecha</Text>
+          <Pressable onPress={() => setShowDatePicker(true)}>
+            <View className="relative">
+              <CalendarDays className="absolute left-3 top-4 text-gray-500" size={18} />
+              <TextInput
+                value={editedTask.date}
+                editable={false}
+                className={inputStyle}
+              />
+            </View>
+          </Pressable>
           {showDatePicker && (
             <DateTimePicker
-              value={new Date(updatedTask.date)}
+              value={new Date(editedTask.date)}
               mode="date"
-              display={Platform.OS === 'ios' ? 'spinner' : 'calendar'} // 📅 Calendario emergente
+              display="default"
               onChange={handleDateChange}
             />
           )}
 
-          {/* Kilometraje */}
-          <Text className="text-sm font-medium text-blue-800 mb-1">Kilometraje</Text>
-          <View className="flex-row items-center border rounded-md px-3 py-2 mb-3 border-blue-300">
+          <Text className={labelStyle}>Kilometraje</Text>
+          <View className="relative">
+            <Fuel className="absolute left-3 top-4 text-gray-500" size={18} />
             <TextInput
-              value={updatedTask.kilometraje.replace(' km', '')}
+              value={editedTask.kilometraje}
+              onChangeText={(text) => setEditedTask({ ...editedTask, kilometraje: text })}
+              placeholder="Kilometraje"
               keyboardType="numeric"
-              onChangeText={(text) => handleChange('kilometraje', `${text}`)}
-              className="flex-1 text-blue-900"
+              className={inputStyle}
             />
-            <Text className="text-blue-500 ml-2">km</Text>
           </View>
 
-          {/* Completado */}
-          <View className="flex-row items-center justify-between mb-4">
-            <Text className="text-sm font-medium text-blue-800">Completado</Text>
+          <View className="flex-row items-center justify-between mt-2 mb-4">
+            <Text className="text-gray-700 font-medium">¿Completado?</Text>
             <Switch
-              value={updatedTask.completado}
-              onValueChange={(val) => handleChange('completado', val)}
-              thumbColor={updatedTask.completado ? '#2563eb' : '#e5e7eb'}
-              trackColor={{ true: '#93c5fd', false: '#cbd5e1' }}
+              value={editedTask.completado}
+              onValueChange={(value) => setEditedTask({ ...editedTask, completado: value })}
             />
           </View>
 
-          {/* Botones */}
-          <View className="flex-row justify-between mt-4">
+          <View className="flex-row justify-between">
             <TouchableOpacity
               onPress={onClose}
-              className="bg-gray-300 rounded-md px-4 py-2"
+              className="flex-1 bg-gray-300 py-3 rounded-lg mr-2"
             >
-              <Text className="text-gray-800 font-semibold">Cancelar</Text>
+              <Text className="text-center text-gray-800 font-medium">Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={handleSave}
-              className="bg-blue-500 rounded-md px-4 py-2"
+              onPress={() => onUpdate(editedTask)}
+              className="flex-1 bg-blue-600 py-3 rounded-lg ml-2"
             >
-              <Text className="text-white font-semibold">Aceptar</Text>
+              <Text className="text-center text-white font-medium">Guardar</Text>
             </TouchableOpacity>
           </View>
-        </Pressable>
-      </Pressable>
+        </View>
+      </View>
     </Modal>
   );
 };
