@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import '../../global.css';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,9 +25,12 @@ export default function Layout() {
   }, [fontsLoaded, error]);
 
   useEffect(() => {
-    if (authState?.authenticated) {
-      router.replace('(home)/Dashboard');
-    }
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active' && authState?.authenticated) {
+        router.replace('(home)/Dashboard');
+      }
+    });
+    return () => subscription.remove();
   }, [authState?.authenticated, router]);
 
   if (!fontsLoaded) {
