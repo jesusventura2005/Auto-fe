@@ -14,7 +14,8 @@ const Dashboard = () => {
   const user = authState?.token;
 
   if (!user) {
-    throw new Error('no User');
+    console.error('No user token found, redirecting to login');
+    return null;
   }
 
   const decode = jwtDecode<JwtPayload>(user);
@@ -49,7 +50,8 @@ const Dashboard = () => {
         age={vehicle.age}
         lastService={vehicle.plate}
         brand={vehicle.brand}
-        model={vehicle.carModel}></Card>
+        model={vehicle.carModel}
+      />
     ));
   };
 
