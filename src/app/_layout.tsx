@@ -38,7 +38,7 @@ export default function Layout() {
       <AuthProvider>
         <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <TabBar {...props} />}>
           <Tabs.Screen
-            name="(home)/Dashboard"
+            name="(home)/index"
             options={{
               title: 'Home',
             }}

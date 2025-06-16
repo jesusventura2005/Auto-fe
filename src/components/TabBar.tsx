@@ -2,9 +2,8 @@ import { View } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButtonCustom from './TabBarButtonCustom';
 
-
 const VISIBLE_TABS = [
-  '(home)/Dashboard',
+  '(home)/index',
   '(home)/(maintenance)/maintenanceLog',
   '(home)/(maintenance)/RegisterVehicle',
   'profile',

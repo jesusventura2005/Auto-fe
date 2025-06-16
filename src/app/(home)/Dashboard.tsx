@@ -52,7 +52,8 @@ const Dashboard = () => {
         age={vehicle.age}
         lastService={vehicle.plate}
         brand={vehicle.brand}
-        model={vehicle.carModel}></Card>
+        model={vehicle.carModel}
+      />
     ));
   };
 
