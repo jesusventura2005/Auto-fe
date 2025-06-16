@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import Clock from '../assets/clock.svg';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 interface CardProps {
   age: number;

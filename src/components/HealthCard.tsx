@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function HealthCard() {
   return (
-    <View className="bg-red-400shadow-md flex w-11/12 flex-col overflow-hidden rounded-xl border-2 border-gray-200">
+    <View className="flex w-11/12 flex-col overflow-hidden rounded-xl border-2 border-gray-200">
       <View className="flex w-full flex-row items-center gap-2 bg-[#005ee2]">
         <Ionicons className="p-3" name="heart-outline" size={24} color="white" />
         <Text className="text-xl font-bold text-white">Vehicle Health</Text>

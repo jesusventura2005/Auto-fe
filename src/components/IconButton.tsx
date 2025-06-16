@@ -19,8 +19,7 @@ export default function IconButton({
       disabled={disabled}
       className={`rounded-full p-2 ${className}`}
       activeOpacity={0.7}
-      accessibilityRole="button"
-      accessibilityLabel="Icon button">
+      accessibilityRole="button">
       {icon}
     </TouchableOpacity>
   );

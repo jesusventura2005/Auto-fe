@@ -27,7 +27,7 @@ export default function Layout() {
     if (authState?.authenticated) {
       router.replace('(home)/Dashboard');
     }
-  });
+  }, [authState?.authenticated, router]);
 
   if (!fontsLoaded) {
     return null;

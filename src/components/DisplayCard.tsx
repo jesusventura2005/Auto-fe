@@ -13,7 +13,7 @@ export default function DisplayCard({ model, brand, kilometers }: DisplayCardPro
       <Ionicons name="car-outline" size={64} color="white" />
       <Text className="text-2xl font-bold text-white">{brand}</Text>
       <Text className="text-lg text-white">{model}</Text>
-      <Text className="text-lg text-white">{kilometers} kilometros</Text>
+      <Text className="text-lg text-white">{kilometers} kilometers</Text>
     </View>
   );
 }
