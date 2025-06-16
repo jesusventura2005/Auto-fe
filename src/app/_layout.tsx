@@ -1,15 +1,17 @@
-import { SplashScreen, Tabs } from 'expo-router';
+import { SplashScreen, Tabs, useRouter } from 'expo-router';
 import TabBar from '~/components/TabBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import '../../global.css';
-import { AuthProvider } from '../context/AuthContext';
+import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const queryClient = new QueryClient();
+  const { authState } = useAuth();
+  const router = useRouter();
 
   const [fontsLoaded, error] = useFonts({
     'Inter-var': require('src/assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
@@ -20,6 +22,12 @@ export default function Layout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, error]);
+
+  useEffect(() => {
+    if (authState?.authenticated) {
+      router.replace('(home)/Dashboard');
+    }
+  });
 
   if (!fontsLoaded) {
     return null;

@@ -12,12 +12,15 @@ const Dashboard = () => {
   const { authState } = useAuth();
 
   const user = authState?.token;
+  console.log('User token:', authState);
 
   if (!user) {
-    throw new Error('no User');
+    console.error('No user token found, redirecting to login');
+    return null;
   }
 
   const decode = jwtDecode<JwtPayload>(user);
+  console.log('Decoded user:', decode);
   const owner = decode._id;
 
   const VehiclesList = () => {
