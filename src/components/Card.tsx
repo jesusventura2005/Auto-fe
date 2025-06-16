@@ -13,7 +13,7 @@ interface CardProps {
 export const Card = ({ kilometers, lastService , age , brand , model }: CardProps) => {
   return (
     <View className="flex flex-col  w-11/12 h-[240px] rounded-xl bg-white shadow-md">
-      <View className=" rounded-t-xl p-3 bg-red-700 flex items-center justify-center"> 
+      <View className=" rounded-t-xl p-3 bg-[#005ee2] flex items-center justify-center"> 
         <Ionicons name="car-outline" size={86} color="white" />
         <Text className="font-bold text-white">{age} {brand}</Text>
         <Text className="text-white ">{model}</Text>
