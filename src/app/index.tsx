@@ -16,7 +16,7 @@ const Index = () => {
       <Text className="mb-6 text-center text-xl text-purple-500">Bienvenidos a nuestro app</Text>
 
       <Text className="mb-1 text-center text-3xl font-bold text-gray-900">
-        Manten tu vehiculo en
+        Mantén tu vehículo en
       </Text>
       <Text className="mb-6 text-center text-3xl font-bold text-blue-600">perfecto estado</Text>
 
