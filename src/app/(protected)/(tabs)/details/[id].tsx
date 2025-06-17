@@ -10,8 +10,6 @@ import axios from 'axios';
 
 export default function Home() {
   const { id } = useLocalSearchParams();
- 
-
   const {
     data: vehicle,
     isLoading,
@@ -20,11 +18,10 @@ export default function Home() {
   } = useQuery({
     queryKey: ['vehicle', id],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3000/cars/${id}/showIt`);
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/cars/${id}/showIt`);
       return response.data;
     },
   });
-
   if (isLoading) {
     return (
       <View className="flex h-screen items-center justify-center">
@@ -60,7 +57,11 @@ export default function Home() {
             />
             <Text className="text-center text-2xl font-bold text-gray-800">{'Regresar'}</Text>
           </View>
-          <DisplayCard model={vehicle.carModel} brand={vehicle.brand} kilometers={vehicle.kilometers || 0} />
+          <DisplayCard
+            model={vehicle.carModel}
+            brand={vehicle.brand}
+            kilometers={vehicle.kilometers || 0}
+          />
           <HealthCard />
           <View className="flex w-full flex-row items-center gap-2 rounded-lg px-6">
             <Ionicons name="flash-outline" size={24} color="#000000" />

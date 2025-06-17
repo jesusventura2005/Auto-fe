@@ -6,4 +6,4 @@ export default function ChecklistScreen() {
       <Text className="text-xl font-bold">Checklist Screen</Text>
     </View>
   );
-} 
+}

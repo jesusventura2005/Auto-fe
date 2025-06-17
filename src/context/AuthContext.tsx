@@ -16,7 +16,18 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my_jwt';
-const AuthContext = createContext<AuthProps>({});
+const AuthContext = createContext<AuthProps>({
+  authState: { token: null, authenticated: false },
+  onRegister: async () => {
+    throw new Error('onRegister not implemented');
+  },
+  onLogin: async () => {
+    throw new Error('onLogin not implemented');
+  },
+  onLogout: async () => {
+    throw new Error('onLogout not implemented');
+  },
+});
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -25,10 +36,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
-    authenticated: boolean | null;
+    authenticated: boolean;
   }>({
     token: null,
-    authenticated: null,
+    authenticated: false,
   });
 
   useEffect(() => {

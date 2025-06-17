@@ -53,6 +53,7 @@ const useAddVehicle = () => {
       console.log(response);
       console.log(response.data);
       queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+      queryClient.invalidateQueries({ queryKey: ['cars'] });
       router.push('/Dashboard');
     },
     onError: (error) => {

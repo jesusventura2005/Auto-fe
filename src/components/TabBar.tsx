@@ -3,14 +3,20 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButtonCustom from './TabBarButtonCustom';
 
 const VISIBLE_TABS = [
-  '(home)/maintenance/[id]',
-  '(home)/RegisterVehicle',
+  'maintenance/[id]',
+  'RegisterVehicle',
   'profile',
-  '(home)/details/[id]',
+  'details/[id]',
   'checklist',
 ];
 
-const noVisibleScreens = ['(auth)/register', '(auth)/login', 'index' , '(home)/Dashboard'];
+const noVisibleScreens = [
+  '(auth)/register',
+  '(auth)/login',
+  'index',
+  '(home)/Dashboard,',
+  '(home)/RegisterVehicle',
+];
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const visibleRoutes = state.routes.filter((route) => VISIBLE_TABS.includes(route.name));

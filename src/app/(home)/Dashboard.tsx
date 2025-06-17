@@ -30,7 +30,7 @@ const Dashboard = () => {
     } = useQuery({
       queryKey: ['vehicles'],
       queryFn: async () => {
-        const response = await axios.get(`http://localhost:3000/cars/${owner}`);
+        const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/cars/${owner}`);
         return response.data;
       },
     });

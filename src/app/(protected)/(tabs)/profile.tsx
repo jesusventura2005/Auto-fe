@@ -1,17 +1,26 @@
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import Button from '~/components/ButtonCmp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditProfileModal from '~/components/EditProfileModal';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { JwtPayload } from 'jsonwebtoken';
+import { Redirect, router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const { authState, onLogout } = useAuth();
+
+  console.log('Auth State:', authState?.authenticated);
+
+  if (!authState?.token) {
+    return <Redirect href="/" />;
+  }
 
   const decodedToken = jwtDecode<JwtPayload>(authState?.token!);
 
@@ -21,7 +30,6 @@ export default function ProfileScreen() {
       const response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/users/${decodedToken._id}`
       );
-      console.log('User data:', response);
       return response.data;
     },
     enabled: !!decodedToken._id,
@@ -33,7 +41,6 @@ export default function ProfileScreen() {
       const response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/cars/${decodedToken._id}`
       );
-      console.log('Cars data:', response);
       return response.data;
     },
   });
@@ -47,10 +54,7 @@ export default function ProfileScreen() {
           showsVerticalScrollIndicator={false}>
           <View className="w-11/12 items-center rounded-2xl bg-white p-4 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Profile</Text>
-            <Image
-              source={{ uri: 'https://via.placeholder.com/100' }}
-              className="mb-4 h-24 w-24 rounded-full"
-            />
+            <Ionicons name="person-circle" size={100} color="#888" />
             <Text className="text-xl font-bold text-gray-800">{user?.name}</Text>
             <Text className="text-gray-600">{user?.email}</Text>
             <Text className="mt-1 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">
@@ -71,25 +75,27 @@ export default function ProfileScreen() {
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-2 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Stats</Text>
             <View className="flex-row justify-between">
-              <View className="mr-2 flex-1 items-center rounded-xl bg-blue-100 px-4 py-6">
+              <TouchableOpacity
+                onPress={() => router.push('/(home)/Dashboard')}
+                className="mr-2 flex-1 items-center rounded-xl bg-blue-100 px-4 py-6">
                 <Text className="text-xl font-bold text-blue-600">{cars?.length}</Text>
                 <Text className="text-gray-500">Vehicles</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
 
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-3 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Settings</Text>
-
+            {/* 
             <TouchableOpacity className="flex-row items-center border-b border-gray-100 py-3">
               <Text className="text-gray-700">🌙 Theme</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Button
               title="Sign Out"
               onPress={() => {
-                // onLogout?.();
-                // router.push('/');
+                onLogout?.();
+                router.push('/');
                 console.log('Sign Out pressed');
               }}
               animated

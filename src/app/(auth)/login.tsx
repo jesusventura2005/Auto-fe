@@ -21,7 +21,6 @@ const LoginScreen = () => {
       return response;
     },
     onSuccess: (response) => {
-      console.log('Respuesta del servidor:', response.data);
       setServerError(null); // Limpiar el error del servidor al iniciar sesión correctamente
       router.push('/(home)/Dashboard'); // Redirigir al dashboard después de iniciar sesión
     },
@@ -43,7 +42,6 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log('Datos del formulario:', data);
     loginMutation.mutateAsync(data);
   };
 
