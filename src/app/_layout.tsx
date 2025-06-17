@@ -14,6 +14,8 @@ export default function Layout() {
   const router = useRouter();
   const didMount = useRef(false);
 
+  console.log('Auth State:', authState);
+
   const [fontsLoaded, error] = useFonts({
     'Inter-var': require('src/assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });

@@ -15,6 +15,8 @@ export default function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const { authState, onLogout } = useAuth();
 
+  console.log('Auth State:', authState?.authenticated);
+
   const decodedToken = jwtDecode<JwtPayload>(authState?.token!);
 
   console.log('Decoded Token:', decodedToken);
@@ -70,10 +72,12 @@ export default function ProfileScreen() {
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-2 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Stats</Text>
             <View className="flex-row justify-between">
-              <View className="mr-2 flex-1 items-center rounded-xl bg-blue-100 px-4 py-6">
+              <TouchableOpacity
+                onPress={() => router.push('/(home)/Dashboard')}
+                className="mr-2 flex-1 items-center rounded-xl bg-blue-100 px-4 py-6">
                 <Text className="text-xl font-bold text-blue-600">{cars?.length}</Text>
                 <Text className="text-gray-500">Vehicles</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
 

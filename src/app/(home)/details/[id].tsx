@@ -10,9 +10,6 @@ import axios from 'axios';
 
 export default function Home() {
   const { id } = useLocalSearchParams();
-
-  console.log('Vehicle ID:', id);
-
   const {
     data: vehicle,
     isLoading,
@@ -25,9 +22,6 @@ export default function Home() {
       return response.data;
     },
   });
-
-  console.log('Vehicle Data:', vehicle);
-
   if (isLoading) {
     return (
       <View className="flex h-screen items-center justify-center">

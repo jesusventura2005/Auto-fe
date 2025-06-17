@@ -42,7 +42,6 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log('Datos del formulario:', data);
     loginMutation.mutateAsync(data);
   };
 
