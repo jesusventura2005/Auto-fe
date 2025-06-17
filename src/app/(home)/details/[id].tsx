@@ -18,7 +18,7 @@ export default function Home() {
   } = useQuery({
     queryKey: ['vehicle', id],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3000/cars/${id}/showIt`);
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/cars/${id}/showIt`);
       return response.data;
     },
   });

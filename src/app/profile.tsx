@@ -1,7 +1,7 @@
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import Button from '~/components/ButtonCmp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditProfileModal from '~/components/EditProfileModal';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
@@ -18,8 +18,6 @@ export default function ProfileScreen() {
   console.log('Auth State:', authState?.authenticated);
 
   const decodedToken = jwtDecode<JwtPayload>(authState?.token!);
-
-  console.log('Decoded Token:', decodedToken);
 
   const { data: user } = useQuery({
     queryKey: ['user', decodedToken._id],
@@ -83,10 +81,10 @@ export default function ProfileScreen() {
 
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-3 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Settings</Text>
-
+            {/* 
             <TouchableOpacity className="flex-row items-center border-b border-gray-100 py-3">
               <Text className="text-gray-700">🌙 Theme</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Button
               title="Sign Out"
