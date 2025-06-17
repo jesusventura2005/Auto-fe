@@ -33,7 +33,7 @@ const RegisterScreen = () => {
       return response;
     },
     onSuccess: (response) => {
-      router.push('/');
+      router.push('(protected)/(tabs)/Dashboard'); // Redirigir al dashboard después de registrarse
     },
     onError: (error) => {
       console.error('Error:', error);
