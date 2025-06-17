@@ -5,7 +5,6 @@ import { useFonts } from 'expo-font';
 import '../../global.css';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
-import { AppState } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,6 +12,8 @@ export default function Layout() {
   const queryClient = new QueryClient();
   const { authState } = useAuth();
   const router = useRouter();
+
+  console.log(authState?.authenticated)
 
   const [fontsLoaded, error] = useFonts({
     'Inter-var': require('src/assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
@@ -24,13 +25,13 @@ export default function Layout() {
     }
   }, [fontsLoaded, error]);
 
-  useEffect(() => {
-    if (authState?.authenticated) {
-      router.push('(home)/Dashboard');
-    } else {
-      router.push('/');
-    }
-  }, [authState?.authenticated, router]);
+  // useEffect(() => {
+  //   if (authState?.authenticated) {
+  //     router.push('(home)/Dashboard');
+  //   } else {
+  //     router.push('/');
+  //   }
+  // }, [authState?.authenticated, router]);
 
   // useEffect(() => {
   //   const subscription = AppState.addEventListener('change', (state) => {
@@ -50,19 +51,19 @@ export default function Layout() {
       <AuthProvider>
         <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <TabBar {...props} />}>
           <Tabs.Screen
-            name="(home)/index"
+            name="(home)/details/[id]"
             options={{
               title: 'Home',
             }}
           />
           <Tabs.Screen
-            name="(home)/(maintenance)/maintenanceLog"
+            name="(home)/maintenance/[id]"
             options={{
               title: 'Maintenance',
             }}
           />
           <Tabs.Screen
-            name="(home)/(maintenance)/RegisterVehicle"
+            name="(home)/RegisterVehicle"
             options={{
               title: '+',
             }}
