@@ -3,10 +3,10 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarButtonCustom from './TabBarButtonCustom';
 
 const VISIBLE_TABS = [
-  '(home)/maintenance/[id]',
-  '(home)/RegisterVehicle',
+  'maintenance/[id]',
+  'RegisterVehicle',
   'profile',
-  '(home)/details/[id]',
+  'details/[id]',
   'checklist',
 ];
 
@@ -14,7 +14,7 @@ const noVisibleScreens = [
   '(auth)/register',
   '(auth)/login',
   'index',
-  '(home)/Dashboard',
+  '(home)/Dashboard,',
   '(home)/RegisterVehicle',
 ];
 

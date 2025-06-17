@@ -1,4 +1,4 @@
-import { SplashScreen, Tabs, useRouter } from 'expo-router';
+import { SplashScreen, Stack, Tabs, useRouter } from 'expo-router';
 import TabBar from '~/components/TabBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
@@ -54,38 +54,21 @@ export default function Layout() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <TabBar {...props} />}>
-          <Tabs.Screen
-            name="(home)/details/[id]"
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="(protected)"
             options={{
-              title: 'Home',
+              headerShown: false,
+              animation: 'none',
             }}
           />
-          <Tabs.Screen
-            name="(home)/maintenance/[id]"
+          <Stack.Screen
+            name="index"
             options={{
-              title: 'Maintenance',
+              animation: 'none',
             }}
           />
-          <Tabs.Screen
-            name="(home)/RegisterVehicle"
-            options={{
-              title: '+',
-            }}
-          />
-          <Tabs.Screen
-            name="checklist"
-            options={{
-              title: 'Checklist',
-            }}
-          />
-          <Tabs.Screen
-            name="profile"
-            options={{
-              title: 'Profile',
-            }}
-          />
-        </Tabs>
+        </Stack>
       </AuthProvider>
     </QueryClientProvider>
   );

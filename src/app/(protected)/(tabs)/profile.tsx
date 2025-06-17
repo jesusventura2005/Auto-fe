@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import Button from '~/components/ButtonCmp';
@@ -8,7 +9,7 @@ import { useAuth } from '~/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { JwtPayload } from 'jsonwebtoken';
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ProfileScreen() {
@@ -16,6 +17,10 @@ export default function ProfileScreen() {
   const { authState, onLogout } = useAuth();
 
   console.log('Auth State:', authState?.authenticated);
+
+  if (!authState?.token) {
+    return <Redirect href="/" />;
+  }
 
   const decodedToken = jwtDecode<JwtPayload>(authState?.token!);
 
@@ -89,7 +94,7 @@ export default function ProfileScreen() {
             <Button
               title="Sign Out"
               onPress={() => {
-                // onLogout?.();
+                onLogout?.();
                 router.push('/');
                 console.log('Sign Out pressed');
               }}
