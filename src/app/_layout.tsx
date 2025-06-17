@@ -25,13 +25,21 @@ export default function Layout() {
   }, [fontsLoaded, error]);
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (state) => {
-      if (state === 'active' && authState?.authenticated) {
-        router.replace('(home)/Dashboard');
-      }
-    });
-    return () => subscription.remove();
+    if (authState?.authenticated) {
+      router.push('(home)/Dashboard');
+    } else {
+      router.push('/');
+    }
   }, [authState?.authenticated, router]);
+
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', (state) => {
+  //     if (state === 'active' && authState?.authenticated) {
+  //       router.push('(home)/Dashboard');
+  //     }
+  //   });
+  //   return () => subscription.remove();
+  // }, [authState?.authenticated, router]);
 
   if (!fontsLoaded) {
     return null;
