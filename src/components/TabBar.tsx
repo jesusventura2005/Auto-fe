@@ -14,7 +14,7 @@ const noVisibleScreens = [
   '(auth)/register',
   '(auth)/login',
   'index',
-  '(home)/Dashboard,',
+  '(home)/Dashboard',
   '(home)/RegisterVehicle',
 ];
 

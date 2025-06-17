@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { JwtPayload } from 'jsonwebtoken';
 import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -48,10 +49,7 @@ export default function ProfileScreen() {
           showsVerticalScrollIndicator={false}>
           <View className="w-11/12 items-center rounded-2xl bg-white p-4 shadow-md">
             <Text className="mb-4 text-lg font-bold text-gray-800">Profile</Text>
-            <Image
-              source={{ uri: 'https://via.placeholder.com/100' }}
-              className="mb-4 h-24 w-24 rounded-full"
-            />
+            <Ionicons name="person-circle" size={100} color="#888" />
             <Text className="text-xl font-bold text-gray-800">{user?.name}</Text>
             <Text className="text-gray-600">{user?.email}</Text>
             <Text className="mt-1 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700">
