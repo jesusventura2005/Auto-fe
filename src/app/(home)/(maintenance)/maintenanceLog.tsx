@@ -68,8 +68,11 @@ const MaintenanceLog = () => {
   };
 
   return (
-    <View className="flex-1 bg-white px-4 pt-10">
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <View className="flex-1 bg-white pt-10">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}
+      >
         <SectionTitle title="Historial de mantenimiento" />
 
         <View className="mt-4">
@@ -101,7 +104,7 @@ const MaintenanceLog = () => {
 
       <TouchableOpacity
         onPress={handleAddNewTask}
-        className="absolute bottom-6 right-6 bg-blue-600 p-4 rounded-full shadow-md"
+        className="absolute bottom-6 right-6 bg-blue-600 p-4 rounded-full shadow-lg"
       >
         <Plus color="white" size={24} />
       </TouchableOpacity>

@@ -1,5 +1,6 @@
-import { TouchableOpacity, Text, View } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Task } from './useTaskManager';
+import { Calendar, FileText, Wrench, Gauge, Tag } from 'lucide-react-native';
 
 type Props = {
   task: Task;
@@ -7,24 +8,50 @@ type Props = {
 };
 
 const TaskItem = ({ task, onPress }: Props) => {
-  const backgroundColor = task.completado ? 'bg-emerald-100' : 'bg-sky-100';
-  const statusColor = task.completado ? 'bg-teal-300' : 'bg-amber-300';
-  const statusTextColor = task.completado ? 'text-indigo-950' : 'text-indigo-950';
-  const statusLabel = task.completado ? 'Completado' : 'Pendiente';
+  const isCompleted = task.completado;
+
+  const headerColor = isCompleted ? '#10b981' : '#deb900';
+  const headerText = isCompleted ? 'Completado' : 'Pendiente';
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex-row justify-between items-center ${backgroundColor} rounded-xl px-4 py-5 mb-4 border border-blue-300`}
+      className="w-full rounded-xl border border-gray-200 mb-4 bg-white overflow-hidden shadow-sm"
+      style={{ borderRadius: 11 }}
     >
-      <View className="flex-row justify-between items-start">
-        <View className="flex-1 pr-3">
-          <Text className="text-black font-semibold text-base">{task.title}</Text>
-          <Text className="text-black text-sm mt-1">{task.description}</Text>
-          <Text className="text-black text-sm mt-1">{task.date} • {task.kilometraje}</Text>
+      {/* Header de estado */}
+      <View className="flex-row items-center px-4 py-2" style={{ backgroundColor: headerColor }}>
+        <Wrench size={20} color="white" />
+        <Text className="ml-2 font-semibold text-white">{headerText}</Text>
+      </View>
+
+      {/* Cuerpo de la tarjeta */}
+      <View className="p-4 space-y-3">
+        {/* Título */}
+        <Text className="text-lg font-bold text-black">{task.title}</Text>
+
+        {/* Descripción */}
+        <View className="flex-row items-start">
+          <FileText size={16} color="#6b7280" className="mr-2" />
+          <Text className="text-gray-600 text-sm">{task.description}</Text>
         </View>
-        <View className={`px-3 py-1 rounded-full ${statusColor}`}>
-          <Text className={`text-s font-medium ${statusTextColor}`}>{statusLabel}</Text>
+
+        {/* Tipo */}
+        <View className="flex-row items-center">
+          <Tag size={16} color="#6b7280" className="mr-2" />
+          <Text className="text-gray-600 text-sm">{task.type}</Text>
+        </View>
+
+        {/* Fecha */}
+        <View className="flex-row items-center">
+          <Calendar size={16} color="#6b7280" className="mr-2" />
+          <Text className="text-gray-600 text-sm">{task.date}</Text>
+        </View>
+
+        {/* Kilometraje */}
+        <View className="flex-row items-center">
+          <Gauge size={16} color="#6b7280" className="mr-2" />
+          <Text className="text-gray-600 text-sm">{task.kilometraje}</Text>
         </View>
       </View>
     </TouchableOpacity>
