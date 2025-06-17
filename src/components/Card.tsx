@@ -1,8 +1,10 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Clock from '../assets/clock.svg';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 interface CardProps {
+  id: string;
   age: number;
   kilometers: number;
   lastService: string;
@@ -10,9 +12,11 @@ interface CardProps {
   model: string;
 }
 
-export const Card = ({ kilometers, lastService, age, brand, model }: CardProps) => {
+export const Card = ({ id, kilometers, lastService, age, brand, model }: CardProps) => {
   return (
-    <View className="flex h-[240px]  w-11/12 flex-col rounded-xl bg-white shadow-md">
+    <TouchableOpacity
+      onPress={() => router.push(`/details/${id}`)}
+      className="flex h-[240px]  w-11/12 flex-col rounded-xl bg-white shadow-md">
       <View className=" flex items-center justify-center rounded-t-xl bg-[#005ee2] p-3">
         <Ionicons name="car-outline" size={86} color="white" />
         <Text className="font-bold text-white">
@@ -32,6 +36,6 @@ export const Card = ({ kilometers, lastService, age, brand, model }: CardProps) 
           <Text className="text-[#65768a]">Last service: {lastService}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
