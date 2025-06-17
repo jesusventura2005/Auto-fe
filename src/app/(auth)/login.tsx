@@ -21,7 +21,6 @@ const LoginScreen = () => {
       return response;
     },
     onSuccess: (response) => {
-      console.log('Respuesta del servidor:', response.data);
       setServerError(null); // Limpiar el error del servidor al iniciar sesión correctamente
       router.push('/(home)/Dashboard'); // Redirigir al dashboard después de iniciar sesión
     },

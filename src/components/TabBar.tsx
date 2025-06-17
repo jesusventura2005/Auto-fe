@@ -10,7 +10,13 @@ const VISIBLE_TABS = [
   'checklist',
 ];
 
-const noVisibleScreens = ['(auth)/register', '(auth)/login', 'index' , '(home)/Dashboard'];
+const noVisibleScreens = [
+  '(auth)/register',
+  '(auth)/login',
+  'index',
+  '(home)/Dashboard,',
+  '(home)/RegisterVehicle',
+];
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const visibleRoutes = state.routes.filter((route) => VISIBLE_TABS.includes(route.name));

@@ -8,6 +8,7 @@ import { useAuth } from '~/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { JwtPayload } from 'jsonwebtoken';
+import { router } from 'expo-router';
 
 export default function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -15,13 +16,14 @@ export default function ProfileScreen() {
 
   const decodedToken = jwtDecode<JwtPayload>(authState?.token!);
 
+  console.log('Decoded Token:', decodedToken);
+
   const { data: user } = useQuery({
     queryKey: ['user', decodedToken._id],
     queryFn: async () => {
       const response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/users/${decodedToken._id}`
       );
-      console.log('User data:', response);
       return response.data;
     },
     enabled: !!decodedToken._id,
@@ -33,7 +35,6 @@ export default function ProfileScreen() {
       const response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/cars/${decodedToken._id}`
       );
-      console.log('Cars data:', response);
       return response.data;
     },
   });
@@ -89,7 +90,7 @@ export default function ProfileScreen() {
               title="Sign Out"
               onPress={() => {
                 // onLogout?.();
-                // router.push('/');
+                router.push('/');
                 console.log('Sign Out pressed');
               }}
               animated

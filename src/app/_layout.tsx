@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import '../../global.css';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,8 +12,7 @@ export default function Layout() {
   const queryClient = new QueryClient();
   const { authState } = useAuth();
   const router = useRouter();
-
-  console.log(authState?.authenticated)
+  const didMount = useRef(false);
 
   const [fontsLoaded, error] = useFonts({
     'Inter-var': require('src/assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
@@ -26,6 +25,10 @@ export default function Layout() {
   }, [fontsLoaded, error]);
 
   // useEffect(() => {
+  //   if (!didMount.current) {
+  //     didMount.current = true;
+  //     return;
+  //   }
   //   if (authState?.authenticated) {
   //     router.push('(home)/Dashboard');
   //   } else {

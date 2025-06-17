@@ -10,7 +10,8 @@ import axios from 'axios';
 
 export default function Home() {
   const { id } = useLocalSearchParams();
- 
+
+  console.log('Vehicle ID:', id);
 
   const {
     data: vehicle,
@@ -24,6 +25,8 @@ export default function Home() {
       return response.data;
     },
   });
+
+  console.log('Vehicle Data:', vehicle);
 
   if (isLoading) {
     return (
@@ -60,7 +63,11 @@ export default function Home() {
             />
             <Text className="text-center text-2xl font-bold text-gray-800">{'Regresar'}</Text>
           </View>
-          <DisplayCard model={vehicle.carModel} brand={vehicle.brand} kilometers={vehicle.kilometers || 0} />
+          <DisplayCard
+            model={vehicle.carModel}
+            brand={vehicle.brand}
+            kilometers={vehicle.kilometers || 0}
+          />
           <HealthCard />
           <View className="flex w-full flex-row items-center gap-2 rounded-lg px-6">
             <Ionicons name="flash-outline" size={24} color="#000000" />
