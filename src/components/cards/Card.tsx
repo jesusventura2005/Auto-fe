@@ -19,7 +19,7 @@ export const Card = ({ id, kilometers, lastService, age, brand, model }: CardPro
       className="flex h-[240px]  w-11/12 flex-col rounded-xl bg-color-bg dark:bg-color-bg-dark dark:border dark:border-color-border-dark shadow-md">
       <View className=" flex items-center justify-center rounded-t-xl bg-[#005ee2] p-3">
         <Ionicons name="car-outline" size={86} color="white" />
-        <Text className="font-bold text-color-text dark:text-color-text-dark">
+        <Text className="font-bold text-color-bg dark:text-color-text-dark">
           {age} {brand}
         </Text>
         <Text className="text-white ">{model}</Text>

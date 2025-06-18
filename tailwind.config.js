@@ -16,7 +16,7 @@ module.exports = {
         'color-title': '#009de2',
         'color-title-dark': '#ffffff',
         'color-primary': '#0059d8',
-        'color-secondary': '#009de2',
+        'color-secondary': '#0059d8',
         'color-border-dark': '#1a2431',
         'color-alert': '#f6363d',
         'color-alternative': '#eff4f8',

@@ -27,10 +27,10 @@ const Input = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View className="mb-5">
+    <View className="mb-5 ">
       <Text className="text-color-text dark:text-color-text-dark mb-2 font-semibold">{label}</Text>
       <View
-        className={`bg-color-bg dark:bg-color-bg-dark flex-row items-center rounded-xl border dark:border-color-border-dark px-4 ${
+        className={` py-3 bg-color-bg dark:bg-color-bg-dark flex-row items-center rounded-xl border dark:border-color-border-dark px-4 ${
           isFocused ? 'border-color-secondary dark:border-color-secondary' : 'border-gray-200'
         }`}>
         {icon}
@@ -48,7 +48,7 @@ const Input = ({
                   setIsFocused(false);
                 }}
                 onFocus={() => setIsFocused(true)}
-                className="flex-1 py-3 text-xl dark:text-color-text-dark "
+                className="flex-1 leading-[20px]  text-xl dark:text-color-text-dark   "
                 placeholder={placeholder}
                 placeholderTextColor="#999"
                 secureTextEntry={secureTextEntry && !showPassword}

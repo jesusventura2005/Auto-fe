@@ -30,7 +30,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   return (
     <View
       className={`absolute bottom-10 mx-5 w-11/12 flex-1
-     flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-md 
+     flex-row items-center justify-between rounded-3xl bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-4 shadow-md 
      shadow-black blur-xl `}>
       {visibleRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -64,7 +64,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         return (
           <TabBarButtonCustom
-            text={`${label === '+' ? 'text-4xl text-white' : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px]'}`}
+            text={`${label === '+' ? 'text-4xl text-white dark:text- '  : isFocused ? ' text-[8px] text-blue-600' : 'text-[8px] dark:text-[#ffffff] '}`}
             key={index}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarLabel ? String(options.tabBarLabel) : undefined}

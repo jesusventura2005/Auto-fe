@@ -28,10 +28,10 @@ const Index = () => {
 
       <View className="mb-2 w-full flex-col items-center gap-4">
         <Link href="/(auth)/login" asChild>
-          <ButtonCmp title="Iniciar sesión" className="w-64 rounded-3xl bg-color-primary/80 py-5 text-lg" />
+          <ButtonCmp title="Iniciar sesión" className="w-64 rounded-3xl bg-color-primary py-5 text-lg" />
         </Link>
         <Link href="/(auth)/register" asChild>
-          <ButtonCmp title="Registrarse" className="w-64 rounded-3xl bg-color-secondary py-5 text-lg" />
+          <ButtonCmp title="Registrarse" className="w-64 rounded-3xl bg-color-primary/70 py-5 text-lg" />
         </Link>
       </View>
     </ScrollView>
