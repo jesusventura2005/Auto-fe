@@ -1,8 +1,8 @@
 import { TouchableOpacity, Text, View } from 'react-native';
-import Home from '../assets/home.svg';
-import Maintenance from '../assets/maintenance.svg';
-import User from '../assets/user.svg';
-import Checklist from '../assets/checklist.svg';
+import Home from '../../assets/home.svg';
+import Maintenance from '../../assets/maintenance.svg';
+import User from '../../assets/user.svg';
+import Checklist from '../../assets/checklist.svg';
 
 interface TabBarButtonCustomProps {
   label: string;

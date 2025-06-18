@@ -1,10 +1,16 @@
 import { Modal, View, Text, Image, Pressable } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { RegisterInput } from '~/components/RegisterInput';
-import Button from '~/components/ButtonCmp';
+import { RegisterInput } from '~/components/forms/RegisterInput';
+import Button from '~/components/ui/ButtonCmp';
 import { useState } from 'react';
 
-export default function EditProfileModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+export default function EditProfileModal({
+  visible,
+  onClose,
+}: {
+  visible: boolean;
+  onClose: () => void;
+}) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       name: 'John Doe',
@@ -26,26 +32,26 @@ export default function EditProfileModal({ visible, onClose }: { visible: boolea
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
-      <View className="flex-1 justify-center items-center bg-black/50">
-        <View className="bg-white rounded-2xl p-6 w-11/12">
-          <Text className="text-xl font-bold text-center mb-4">Edit Your Profile</Text>
+      <View className="flex-1 items-center justify-center bg-black/50">
+        <View className="w-11/12 rounded-2xl bg-white p-6">
+          <Text className="mb-4 text-center text-xl font-bold">Edit Your Profile</Text>
 
-          <View className="items-center mb-4">
+          <View className="mb-4 items-center">
             <Image
               source={{ uri: 'https://via.placeholder.com/100' }}
-              className="w-24 h-24 rounded-full"
+              className="h-24 w-24 rounded-full"
             />
           </View>
 
           {['name', 'email', 'password'].map((field) => (
             <View key={field} className="mb-6">
-              <Text className="text-blue-700 font-semibold capitalize mb-1">{field}</Text>
+              <Text className="mb-1 font-semibold capitalize text-blue-700">{field}</Text>
               <RegisterInput
                 name={field}
                 control={control}
                 placeholder={`Enter ${field}`}
                 label={''}
-                rules={{}} 
+                rules={{}}
               />
             </View>
           ))}
@@ -54,7 +60,7 @@ export default function EditProfileModal({ visible, onClose }: { visible: boolea
             animated
             title="Update Profile"
             onPress={handleSubmit(onSubmit)}
-            className="bg-black rounded-xl px-6 py-3 mt-4"
+            className="mt-4 rounded-xl bg-black px-6 py-3"
             classNameText="text-white"
           />
 

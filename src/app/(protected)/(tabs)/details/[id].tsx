@@ -1,9 +1,9 @@
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import IconButton from '~/components/IconButton';
-import DisplayCard from '~/components/DisplayCard';
-import HealthCard from '~/components/HealthCard';
+import IconButton from '~/components/ui/IconButton';
+import DisplayCard from '~/components/cards/DisplayCard';
+import HealthCard from '~/components/cards/HealthCard';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

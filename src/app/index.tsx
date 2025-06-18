@@ -1,6 +1,6 @@
 import { View, ScrollView, Text, Image } from 'react-native';
 import { Link } from 'expo-router';
-import Button from '~/components/ButtonCmp';
+import Button from '~/components/ui/ButtonCmp';
 
 const Index = () => {
   return (

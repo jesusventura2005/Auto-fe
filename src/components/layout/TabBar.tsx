@@ -15,7 +15,7 @@ const noVisibleScreens = [
   '(auth)/login',
   'index',
   '(home)/Dashboard,',
-  '(home)/RegisterVehicle',
+  'RegisterVehicle',
 ];
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {

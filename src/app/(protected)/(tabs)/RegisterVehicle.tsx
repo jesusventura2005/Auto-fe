@@ -1,14 +1,26 @@
 import { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
-import { VehicleTypeModal } from '~/components/ModalRegister';
+import { VehicleTypeModal } from '~/components/modals/ModalRegister';
 import { useForm } from 'react-hook-form';
-import { Button } from '~/components/ButtonCmp';
-import { RegisterInput } from '~/components/RegisterInput';
-import  useAddVehicle  from '~/app/hooks/useAddVehicle';
+import { Button } from '~/components/ui/ButtonCmp';
+import { RegisterInput } from '~/components/forms/RegisterInput';
+import useAddVehicle from '~/app/hooks/useAddVehicle';
+import { router } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+interface CarRegister {
+  type: string;
+  brand: string;
+  carModel: string;
+  age: number;
+  owner: string;
+  plate: string;
+  serial: string;
+}
 
 const hasSpecialCharacters = (value: string) => {
   if (!value) return 'Este campo no puede estar vacío';
-  const regex = /^[a-zA-Z0-9\s]+$/; 
+  const regex = /^[a-zA-Z0-9\s]+$/;
   return regex.test(value) || 'No se permiten caracteres especiales';
 };
 
@@ -21,12 +33,12 @@ const hasSpacedCharacters = (value: string) => {
 };
 
 const RegisterVehicle = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<CarRegister>({
     defaultValues: {
       type: '',
       brand: '',
       carModel: '',
-      age: '',
+      age: 0,
       owner: '',
       plate: '',
       serial: '',
@@ -35,7 +47,7 @@ const RegisterVehicle = () => {
 
   const addVehicle = useAddVehicle();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: CarRegister) => {
     addVehicle.mutate({
       ...data,
     });
@@ -49,19 +61,67 @@ const RegisterVehicle = () => {
 
   return (
     <ScrollView className="flex-1 bg-blue-50" contentContainerStyle={{ paddingVertical: 30 }}>
-      <View className="mx-6 rounded-2xl bg-white p-8 mt-10 shadow-lg">
+      <TouchableOpacity
+        onPress={() => router.push('(home)/Dashboard')}
+        className="ml-6 mt-8 flex h-10 w-10 items-center justify-center ">
+        <Ionicons name="arrow-back-outline" size={24} color="black" />
+      </TouchableOpacity>
+      <View className="mx-6 mt-2 rounded-2xl bg-white p-8 shadow-lg">
         <Text className="mb-8 text-center text-3xl font-bold text-blue-800">Agregar Vehículo</Text>
 
         <View className="grid gap-5">
-          <RegisterInput label="plate" control={control} name="plate" placeholder="192j9ejs" 
-          rules={{ required: 'Este campo es obligatorio', validate: { SpecialCharacters: (value)=> hasSpecialCharacters(value), spacedChars: (value) => hasSpacedCharacters(value) } }}/>
-          <RegisterInput label="serial" control={control} name="serial" placeholder="192j9ejs"
-          rules={{ required: 'Este campo es obligatorio', validate: { SpecialCharacters: (value)=> hasSpecialCharacters(value), spacedChars: (value) => hasSpacedCharacters(value) } }}/> /
-          <RegisterInput label="age" control={control} name="age" placeholder="192j9ejs"
-          rules={{ required: 'Este campo es obligatorio', validate: { SpecialCharacters: (value)=> hasSpecialCharacters(value), spacedChars: (value) => hasSpacedCharacters(value) } }}/> /
-          <RegisterInput label="carModel" control={control} name="carModel" placeholder="192j9ejs"
-          rules={{ required: 'Este campo es obligatorio', validate: { SpecialCharacters: (value)=> hasSpecialCharacters(value), spacedChars: (value) => hasSpacedCharacters(value) } }}/>/
-
+          <RegisterInput
+            label="plate"
+            control={control}
+            name="plate"
+            placeholder="192j9ejs"
+            rules={{
+              required: 'Este campo es obligatorio',
+              validate: {
+                SpecialCharacters: (value) => hasSpecialCharacters(value),
+                spacedChars: (value) => hasSpacedCharacters(value),
+              },
+            }}
+          />
+          <RegisterInput
+            label="serial"
+            control={control}
+            name="serial"
+            placeholder="192j9ejs"
+            rules={{
+              required: 'Este campo es obligatorio',
+              validate: {
+                SpecialCharacters: (value) => hasSpecialCharacters(value),
+                spacedChars: (value) => hasSpacedCharacters(value),
+              },
+            }}
+          />
+          <RegisterInput
+            label="age"
+            control={control}
+            name="age"
+            placeholder="192j9ejs"
+            rules={{
+              required: 'Este campo es obligatorio',
+              validate: {
+                SpecialCharacters: (value) => hasSpecialCharacters(value),
+                spacedChars: (value) => hasSpacedCharacters(value),
+              },
+            }}
+          />
+          <RegisterInput
+            label="carModel"
+            control={control}
+            name="carModel"
+            placeholder="192j9ejs"
+            rules={{
+              required: 'Este campo es obligatorio',
+              validate: {
+                SpecialCharacters: (value) => hasSpecialCharacters(value),
+                spacedChars: (value) => hasSpacedCharacters(value),
+              },
+            }}
+          />
           <TouchableOpacity
             onPress={() => setModalTypeVisible(true)}
             className="rounded-lg border border-gray-200 bg-white p-4">
@@ -70,7 +130,6 @@ const RegisterVehicle = () => {
               {control._formValues.type || 'Seleccionar Tipo'}
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => setModalBrandVisible(true)}
             className="rounded-lg border border-gray-200 bg-white p-4">
@@ -82,9 +141,9 @@ const RegisterVehicle = () => {
         </View>
 
         <Button
-          title="Guardar Vehículo" 
+          title="Guardar Vehículo"
           onPress={handleSubmit((data) => onSubmit(data))}
-          className="mt-8 bg-blue-600 rounded-xl py-4"
+          className="mt-8 rounded-xl bg-blue-600 py-4"
           animated
         />
 

@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Link, router } from 'expo-router';
-import Input from '~/components/Input';
+import Input from '~/components/ui/Input';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
@@ -54,6 +54,11 @@ const LoginScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
+      <TouchableOpacity
+        onPress={() => router.back()}
+        className="ml-6 mt-8 flex h-10 w-10 items-center justify-center ">
+        <Ionicons name="arrow-back-outline" size={24} color="black" />
+      </TouchableOpacity>
       <Text className="mb-2 text-center text-4xl font-bold text-sky-600">Iniciar sesión</Text>
       <Text className="mb-8 text-center text-xl text-black">Bienvenido de nuevo</Text>
 

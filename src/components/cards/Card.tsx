@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import Clock from '../assets/clock.svg';
+import Clock from '../../assets/clock.svg';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 

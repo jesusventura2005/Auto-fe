@@ -1,7 +1,7 @@
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Card } from '~/components/Card';
-import CreateVehicleCard from '~/components/CreateVehicleCard';
+import { Card } from '~/components/cards/Card';
+import CreateVehicleCard from '~/components/cards/CreateVehicleCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '~/context/AuthContext';
