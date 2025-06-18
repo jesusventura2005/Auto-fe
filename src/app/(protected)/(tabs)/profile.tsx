@@ -76,7 +76,7 @@ export default function ProfileScreen() {
             <Text className="mb-4 text-lg font-bold text-gray-800">Stats</Text>
             <View className="flex-row justify-between">
               <TouchableOpacity
-                onPress={() => router.push('/(home)/Dashboard')}
+                onPress={() => router.push('Dashboard')}
                 className="mr-2 flex-1 items-center rounded-xl bg-blue-100 px-4 py-6">
                 <Text className="text-xl font-bold text-blue-600">{cars?.length}</Text>
                 <Text className="text-gray-500">Vehicles</Text>

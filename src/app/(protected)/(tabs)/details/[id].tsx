@@ -51,7 +51,7 @@ export default function Home() {
           <View className="sticky flex w-full flex-row items-center gap-4 border-b-2 border-b-slate-200 px-6 py-4">
             <IconButton
               onPress={() => {
-                router.push('/(home)/Dashboard');
+                router.push('Dashboard');
               }}
               icon={<Ionicons name="arrow-back" size={24} color="#000000" />}
             />

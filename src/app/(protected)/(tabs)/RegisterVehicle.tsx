@@ -62,7 +62,7 @@ const RegisterVehicle = () => {
   return (
     <ScrollView className="flex-1 bg-blue-50" contentContainerStyle={{ paddingVertical: 30 }}>
       <TouchableOpacity
-        onPress={() => router.push('(home)/Dashboard')}
+        onPress={() => router.push('Dashboard')}
         className="ml-6 mt-8 flex h-10 w-10 items-center justify-center ">
         <Ionicons name="arrow-back-outline" size={24} color="black" />
       </TouchableOpacity>
