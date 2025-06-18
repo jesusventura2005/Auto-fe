@@ -31,7 +31,7 @@ const TabBarButtonCustom = ({
     <TouchableOpacity
       className={`w-[55px]  rounded-full ${
         label === '+'
-          ? 'bottom-2 flex  h-[55px] items-center  justify-center bg-blue-600 shadow-xl shadow-blue-500'
+          ? 'bottom-2 flex  h-[55px] items-center  justify-center bg-blue-600 shadow-md shadow-blue-500'
           : isFocused
             ? 'color-blue-600'
             : 'bg-transparent'
