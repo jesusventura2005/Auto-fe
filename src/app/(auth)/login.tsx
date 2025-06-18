@@ -47,22 +47,18 @@ const LoginScreen = () => {
 
   return (
     <ScrollView
-      className="bg-blue-50"
+      className="bg-color-bg dark:bg-color-bg-dark"
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <TouchableOpacity
-        onPress={() => router.back()}
-        className="ml-6 mt-8 flex h-10 w-10 items-center justify-center ">
-        <Ionicons name="arrow-back-outline" size={24} color="black" />
-      </TouchableOpacity>
-      <Text className="mb-2 text-center text-4xl font-bold text-sky-600">Iniciar sesión</Text>
-      <Text className="mb-8 text-center text-xl text-black">Bienvenido de nuevo</Text>
 
-      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
+      <Text className="mb-2 text-center text-4xl font-bold text-color-secondary">Iniciar sesión</Text>
+      <Text className="mb-8 text-center text-xl text-black dark:text-color-text-dark">Bienvenido de nuevo</Text>
+
+      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg dark:bg-color-bg-dark dark:border dark:border-color-border-dark">
         <Input
           control={control}
           label="Correo electrónico"
@@ -98,22 +94,22 @@ const LoginScreen = () => {
         />
 
         {serverError && (
-          <Text className="mb-4 rounded-lg bg-red-400 py-2 text-center text-white">
+          <Text className="mb-4 rounded-lg bg-color-alert py-2 text-center text-white">
             {serverError}
           </Text>
         )}
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="rounded-xl bg-sky-500 px-4 py-3">
+          className="rounded-xl bg-color-secondary px-4 py-3">
           <Text className="text-center text-lg font-bold text-white">Entrar</Text>
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-lg text-gray-600">¿No tienes una cuenta? </Text>
+          <Text className="text-lg text-color-text dark:text-color-text-dark">¿No tienes una cuenta? </Text>
           <Link href="(auth)/register" asChild>
             <TouchableOpacity>
-              <Text className="text-lg font-bold text-sky-600">Regístrate</Text>
+              <Text className="text-lg font-bold text-color-secondary">Regístrate</Text>
             </TouchableOpacity>
           </Link>
         </View>

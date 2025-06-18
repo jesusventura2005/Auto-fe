@@ -68,21 +68,21 @@ const RegisterScreen = () => {
 
   return (
     <ScrollView
-      className="bg-blue-50"
+      className="bg-color-bg dark:bg-color-bg-dark"
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <Text className="mb-2 text-center text-4xl font-bold text-sky-600">Crea tu cuenta</Text>
-      <Text className="mb-8 text-center text-lg text-black">Únete a nuestra comunidad</Text>
-      <View className="flex w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
+      <Text className="mb-2 text-center text-4xl font-bold text-color-primary">Crea tu cuenta</Text>
+      <Text className="mb-8 text-center text-lg text-color-text dark:text-color-text-dark">Únete a nuestra comunidad</Text>
+      <View className="flex w-[90%] max-w-md rounded-2xl bg-color-bg dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-6 shadow-lg">
         <Input
           control={control}
           name="name"
           label="Nombre"
-          icon={<Ionicons name="person-outline" size={16} color="black" className="mr-2" />}
+          icon={<Ionicons name="person-outline" size={16} color="#999" className="mr-2" />}
           placeholder="Juan"
           rules={{
             required: 'El nombre es obligatorio',
@@ -97,7 +97,7 @@ const RegisterScreen = () => {
           control={control}
           name="lastName"
           label="Apellido"
-          icon={<Ionicons name="person" size={16} color="black" className="mr-2" />}
+          icon={<Ionicons name="person" size={16} color="#999" className="mr-2" />}
           placeholder="Pérez"
           rules={{
             required: 'El apellido es obligatorio',
@@ -111,7 +111,7 @@ const RegisterScreen = () => {
         <Input
           control={control}
           label="Correo electrónico"
-          icon={<Ionicons name="mail-outline" size={16} color="black" className="mr-2" />}
+          icon={<Ionicons name="mail-outline" size={16} color="#999" className="mr-2" />}
           placeholder="tucorreo@ejemplo.com"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -130,7 +130,7 @@ const RegisterScreen = () => {
           control={control}
           name="password"
           label="Contraseña"
-          icon={<Ionicons name="lock-closed-outline" size={16} color="black" className="mr-2" />}
+          icon={<Ionicons name="lock-closed-outline" size={16} color="#999" className="mr-2" />}
           placeholder="••••••••"
           secureTextEntry
           rules={{
@@ -146,7 +146,7 @@ const RegisterScreen = () => {
           control={control}
           name="passwordConfirm"
           label="Confirmar Contraseña"
-          icon={<Ionicons name="lock-closed-outline" size={16} color="black" className="mr-2" />}
+          icon={<Ionicons name="lock-closed-outline" size={16} color="#999" className="mr-2" />}
           placeholder="••••••••"
           secureTextEntry
           rules={{
@@ -161,7 +161,7 @@ const RegisterScreen = () => {
         />
 
         <View className="my-2">
-          <Text className="mb-3 font-semibold text-gray-700">Soy un:</Text>
+          <Text className="mb-3 font-semibold text-color-text dark:text-color-text-dark">Soy un:</Text>
           <View className="flex-row gap-3 space-x-4">
             <TouchableOpacity
               onPress={() => setUserType('owner')}
@@ -171,7 +171,7 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'owner' ? '#009de2' : 'gray'}
               />
-              <Text className="text-base font-bold text-gray-700">Propietario de Vehículo</Text>
+              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">Propietario de Vehículo</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setUserType('mechanic')}
@@ -181,22 +181,22 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'mechanic' ? '#009de2' : 'gray'}
               />
-              <Text className="text-base font-bold text-gray-700">Mecánico</Text>
+              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">Mecánico</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="mt-2 rounded-xl bg-sky-500 py-4 shadow-md">
+          className="mt-2 rounded-xl bg-color-secondary py-4 shadow-md">
           <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-base text-gray-600">¿Ya tienes una cuenta? </Text>
+          <Text className="text-base text-color-text dark:text-color-text-dark">¿Ya tienes una cuenta? </Text>
           <Link href="/(auth)/login" asChild>
             <TouchableOpacity>
-              <Text className="text-base font-bold text-sky-400">Iniciar sesión</Text>
+              <Text className="text-base font-bold text-color-secondary">Iniciar sesión</Text>
             </TouchableOpacity>
           </Link>
         </View>
