@@ -57,10 +57,10 @@ const Dashboard = () => {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView edges={['top']}>
+    <SafeAreaProvider >
+      <SafeAreaView className='dark:bg-color-bg-dark' edges={['top']}>
         <ScrollView
-          className="flex h-screen  bg-white"
+          className="flex h-screen  bg-color-bg dark:bg-color-bg-dark"
           contentContainerStyle={{
             flexGrow: 1,
             alignItems: 'center',
