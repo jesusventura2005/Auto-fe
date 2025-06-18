@@ -29,13 +29,13 @@ const MaintenanceCard = () => {
   };
 
   return (
-    <View className="flex min-h-32 w-full flex-row items-center  justify-between rounded-xl bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-3 shadow-lg ">
+    <View className="flex min-h-32 w-full flex-row items-center  justify-around rounded-xl bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-4 shadow-lg ">
       <View className="mb-4 mt-4 flex gap-4">
         <View className="flex flex-row items-center gap-4">
           <View className="rounded-full bg-[#daf0fd] p-2">
             <Ionicons name="car" size={24} color="#009de2" />
           </View>
-          <View className="w-8/12">
+          <View className="w-7/12">
             <Text className="text-2xl font-semibold dark:text-color-title-dark">Brake inspection</Text>
             <Text className="font-light text-[#696a7f]">Replace engine and cabin air filters</Text>
           </View>
@@ -54,7 +54,10 @@ const MaintenanceCard = () => {
         </View>
       </View>
 
+      <View className='flex flex-row '>
       <Badge></Badge>
+
+      </View>
     </View>
   );
 };

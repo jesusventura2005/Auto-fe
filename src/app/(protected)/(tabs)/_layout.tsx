@@ -25,13 +25,6 @@ export default function BottomTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="RegisterVehicle"
-        options={{
-          title: '+',
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
         name="checklist"
         options={{
           title: 'Checklist',
