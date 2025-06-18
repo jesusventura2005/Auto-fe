@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import Button from '~/components/ui/ButtonCmp';
-import { useEffect, useState } from 'react';
+import { ButtonCmp } from '~/components/ui/ButtonCmp';
+import { useState } from 'react';
 import EditProfileModal from '~/components/modals/EditProfileModal';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
@@ -62,7 +62,7 @@ export default function ProfileScreen() {
             </Text>
 
             <View className="mt-4 w-full">
-              <Button
+              <ButtonCmp
                 title="Edit Profile"
                 onPress={() => setModalVisible(true)}
                 animated
@@ -91,7 +91,7 @@ export default function ProfileScreen() {
               <Text className="text-gray-700">🌙 Theme</Text>
             </TouchableOpacity> */}
 
-            <Button
+            <ButtonCmp
               title="Sign Out"
               onPress={() => {
                 onLogout?.();

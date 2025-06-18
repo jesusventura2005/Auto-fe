@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { VehicleTypeModal } from '~/components/modals/ModalRegister';
 import { useForm } from 'react-hook-form';
-import { Button } from '~/components/ui/ButtonCmp';
+import { ButtonCmp } from '~/components/ui/ButtonCmp';
 import { RegisterInput } from '~/components/forms/RegisterInput';
 import useAddVehicle from '~/app/hooks/useAddVehicle';
 import { router } from 'expo-router';
@@ -140,7 +140,7 @@ const RegisterVehicle = () => {
           </TouchableOpacity>
         </View>
 
-        <Button
+        <ButtonCmp
           title="Guardar Vehículo"
           onPress={handleSubmit((data) => onSubmit(data))}
           className="mt-8 rounded-xl bg-blue-600 py-4"

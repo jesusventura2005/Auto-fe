@@ -9,7 +9,7 @@ type ButtonProps = {
   className?: string;
 };
 
-export const Button = ({ title, onPress, className, animated = false, classNameText }: ButtonProps) => {
+export const ButtonCmp = ({ title, onPress, className, animated = false, classNameText }: ButtonProps) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -49,4 +49,4 @@ export const Button = ({ title, onPress, className, animated = false, classNameT
   return <View>{buttonContent}</View>;
 };
 
-export default Button;
+export default ButtonCmp;

@@ -1,6 +1,6 @@
 import { View, ScrollView, Text, Image } from 'react-native';
 import { Link } from 'expo-router';
-import Button from '~/components/ui/ButtonCmp';
+import { ButtonCmp } from '~/components/ui/ButtonCmp';
 
 const Index = () => {
   return (
@@ -27,10 +27,10 @@ const Index = () => {
 
       <View className="mb-2 w-full flex-col items-center gap-4">
         <Link href="/(auth)/login" asChild>
-          <Button title="Iniciar sesión" className="w-64 rounded-3xl bg-blue-500 py-5 text-lg" />
+          <ButtonCmp title="Iniciar sesión" className="w-64 rounded-3xl bg-blue-500 py-5 text-lg" />
         </Link>
         <Link href="/(auth)/register" asChild>
-          <Button title="Registrarse" className="w-64 rounded-3xl bg-blue-300 py-5 text-lg" />
+          <ButtonCmp title="Registrarse" className="w-64 rounded-3xl bg-blue-300 py-5 text-lg" />
         </Link>
       </View>
     </ScrollView>

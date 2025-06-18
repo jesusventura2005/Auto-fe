@@ -1,7 +1,7 @@
 import { Modal, View, Text, Image, Pressable } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { RegisterInput } from '~/components/forms/RegisterInput';
-import Button from '~/components/ui/ButtonCmp';
+import { ButtonCmp } from '~/components/ui/ButtonCmp';
 import { useState } from 'react';
 
 export default function EditProfileModal({
@@ -56,7 +56,7 @@ export default function EditProfileModal({
             </View>
           ))}
 
-          <Button
+          <ButtonCmp
             animated
             title="Update Profile"
             onPress={handleSubmit(onSubmit)}
