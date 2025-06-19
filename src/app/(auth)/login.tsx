@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '~/components/ui/Input';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ const LoginScreen = () => {
   const { onLogin } = useAuth();
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const loginMutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {
       if (!onLogin) throw new Error('Metodo onLogin no definido');
       const response = await onLogin(email, password);
@@ -42,7 +42,7 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (data: { email: string; password: string }) => {
-    loginMutation.mutateAsync(data);
+    mutate(data);
   };
 
   return (
@@ -54,11 +54,14 @@ const LoginScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
+      <Text className="text-color-secondary mb-2 text-center text-4xl font-bold">
+        Iniciar sesión
+      </Text>
+      <Text className="dark:text-color-text-dark mb-8 text-center text-xl text-black">
+        Bienvenido de nuevo
+      </Text>
 
-      <Text className="mb-2 text-center text-4xl font-bold text-color-secondary">Iniciar sesión</Text>
-      <Text className="mb-8 text-center text-xl text-black dark:text-color-text-dark">Bienvenido de nuevo</Text>
-
-      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg dark:bg-color-bg-dark dark:border dark:border-color-border-dark">
+      <View className="dark:bg-color-bg-dark dark:border-color-border-dark w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg dark:border">
         <Input
           control={control}
           label="Correo electrónico"
@@ -94,22 +97,29 @@ const LoginScreen = () => {
         />
 
         {serverError && (
-          <Text className="mb-4 rounded-lg bg-color-alert py-2 text-center text-white">
+          <Text className="bg-color-alert mb-4 rounded-lg py-2 text-center text-white">
             {serverError}
           </Text>
         )}
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="rounded-xl bg-color-secondary px-4 py-3">
-          <Text className="text-center text-lg font-bold text-white">Entrar</Text>
+          disabled={isPending}
+          className="bg-color-secondary rounded-xl px-4 py-3">
+          {isPending ? (
+            <ActivityIndicator size="small" color="#fff" className="text-center" />
+          ) : (
+            <Text className="text-center text-lg font-bold text-white">Entrar</Text>
+          )}
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-lg text-color-text dark:text-color-text-dark">¿No tienes una cuenta? </Text>
+          <Text className="text-color-text dark:text-color-text-dark text-lg">
+            ¿No tienes una cuenta?{' '}
+          </Text>
           <Link href="(auth)/register" asChild>
             <TouchableOpacity>
-              <Text className="text-lg font-bold text-color-secondary">Regístrate</Text>
+              <Text className="text-color-secondary text-lg font-bold">Regístrate</Text>
             </TouchableOpacity>
           </Link>
         </View>
