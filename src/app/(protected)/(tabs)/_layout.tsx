@@ -1,5 +1,5 @@
 import { Redirect, Tabs } from 'expo-router';
-import TabBar from '~/components/TabBar';
+import TabBar from '~/components/layout/TabBar';
 import { useAuth } from '~/context/AuthContext';
 
 export default function BottomTabsLayout() {
@@ -21,13 +21,6 @@ export default function BottomTabsLayout() {
         name="maintenance/[id]"
         options={{
           title: 'Maintenance',
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
-        name="RegisterVehicle"
-        options={{
-          title: '+',
           headerShown: false,
         }}
       />

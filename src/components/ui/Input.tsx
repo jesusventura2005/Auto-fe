@@ -24,11 +24,15 @@ const Input = ({
   ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View className="mb-5">
-      <Text className="mb-2 font-semibold text-gray-700">{label}</Text>
-      <View className="flex-row items-center rounded-xl border border-gray-200 bg-gray-100 px-4">
+    <View className="mb-5 ">
+      <Text className="text-color-text dark:text-color-text-dark mb-2 font-semibold">{label}</Text>
+      <View
+        className={` py-3 bg-color-bg dark:bg-color-bg-dark flex-row items-center rounded-xl border dark:border-color-border-dark px-4 ${
+          isFocused ? 'border-color-secondary dark:border-color-secondary' : 'border-gray-200'
+        }`}>
         {icon}
         <Controller
           control={control}
@@ -39,8 +43,12 @@ const Input = ({
               <TextInput
                 value={value}
                 onChangeText={onChange}
-                onBlur={onBlur}
-                className="flex-1 py-3 text-xl"
+                onBlur={() => {
+                  onBlur();
+                  setIsFocused(false);
+                }}
+                onFocus={() => setIsFocused(true)}
+                className="flex-1 leading-[20px]  text-xl dark:text-color-text-dark   "
                 placeholder={placeholder}
                 placeholderTextColor="#999"
                 secureTextEntry={secureTextEntry && !showPassword}
@@ -50,8 +58,7 @@ const Input = ({
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   className="ml-2"
-                  accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
-                >
+                  accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}>
                   <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#999" />
                 </TouchableOpacity>
               )}
@@ -59,7 +66,7 @@ const Input = ({
           )}
         />
       </View>
-      {error && <Text className="mt-2 text-sm text-red-600">{error?.message}</Text>}
+      {error && <Text className="text-color-alert mt-2 text-sm">{error?.message}</Text>}
     </View>
   );
 };

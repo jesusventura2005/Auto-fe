@@ -30,7 +30,7 @@ export default function Layout() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
           <Stack.Screen
             name="(protected)"
             options={{

@@ -1,7 +1,7 @@
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Card } from '~/components/Card';
-import CreateVehicleCard from '~/components/CreateVehicleCard';
+import { Card } from '~/components/cards/Card';
+import CreateVehicleCard from '~/components/cards/CreateVehicleCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '~/context/AuthContext';
@@ -57,10 +57,10 @@ const Dashboard = () => {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView edges={['top']}>
+    <SafeAreaProvider >
+      <SafeAreaView className='dark:bg-color-bg-dark' edges={['top']}>
         <ScrollView
-          className="flex h-screen  bg-white"
+          className="flex h-screen  bg-color-bg dark:bg-color-bg-dark"
           contentContainerStyle={{
             flexGrow: 1,
             alignItems: 'center',
