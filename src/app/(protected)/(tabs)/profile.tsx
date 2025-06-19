@@ -170,7 +170,11 @@ export default function ProfileScreen() {
             />
           </View>
 
-          <EditProfileModal visible={modalVisible} onClose={() => setModalVisible(false)} />
+          <EditProfileModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            user={user}
+          />
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>

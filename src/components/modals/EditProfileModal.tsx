@@ -7,22 +7,22 @@ import { useState } from 'react';
 export default function EditProfileModal({
   visible,
   onClose,
+  user,
 }: {
   visible: boolean;
   onClose: () => void;
+  user?: {
+    name: string;
+    email: string;
+    password?: string;
+  };
 }) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
+      name: user?.name || '',
+      email: user?.email || '',
       password: '',
     },
-  });
-
-  const [editable, setEditable] = useState({
-    name: false,
-    email: false,
-    password: false,
   });
 
   const onSubmit = (data: any) => {
@@ -35,13 +35,6 @@ export default function EditProfileModal({
       <View className="flex-1 items-center justify-center bg-black/50">
         <View className="w-11/12 rounded-2xl bg-white p-6">
           <Text className="mb-4 text-center text-xl font-bold">Edit Your Profile</Text>
-
-          <View className="mb-4 items-center">
-            <Image
-              source={{ uri: 'https://via.placeholder.com/100' }}
-              className="h-24 w-24 rounded-full"
-            />
-          </View>
 
           {['name', 'email', 'password'].map((field) => (
             <View key={field} className="mb-6">
