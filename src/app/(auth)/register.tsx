@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Link, router } from 'expo-router';
 import Input from '~/components/ui/Input';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ const RegisterScreen = () => {
   const { onRegister } = useAuth();
   const [userType, setUserType] = useState<'owner' | 'mechanic'>('owner');
 
-  const registerMutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async ({
       name,
       lastName,
@@ -63,7 +63,7 @@ const RegisterScreen = () => {
     passwordConfirm: string;
   }) => {
     const { name, lastName, email, password } = data;
-    registerMutation.mutateAsync({ name, lastName, email, password, userType });
+    mutate({ name, lastName, email, password, userType });
   };
 
   return (
@@ -75,9 +75,11 @@ const RegisterScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <Text className="mb-2 text-center text-4xl font-bold text-color-primary">Crea tu cuenta</Text>
-      <Text className="mb-8 text-center text-lg text-color-text dark:text-color-text-dark">Únete a nuestra comunidad</Text>
-      <View className="flex w-[90%] max-w-md rounded-2xl bg-color-bg dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-6 shadow-lg">
+      <Text className="text-color-primary mb-2 text-center text-4xl font-bold">Crea tu cuenta</Text>
+      <Text className="text-color-text dark:text-color-text-dark mb-8 text-center text-lg">
+        Únete a nuestra comunidad
+      </Text>
+      <View className="bg-color-bg dark:bg-color-bg-dark dark:border-color-border-dark flex w-[90%] max-w-md rounded-2xl p-6 shadow-lg dark:border">
         <Input
           control={control}
           name="name"
@@ -161,7 +163,9 @@ const RegisterScreen = () => {
         />
 
         <View className="my-2">
-          <Text className="mb-3 font-semibold text-color-text dark:text-color-text-dark">Soy un:</Text>
+          <Text className="text-color-text dark:text-color-text-dark mb-3 font-semibold">
+            Soy un:
+          </Text>
           <View className="flex-row gap-3 space-x-4">
             <TouchableOpacity
               onPress={() => setUserType('owner')}
@@ -171,7 +175,9 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'owner' ? '#009de2' : 'gray'}
               />
-              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">Propietario de Vehículo</Text>
+              <Text className="text-color-text dark:text-color-text-dark text-base font-bold">
+                Propietario de Vehículo
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setUserType('mechanic')}
@@ -181,22 +187,31 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'mechanic' ? '#009de2' : 'gray'}
               />
-              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">Mecánico</Text>
+              <Text className="text-color-text dark:text-color-text-dark text-base font-bold">
+                Mecánico
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="mt-2 rounded-xl bg-color-secondary py-4 shadow-md">
-          <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
+          className="bg-color-secondary mt-2 rounded-xl py-4 shadow-md"
+          disabled={isPending}>
+          {isPending ? (
+            <ActivityIndicator size="small" color="#fff" className="text-center" />
+          ) : (
+            <Text className="text-center text-xl font-bold text-white">Crear cuenta</Text>
+          )}
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-base text-color-text dark:text-color-text-dark">¿Ya tienes una cuenta? </Text>
+          <Text className="text-color-text dark:text-color-text-dark text-base">
+            ¿Ya tienes una cuenta?{' '}
+          </Text>
           <Link href="/(auth)/login" asChild>
             <TouchableOpacity>
-              <Text className="text-base font-bold text-color-secondary">Iniciar sesión</Text>
+              <Text className="text-color-secondary text-base font-bold">Iniciar sesión</Text>
             </TouchableOpacity>
           </Link>
         </View>
