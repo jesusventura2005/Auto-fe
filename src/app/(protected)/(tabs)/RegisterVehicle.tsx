@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
-import { VehicleTypeModal } from '~/components/modals/ModalRegister';
+import { VehicleTypeModal } from '~/components/modals/VehicleTypeModal';
 import { useForm } from 'react-hook-form';
 import { ButtonCmp } from '~/components/ui/ButtonCmp';
 import { RegisterInput } from '~/components/forms/RegisterInput';

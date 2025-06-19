@@ -1,22 +1,10 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import SectionTitle from '~/components/ui/SectionTitle';
-import { useForm } from 'react-hook-form';
 import MaintenanceCard from '~/components/cards/MaintenanceCard';
 
 const MaintenanceLog = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitted },
-  } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
-
   return (
-    <View className="flex-1 bg-white dark:bg-color-bg-dark pt-10">
+    <View className="flex-1 bg-white pt-10 dark:bg-color-bg-dark">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}>

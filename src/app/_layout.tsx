@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import '../../global.css';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
+import { VehicleIdProvider } from '~/context/VehicleIdContext';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,8 +30,10 @@ export default function Layout() {
   }
 
   return (
+
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <VehicleIdProvider>
         <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
           <Stack.Screen
             name="(protected)"
@@ -45,6 +49,8 @@ export default function Layout() {
             }}
           />
         </Stack>
+        </VehicleIdProvider>
+
       </AuthProvider>
     </QueryClientProvider>
   );
