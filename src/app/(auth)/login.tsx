@@ -118,7 +118,7 @@ const LoginScreen = () => {
             ¿No tienes una cuenta?{' '}
           </Text>
           <Link href="(auth)/register" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity disabled={isPending}>
               <Text className="text-color-secondary text-lg font-bold">Regístrate</Text>
             </TouchableOpacity>
           </Link>
