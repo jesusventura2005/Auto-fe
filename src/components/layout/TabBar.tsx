@@ -129,9 +129,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         </View>
       </View>
 
-      <Modal visible={modalVisible} transparent animationType="fade">
-        <View className="flex-1 items-center justify-center bg-black/50">
-          <View className="w-80 rounded-lg bg-white p-6 dark:bg-color-bg-dark">
+      <Modal visible={modalVisible} transparent animationType="slide">
+        <View className="flex-1 items-center justify-end bg-black/50">
+          <View className="w-full h-4/6 rounded-lg bg-white p-6 dark:bg-color-bg-dark">
             <Text className="mb-4 text-center text-lg font-semibold text-gray-800 dark:text-white">
               ¿Qué quieres hacer?
             </Text>
