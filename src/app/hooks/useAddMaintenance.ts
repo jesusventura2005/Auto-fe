@@ -32,7 +32,10 @@ const useAddMaintenance = () => {
         completed,
       };
 
-      const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/cars`, requestData);
+      const response = await axios.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/maintenance`,
+        requestData
+      );
       return response;
     },
     onSuccess: (response) => {

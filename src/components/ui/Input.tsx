@@ -9,6 +9,7 @@ type InputProps = {
   placeholder: string;
   error?: FieldError;
   secureTextEntry?: boolean;
+  isNumeric?: boolean;
 } & TextInputProps &
   Pick<ControllerProps<any>, 'control' | 'name' | 'rules'>;
 
@@ -21,6 +22,7 @@ const Input = ({
   placeholder,
   error,
   secureTextEntry,
+  isNumeric,
   ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,9 +30,9 @@ const Input = ({
 
   return (
     <View className="mb-5 ">
-      <Text className="text-color-text dark:text-color-text-dark mb-2 font-semibold">{label}</Text>
+      <Text className="mb-2 font-semibold text-color-text dark:text-color-text-dark">{label}</Text>
       <View
-        className={` py-3 bg-color-bg dark:bg-color-bg-dark flex-row items-center rounded-xl border dark:border-color-border-dark px-4 ${
+        className={` flex-row items-center rounded-xl border bg-color-bg px-4 py-3 dark:border-color-border-dark dark:bg-color-bg-dark ${
           isFocused ? 'border-color-secondary dark:border-color-secondary' : 'border-gray-200'
         }`}>
         {icon}
@@ -41,6 +43,7 @@ const Input = ({
           render={({ field: { value, onChange, onBlur } }) => (
             <>
               <TextInput
+                keyboardType={isNumeric ? 'numeric' : 'default'}
                 value={value}
                 onChangeText={onChange}
                 onBlur={() => {
@@ -48,7 +51,7 @@ const Input = ({
                   setIsFocused(false);
                 }}
                 onFocus={() => setIsFocused(true)}
-                className="flex-1 leading-[20px]  text-xl dark:text-color-text-dark   "
+                className="flex-1 text-xl  leading-[20px] dark:text-color-text-dark   "
                 placeholder={placeholder}
                 placeholderTextColor="#999"
                 secureTextEntry={secureTextEntry && !showPassword}
@@ -66,7 +69,7 @@ const Input = ({
           )}
         />
       </View>
-      {error && <Text className="text-color-alert mt-2 text-sm">{error?.message}</Text>}
+      {error && <Text className="mt-2 text-sm text-color-alert">{error?.message}</Text>}
     </View>
   );
 };

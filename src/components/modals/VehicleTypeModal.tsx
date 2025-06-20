@@ -7,6 +7,7 @@ type Props = {
   control: Control<any>;
   name: string;
   rules?: object;
+  text: string
   onClose: () => void;
 };
 
@@ -16,32 +17,34 @@ export const VehicleTypeModal = ({
   control,
   name,
   rules,
-  onClose
+  text,
+  onClose,
 }: Props) => {
-  const { field: { value, onChange } } = useController({
+  const {
+    field: { value, onChange },
+  } = useController({
     control,
     name,
-    rules
+    rules,
   });
 
   return (
     <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
-      <View className="flex-1 justify-center items-center bg-black/70">
-        <View className="bg-white rounded-2xl w-5/6 p-6">
-          <Text className="text-2xl font-bold text-blue-800 mb-6 text-center">
-            Selecciona el tipo
+      <View className="flex-1 items-center justify-center bg-black/70">
+        <View className="w-5/6 rounded-2xl bg-white dark:bg-color-bg-dark p-6">
+          <Text className="mb-6 text-center text-2xl  font-bold text-color-primary">
+            {text}
           </Text>
           {vehicleTypes.map((type) => (
             <TouchableOpacity
               key={type}
-              className={`py-4 px-5 mb-2 rounded-lg ${value === type ? 'bg-blue-100' : 'bg-white'}`}
-              onPress={() => onChange(type)}
-            >
-              <Text className="text-gray-800 text-lg">{type}</Text>
+              className={`mb-2 rounded-lg px-5 py-4 ${value === type ? 'bg-blue-100 dark:bg-color-border-dark' : 'bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark'}`}
+              onPress={() => onChange(type)}>
+              <Text className="text-lg text-gray-800 dark:text-color-text-dark">{type}</Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity className="mt-6 py-3 bg-blue-600 rounded-lg" onPress={onClose}>
-            <Text className="text-white text-center text-lg">Cerrar</Text>
+          <TouchableOpacity className="mt-6 rounded-lg bg-color-primary py-3" onPress={onClose}>
+            <Text className="text-center text-lg text-white">Cerrar</Text>
           </TouchableOpacity>
         </View>
       </View>
