@@ -5,6 +5,16 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useVehicleId } from '~/context/VehicleIdContext';
 
+// Función para formatear la fecha
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  });
+};
+
 const MaintenanceLog = () => {
   const { vehicleId } = useVehicleId();
 
@@ -13,18 +23,17 @@ const MaintenanceLog = () => {
       data: maintenances,
       isError,
       isLoading,
-      error
+      error,
     } = useQuery({
       queryKey: ['maintenance'],
       queryFn: async () => {
         const response = await axios.get(
           `${process.env.EXPO_PUBLIC_API_URL}/maintenance/car/${vehicleId}`
         );
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
       },
     });
-
 
     if (isLoading) {
       return <Text>is loading</Text>;
@@ -40,7 +49,7 @@ const MaintenanceLog = () => {
         title={maintenance.title}
         description={maintenance.description}
         type={maintenance.type}
-        date={maintenance.date}
+        date={formatDate(maintenance.date)}
         kilometers={maintenance.kilometers}></MaintenanceCard>
     ));
   };
@@ -54,9 +63,8 @@ const MaintenanceLog = () => {
 
         <View className="mt-4 ">
           <Text className="mb-2 text-lg font-semibold text-color-primary">Pendientes</Text>
-          <View className='gap-4'>
-          <MaintenanceList></MaintenanceList>
-
+          <View className="gap-4">
+            <MaintenanceList></MaintenanceList>
           </View>
         </View>
 
