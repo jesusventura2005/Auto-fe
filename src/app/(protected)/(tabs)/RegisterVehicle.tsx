@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Appearance } from 'react-native';
 import { VehicleTypeModal } from '~/components/modals/VehicleTypeModal';
 import { useForm } from 'react-hook-form';
 import { ButtonCmp } from '~/components/ui/ButtonCmp';
-import { RegisterInput } from '~/components/forms/RegisterInput';
+import  Input  from '~/components/ui/Input';
 import useAddVehicle from '~/app/hooks/useAddVehicle';
 import { router } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -17,6 +17,10 @@ interface CarRegister {
   plate: string;
   serial: string;
 }
+
+const colorScheme = Appearance.getColorScheme()
+
+console.log(colorScheme)
 
 const hasSpecialCharacters = (value: string) => {
   if (!value) return 'Este campo no puede estar vacío';
@@ -60,17 +64,17 @@ const RegisterVehicle = () => {
   const types = ['Carro', 'Camioneta', 'Moto'];
 
   return (
-    <ScrollView className="flex-1 bg-blue-50" contentContainerStyle={{ paddingVertical: 30 }}>
+    <ScrollView className="flex-1 bg-blue-50 dark:bg-color-bg-dark" contentContainerStyle={{ paddingVertical: 30 }}>
       <TouchableOpacity
         onPress={() => router.push('Dashboard')}
         className="ml-6 mt-8 flex h-10 w-10 items-center justify-center ">
-        <Ionicons name="arrow-back-outline" size={24} color="black" />
+        <Ionicons name="arrow-back-outline" size={24} color={colorScheme === 'dark' ? 'white' : 'black' } />
       </TouchableOpacity>
-      <View className="mx-6 mt-2 rounded-2xl bg-white p-8 shadow-lg">
-        <Text className="mb-8 text-center text-3xl font-bold text-blue-800">Agregar Vehículo</Text>
+      <View className="mx-6 mt-2 rounded-2xl bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark p-8 shadow-lg">
+        <Text className="mb-8 text-center text-3xl font-bold text-color-primary">Agregar Vehículo</Text>
 
         <View className="grid gap-5">
-          <RegisterInput
+          <Input
             label="plate"
             control={control}
             name="plate"
@@ -83,7 +87,7 @@ const RegisterVehicle = () => {
               },
             }}
           />
-          <RegisterInput
+          <Input
             label="serial"
             control={control}
             name="serial"
@@ -96,7 +100,7 @@ const RegisterVehicle = () => {
               },
             }}
           />
-          <RegisterInput
+          <Input
             label="age"
             control={control}
             name="age"
@@ -109,7 +113,7 @@ const RegisterVehicle = () => {
               },
             }}
           />
-          <RegisterInput
+          <Input
             label="carModel"
             control={control}
             name="carModel"
@@ -124,17 +128,18 @@ const RegisterVehicle = () => {
           />
           <TouchableOpacity
             onPress={() => setModalTypeVisible(true)}
-            className="rounded-lg border border-gray-200 bg-white p-4">
+            className="rounded-lg border border-gray-200 bg-white p-4 dark:border-color-border-dark dark:bg-color-bg-dark">
             <Text className="text-gray-500">Tipo</Text>
-            <Text className="font-medium text-gray-800">
+            <Text className={`font-medium text-gray-800 ${control._formValues.type ? ' text-color-alternative-dark dark:text-color-title-dark' : ''}`}>
               {control._formValues.type || 'Seleccionar Tipo'}
             </Text>
           </TouchableOpacity>
+          
           <TouchableOpacity
             onPress={() => setModalBrandVisible(true)}
-            className="rounded-lg border border-gray-200 bg-white p-4">
+            className="rounded-lg border border-gray-200 bg-white p-4 dark:border-color-border-dark dark:bg-color-bg-dark">
             <Text className="text-gray-500">Marca</Text>
-            <Text className="font-medium text-gray-800">
+            <Text className={`font-medium text-gray-800 ${control._formValues.brand ? ' text-color-alternative-dark dark:text-color-title-dark' : ''}`}>
               {control._formValues.brand || 'Seleccionar Marca'}
             </Text>
           </TouchableOpacity>
@@ -143,11 +148,12 @@ const RegisterVehicle = () => {
         <ButtonCmp
           title="Guardar Vehículo"
           onPress={handleSubmit((data) => onSubmit(data))}
-          className="mt-8 rounded-xl bg-blue-600 py-4"
+          className="mt-8 rounded-xl bg-color-primary py-4"
           animated
         />
 
         <VehicleTypeModal
+        text=' Selecciona el tipo'
           visible={modalTypeVisible}
           vehicleTypes={types}
           control={control}
@@ -157,6 +163,7 @@ const RegisterVehicle = () => {
         />
 
         <VehicleTypeModal
+        text='Selecciona el Modelo'
           visible={modalBrandVisible}
           vehicleTypes={brands}
           control={control}

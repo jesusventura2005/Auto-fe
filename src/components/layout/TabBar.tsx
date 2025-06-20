@@ -279,6 +279,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
                 <View className='mb-6'>
                   <VehicleTypeModal
+                    text='Selecciona el tipo'
                     visible={maintenanceTypeModalVisible}
                     vehicleTypes={vehicleTypes}
                     control={control}

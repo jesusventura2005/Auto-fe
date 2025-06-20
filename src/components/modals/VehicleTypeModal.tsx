@@ -7,6 +7,7 @@ type Props = {
   control: Control<any>;
   name: string;
   rules?: object;
+  text: string
   onClose: () => void;
 };
 
@@ -16,6 +17,7 @@ export const VehicleTypeModal = ({
   control,
   name,
   rules,
+  text,
   onClose,
 }: Props) => {
   const {
@@ -29,16 +31,16 @@ export const VehicleTypeModal = ({
   return (
     <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
       <View className="flex-1 items-center justify-center bg-black/70">
-        <View className="w-5/6 rounded-2xl bg-white p-6">
+        <View className="w-5/6 rounded-2xl bg-white dark:bg-color-bg-dark p-6">
           <Text className="mb-6 text-center text-2xl  font-bold text-color-primary">
-            Se
+            {text}
           </Text>
           {vehicleTypes.map((type) => (
             <TouchableOpacity
               key={type}
-              className={`mb-2 rounded-lg px-5 py-4 ${value === type ? 'bg-blue-100' : 'bg-white'}`}
+              className={`mb-2 rounded-lg px-5 py-4 ${value === type ? 'bg-blue-100 dark:bg-color-border-dark' : 'bg-white dark:bg-color-bg-dark dark:border dark:border-color-border-dark'}`}
               onPress={() => onChange(type)}>
-              <Text className="text-lg text-gray-800">{type}</Text>
+              <Text className="text-lg text-gray-800 dark:text-color-text-dark">{type}</Text>
             </TouchableOpacity>
           ))}
           <TouchableOpacity className="mt-6 rounded-lg bg-color-primary py-3" onPress={onClose}>
