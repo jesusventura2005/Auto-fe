@@ -29,10 +29,10 @@ const Input = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View className="mb-5 ">
+    <View className="mb-4">
       <Text className="mb-2 font-semibold text-color-text dark:text-color-text-dark">{label}</Text>
       <View
-        className={` flex-row items-center rounded-xl border bg-color-bg px-4 py-3 dark:border-color-border-dark dark:bg-color-bg-dark ${
+        className={` flex-row items-center rounded-xl border bg-color-bg px-4 py-2 dark:border-color-border-dark dark:bg-color-bg-dark ${
           isFocused ? 'border-color-secondary dark:border-color-secondary' : 'border-gray-200'
         }`}>
         {icon}
