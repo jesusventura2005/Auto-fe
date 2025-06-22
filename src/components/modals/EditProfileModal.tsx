@@ -1,10 +1,10 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { RegisterInput } from '~/components/forms/RegisterInput';
 import { ButtonCmp } from '~/components/ui/ButtonCmp';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Input from '../ui/Input';
 
 export default function EditProfileModal({
   visible,
@@ -16,26 +16,38 @@ export default function EditProfileModal({
   user?: {
     _id: string;
     name: string;
+    lastName: string;
     email: string;
     password?: string;
   };
 }) {
   // Queries and Mutations
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: async ({
       _id,
       name,
       email,
+      lastName,
       password,
     }: {
       _id: string;
       name: string;
+      lastName: string;
       email: string;
       password: string;
     }) => {
       try {
+        console.log('Updating profile with:', {
+          _id,
+          name,
+          lastName,
+          email,
+          password,
+        });
         const response = await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/users/${_id}`, {
           name,
+          lastName,
           email,
           password,
         });
@@ -47,6 +59,7 @@ export default function EditProfileModal({
     },
     onSuccess: () => {
       console.log('Profile updated successfully');
+      queryClient.invalidateQueries({ queryKey: ['user'] });
       onClose();
     },
     onError: (error) => {
@@ -54,9 +67,16 @@ export default function EditProfileModal({
     },
   });
 
-  const { control, handleSubmit, getValues, reset } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors, isSubmitted },
+  } = useForm({
     defaultValues: {
       name: user?.name || '',
+      lastName: user?.lastName || '',
       email: user?.email || '',
       password: '',
       confirmPassword: '',
@@ -68,6 +88,7 @@ export default function EditProfileModal({
       // Reset form values when user prop changes
       reset({
         name: user.name || '',
+        lastName: user.lastName || '',
         email: user.email || '',
         password: '',
         confirmPassword: '',
@@ -79,22 +100,25 @@ export default function EditProfileModal({
     mutate({
       _id: user?._id || '',
       name: data.name,
+      lastName: data.lastName,
       email: data.email,
       password: data.password ? data.password : undefined, // Only send if not empty
     });
-    onClose();
+    if (!isPending) {
+      onClose();
+    }
   };
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View className="flex-1 items-center justify-center bg-black/50">
-        <View className=" dark:border-color-border-dark dark:bg-color-bg-dark w-11/12 rounded-2xl bg-white p-6 shadow-lg dark:border">
+        <View className=" w-11/12 rounded-2xl bg-white p-6 shadow-lg dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
           <Text className="mb-4 text-center text-xl font-bold dark:text-white">
             Edit Your Profile
           </Text>
 
-          <View key={'Name'} className="mb-6">
-            <RegisterInput
+          <View key={'Name'}>
+            <Input
               name={'name'}
               control={control}
               placeholder={`Enter Name`}
@@ -102,10 +126,23 @@ export default function EditProfileModal({
               rules={{
                 required: `Name is required`,
               }}
+              error={isSubmitted ? errors.name : undefined}
             />
           </View>
-          <View key={'Email'} className="mb-6">
-            <RegisterInput
+          <View key={'LastName'}>
+            <Input
+              name={'lastName'}
+              control={control}
+              placeholder={`Enter Last Name`}
+              label={'Last Name'}
+              rules={{
+                required: `Last Name is required`,
+              }}
+              error={isSubmitted ? errors.lastName : undefined}
+            />
+          </View>
+          <View key={'Email'}>
+            <Input
               name={'email'}
               control={control}
               placeholder={`Enter email`}
@@ -117,10 +154,11 @@ export default function EditProfileModal({
                   message: 'Invalid email format',
                 },
               }}
+              error={isSubmitted ? errors.email : undefined}
             />
           </View>
-          <View key={'Password'} className="mb-6">
-            <RegisterInput
+          <View key={'Password'}>
+            <Input
               name={'password'}
               control={control}
               placeholder={`Enter password`}
@@ -133,22 +171,23 @@ export default function EditProfileModal({
                   return true;
                 },
               }}
+              error={isSubmitted ? errors.password : undefined}
             />
           </View>
-          <View key={'ConfirmPassword'} className="mb-6">
-            <RegisterInput
-              name={'ConfirmPassword'}
+          <View key={'ConfirmPassword'}>
+            <Input
+              name={'confirmPassword'}
               control={control}
               placeholder={`Confirm password`}
               label={'Confirm Password'}
               rules={{
                 validate: (value: string) => {
-                  if (value !== getValues('password')) {
+                  if (watch('password') !== value) {
                     return 'Passwords do not match';
                   }
-                  return true;
                 },
               }}
+              error={isSubmitted ? errors.confirmPassword : undefined}
             />
           </View>
 
@@ -156,11 +195,11 @@ export default function EditProfileModal({
             animated
             title="Update Profile"
             onPress={handleSubmit(onSubmit)}
-            className="bg-color-primary mt-4 rounded-xl px-6 py-3 text-white"
+            className="mt-4 rounded-xl bg-color-primary px-6 py-3 text-white"
             disabled={isPending}
           />
 
-          <Pressable onPress={onClose} className="mt-4">
+          <Pressable onPress={onClose} className="mt-4" disabled={isPending}>
             <Text className="text-center text-blue-500">Cancel</Text>
           </Pressable>
         </View>

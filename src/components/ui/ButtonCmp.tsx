@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, Animated, View } from 'react-native';
+import { TouchableOpacity, Text, Animated, View, ActivityIndicator } from 'react-native';
 import { useRef } from 'react';
 
 type ButtonProps = {
@@ -42,9 +42,13 @@ export const ButtonCmp = ({
       onPress={onPress}
       className={`${className || ''}`}
       disabled={disabled}>
-      <Text className={`${classNameText} || text-center text-xl font-bold text-white`}>
-        {title}
-      </Text>
+      {disabled ? (
+        <ActivityIndicator size="small" color="#fff" />
+      ) : (
+        <Text className={`${classNameText} || text-center text-xl font-bold text-white`}>
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 

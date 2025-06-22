@@ -75,11 +75,11 @@ const RegisterScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <Text className="text-color-primary mb-2 text-center text-4xl font-bold">Crea tu cuenta</Text>
-      <Text className="text-color-text dark:text-color-text-dark mb-8 text-center text-lg">
+      <Text className="mb-2 text-center text-4xl font-bold text-color-primary">Crea tu cuenta</Text>
+      <Text className="mb-8 text-center text-lg text-color-text dark:text-color-text-dark">
         Únete a nuestra comunidad
       </Text>
-      <View className="bg-color-bg dark:bg-color-bg-dark dark:border-color-border-dark flex w-[90%] max-w-md rounded-2xl p-6 shadow-lg dark:border">
+      <View className="flex w-[90%] max-w-md rounded-2xl bg-color-bg p-6 shadow-lg dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
         <Input
           control={control}
           name="name"
@@ -163,7 +163,7 @@ const RegisterScreen = () => {
         />
 
         <View className="my-2">
-          <Text className="text-color-text dark:text-color-text-dark mb-3 font-semibold">
+          <Text className="mb-3 font-semibold text-color-text dark:text-color-text-dark">
             Soy un:
           </Text>
           <View className="flex-row gap-3 space-x-4">
@@ -175,7 +175,7 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'owner' ? '#009de2' : 'gray'}
               />
-              <Text className="text-color-text dark:text-color-text-dark text-base font-bold">
+              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">
                 Propietario de Vehículo
               </Text>
             </TouchableOpacity>
@@ -187,7 +187,7 @@ const RegisterScreen = () => {
                 size={24}
                 color={userType === 'mechanic' ? '#009de2' : 'gray'}
               />
-              <Text className="text-color-text dark:text-color-text-dark text-base font-bold">
+              <Text className="text-base font-bold text-color-text dark:text-color-text-dark">
                 Mecánico
               </Text>
             </TouchableOpacity>
@@ -196,7 +196,7 @@ const RegisterScreen = () => {
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          className="bg-color-secondary mt-2 rounded-xl py-4 shadow-md"
+          className="mt-2 rounded-xl bg-color-secondary py-4 shadow-md"
           disabled={isPending}>
           {isPending ? (
             <ActivityIndicator size="small" color="#fff" className="text-center" />
@@ -206,12 +206,12 @@ const RegisterScreen = () => {
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-color-text dark:text-color-text-dark text-base">
+          <Text className="text-base text-color-text dark:text-color-text-dark">
             ¿Ya tienes una cuenta?{' '}
           </Text>
           <Link href="/(auth)/login" asChild>
             <TouchableOpacity>
-              <Text className="text-color-secondary text-base font-bold">Iniciar sesión</Text>
+              <Text className="text-base font-bold text-color-secondary">Iniciar sesión</Text>
             </TouchableOpacity>
           </Link>
         </View>

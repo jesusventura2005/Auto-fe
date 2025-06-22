@@ -54,14 +54,14 @@ const LoginScreen = () => {
         alignItems: 'center',
         paddingVertical: 32,
       }}>
-      <Text className="text-color-secondary mb-2 text-center text-4xl font-bold">
+      <Text className="mb-2 text-center text-4xl font-bold text-color-secondary">
         Iniciar sesión
       </Text>
-      <Text className="dark:text-color-text-dark mb-8 text-center text-xl text-black">
+      <Text className="mb-8 text-center text-xl text-black dark:text-color-text-dark">
         Bienvenido de nuevo
       </Text>
 
-      <View className="dark:bg-color-bg-dark dark:border-color-border-dark w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg dark:border">
+      <View className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
         <Input
           control={control}
           label="Correo electrónico"
@@ -97,7 +97,7 @@ const LoginScreen = () => {
         />
 
         {serverError && (
-          <Text className="bg-color-alert mb-4 rounded-lg py-2 text-center text-white">
+          <Text className="mb-4 rounded-lg bg-color-alert py-2 text-center text-white">
             {serverError}
           </Text>
         )}
@@ -105,7 +105,7 @@ const LoginScreen = () => {
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
           disabled={isPending}
-          className="bg-color-secondary rounded-xl px-4 py-3">
+          className="rounded-xl bg-color-secondary px-4 py-3">
           {isPending ? (
             <ActivityIndicator size="small" color="#fff" className="text-center" />
           ) : (
@@ -114,12 +114,12 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <View className="mt-6 flex-row justify-center">
-          <Text className="text-color-text dark:text-color-text-dark text-lg">
+          <Text className="text-lg text-color-text dark:text-color-text-dark">
             ¿No tienes una cuenta?{' '}
           </Text>
           <Link href="(auth)/register" asChild>
             <TouchableOpacity disabled={isPending}>
-              <Text className="text-color-secondary text-lg font-bold">Regístrate</Text>
+              <Text className="text-lg font-bold text-color-secondary">Regístrate</Text>
             </TouchableOpacity>
           </Link>
         </View>
