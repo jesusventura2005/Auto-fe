@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Input from '../ui/Input';
+import Toast from 'react-native-toast-message';
 
 export default function EditProfileModal({
   visible,
@@ -38,13 +39,6 @@ export default function EditProfileModal({
       password: string;
     }) => {
       try {
-        console.log('Updating profile with:', {
-          _id,
-          name,
-          lastName,
-          email,
-          password,
-        });
         const response = await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/users/${_id}`, {
           name,
           lastName,
@@ -59,10 +53,19 @@ export default function EditProfileModal({
     },
     onSuccess: () => {
       console.log('Profile updated successfully');
+      Toast.show({
+        type: 'success',
+        text1: 'Profile updated successfully',
+      });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       onClose();
     },
     onError: (error) => {
+      Toast.show({
+        type: 'error',
+        text1: 'Error updating profile',
+        text2: error instanceof Error ? error.message : 'An unexpected error occurred',
+      });
       console.error('Error updating profile:', error);
     },
   });
