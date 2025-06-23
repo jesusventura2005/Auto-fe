@@ -45,7 +45,7 @@ export const ButtonCmp = ({
       {disabled ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (
-        <Text className={`${classNameText} || text-center text-xl font-bold text-white`}>
+        <Text className={`${classNameText || 'text-center text-xl font-bold text-white'}`}>
           {title}
         </Text>
       )}
