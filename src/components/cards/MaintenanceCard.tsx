@@ -35,7 +35,7 @@ const MaintenanceCard = ({ title, description, type, date, kilometers }: mainten
       <View className="mb-4 mt-4 flex gap-4">
         <View className="flex flex-row items-center gap-4">
           <View className="rounded-full bg-[#daf0fd] p-2">
-          {type === 'Cambio de aceite' ? <FontAwesome5 name="oil-can" size={20} color="black" /> : type === 'Ruedas' ? <Wheel width={24} height={24} stroke='black'></Wheel>  : type === 'Freno' ? <Brake width={24} height={24}></Brake> : type === 'Filtro' ? <FontAwesome5 name="filter" size={24} color="black" /> : type === 'Bateria' ? <FontAwesome5 name="car-battery" size={24} color="black" /> : type === "Mantenimiento regular" ? <FontAwesome5 name="car-battery" size={24} color="black" /> : type === 'Otros' ? <Ionicons name="settings-outline" size={24} color="black" /> : '' }
+          {type === 'Cambio de aceite' ? <FontAwesome5 name="oil-can" size={20} color="black" /> : type === 'Ruedas' ? <Wheel width={24} height={24} stroke='black'></Wheel>  : type === 'Freno' ? <Brake width={24} height={24}></Brake> : type === 'Filtro' ? <FontAwesome5 name="filter" size={24} color="black" /> : type === 'Batería' ? <FontAwesome5 name="car-battery" size={24} color="black" /> : type === "Mantenimiento regular" ? <FontAwesome5 name="car-battery" size={24} color="black" /> : type === 'Otros' ? <Ionicons name="settings-outline" size={24} color="black" /> : '' }
           </View>
           <View className="w-7/12">
             <Text className="text-2xl font-semibold dark:text-color-title-dark">

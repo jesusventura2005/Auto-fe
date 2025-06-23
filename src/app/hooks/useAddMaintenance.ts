@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface Maintenance {
@@ -12,6 +12,8 @@ interface Maintenance {
 }
 
 const useAddMaintenance = () => {
+  const queryclient = useQueryClient()
+
   const addMaintenanceMutation = useMutation({
     mutationFn: async ({
       carId,
@@ -39,7 +41,8 @@ const useAddMaintenance = () => {
       return response;
     },
     onSuccess: (response) => {
-      console.log(response.data);
+      queryclient.invalidateQueries({queryKey: ['maintenance']})
+      
     },
   });
 
