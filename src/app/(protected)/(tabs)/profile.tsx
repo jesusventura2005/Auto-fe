@@ -1,12 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {
-  ScrollView,
-  Text,
-  View,
-  TouchableOpacity,
-  useColorScheme,
-  Modal,
-} from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, useColorScheme, Modal } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { ButtonCmp } from '~/components/ui/ButtonCmp';
 import { useState } from 'react';
@@ -71,7 +64,7 @@ export default function ProfileScreen() {
           contentContainerStyle={{ flexGrow: 1, alignItems: 'center', paddingVertical: 30 }}
           showsVerticalScrollIndicator={false}>
           <View className="w-11/12 items-center rounded-2xl bg-white p-4 shadow-md dark:border dark:border-color-border-dark  dark:bg-color-bg-dark">
-            <Text className="mb-4 text-lg font-bold text-gray-900 dark:text-color-title-dark">
+            <Text className="mb-1 text-lg font-bold text-gray-900 dark:text-color-title-dark">
               Profile
             </Text>
             <Ionicons
@@ -79,7 +72,9 @@ export default function ProfileScreen() {
               size={100}
               color={colorScheme === 'dark' ? '#fff' : '#888'}
             />
-            <Text className="text-xl font-bold text-gray-800 dark:text-white">{user?.name}</Text>
+            <Text className="text-xl font-bold text-gray-800 dark:text-white">
+              {user?.name} {user?.lastName}
+            </Text>
             <Text className="text-gray-600 dark:text-gray-300">{user?.email}</Text>
             <Text className="mt-1 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-300">
               Vehicle Owner
@@ -170,7 +165,11 @@ export default function ProfileScreen() {
             />
           </View>
 
-          <EditProfileModal visible={modalVisible} onClose={() => setModalVisible(false)} />
+          <EditProfileModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            user={user}
+          />
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
