@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useVehicleId } from '~/context/VehicleIdContext';
 
-// Función para formatear la fecha
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('es-ES', {
@@ -30,7 +29,6 @@ const MaintenanceLog = () => {
         const response = await axios.get(
           `${process.env.EXPO_PUBLIC_API_URL}/maintenance/car/${vehicleId}`
         );
-        console.log(response.data);
         return response.data;
       },
     });
@@ -39,9 +37,17 @@ const MaintenanceLog = () => {
       return <Text>is loading</Text>;
     }
 
+
+    if(maintenances.length === 0){
+
+      return <Text>no hay mantenimientos</Text>
+
+    }
+
     if (isError) {
       return <Text>{error.message}</Text>;
     }
+
 
     return maintenances.map((maintenance: any) => (
       <MaintenanceCard

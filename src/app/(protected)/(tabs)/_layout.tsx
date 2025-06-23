@@ -9,7 +9,7 @@ export default function BottomTabsLayout() {
     return <Redirect href="/" />;
   }
   return (
-    <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <TabBar {...props} />}>
+    <Tabs screenOptions={{ headerShown: false , animation: 'shift' }} tabBar={(props) => <TabBar {...props} />}>
       <Tabs.Screen
         name="details/[id]"
         options={{
