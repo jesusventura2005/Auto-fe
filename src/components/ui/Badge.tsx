@@ -1,9 +1,17 @@
 import { View, Text } from 'react-native';
 
-const Badge = () => {
+interface BadgeProps {
+  isCompleted: boolean;
+}
+
+const Badge = ({ isCompleted }: BadgeProps) => {
   return (
-    <View className="w-fit h-8 rounded-xl border border-[#dce4ec] dark:bg-color-bg-dark dark:border-color-border-dark bg-white p-1 px-2">
-      <Text className="text-sm font-semibold dark:text-color-text-dark">Pending</Text>
+    <View
+      className={`h-8 w-fit rounded-xl border border-[#dce4ec] dark:border-color-border-dark dark:bg-color-bg-dark ${isCompleted ? 'bg-green-500 dark:bg-green-500' : 'bg-white'} p-1 px-2 `}>
+      <Text
+        className={`text-sm font-semibold ${isCompleted ? 'text-white' : 'dark:text-color-text-dark'}`}>
+        {isCompleted ? 'Completado' : 'pendiente'}
+      </Text>
     </View>
   );
 };

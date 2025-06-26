@@ -8,6 +8,7 @@ type Props = {
   name: string;
   rules?: object;
   text: string
+  isDisable?: boolean
   onClose: () => void;
 };
 
@@ -18,6 +19,7 @@ export const VehicleTypeModal = ({
   name,
   rules,
   text,
+  isDisable,
   onClose,
 }: Props) => {
   const {
@@ -29,7 +31,7 @@ export const VehicleTypeModal = ({
   });
 
   return (
-    <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
+    <Modal animationType="slide" transparent visible={ isDisable ? false : visible} onRequestClose={onClose}>
       <View className="flex-1 items-center justify-center bg-black/70">
         <View className="w-5/6 rounded-2xl bg-white dark:bg-color-bg-dark p-6">
           <Text className="mb-6 text-center text-2xl  font-bold text-color-primary">

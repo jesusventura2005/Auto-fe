@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 import Calendar from '../modals/Calendar';
 import { VehicleTypeModal } from '../modals/VehicleTypeModal';
 import useAddMaintenance from '~/app/hooks/useAddMaintenance';
+import { Picker } from '@react-native-picker/picker';
 
 // Interfaz para el formulario de mantenimiento
 interface MaintenanceFormData {
@@ -43,8 +44,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { vehicleId } = useVehicleId();
   const addMaintenanceMutation = useAddMaintenance();
 
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
+
 
   const vehicleTypes = [
     'Cambio de aceite',
@@ -75,7 +75,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   // Observar el valor del campo maintenance
   const maintenanceValue = watch('maintenance');
 
-  // Función onSubmit para manejar el envío del formulario
   const onSubmit = (data: MaintenanceFormData) => {
     if (!vehicleId) {
       console.error('No hay vehicleId disponible');
@@ -95,12 +94,10 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     addMaintenanceMutation.mutate(maintenanceData, {
       onSuccess: () => {
         setModalVisible(false);
-        // Aquí podrías agregar un toast o notificación de éxito
         console.log('Mantenimiento agregado exitosamente');
       },
       onError: (error) => {
         console.error('Error al agregar mantenimiento:', error);
-        // Aquí podrías agregar un toast o notificación de error
       },
     });
   };
@@ -116,9 +113,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     <>
       <View
         className={`absolute bottom-10 mx-5 w-11/12 flex-1
-       flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-md shadow-black blur-xl dark:border 
+       flex-row items-center justify-around rounded-3xl bg-white p-4 shadow-md shadow-black blur-xl dark:border 
        dark:border-color-border-dark dark:bg-color-bg-dark `}>
-        <View className="flex-row items-center">
+        <View className="flex-row gap-2 items-center">
           {leftRoutes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -174,7 +171,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
           isFocused={false}
         />
 
-        <View className="flex-row items-center">
+        <View className="flex-row gap-2 items-center">
           {rightRoutes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -298,6 +295,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 </View>
 
                 <View>
+
+                <Picker></Picker>
+
                   <Input
                     isNumeric={true}
                     label="Kilómetros"
