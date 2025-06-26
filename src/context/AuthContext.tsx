@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: any) => {
     token: null,
     authenticated: false,
   });
-
+  
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: any) => {
     };
     loadToken();
   }, []);
-
+  
   const register = async (
     name: string,
     lastName: string,

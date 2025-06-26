@@ -2,12 +2,13 @@ import { TouchableOpacity, Text, Animated, View, ActivityIndicator } from 'react
 import { useRef } from 'react';
 
 type ButtonProps = {
-  title: string;
+  title?: string;
   classNameText?: string;
   animated?: boolean;
   onPress?: () => void;
   className?: string;
   disabled?: boolean;
+  children?: React.ReactNode;
 };
 
 export const ButtonCmp = ({
@@ -17,6 +18,7 @@ export const ButtonCmp = ({
   animated = false,
   classNameText,
   disabled,
+  children,
 }: ButtonProps) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -34,6 +36,16 @@ export const ButtonCmp = ({
     }).start();
   };
 
+  const content = children ? (
+    children
+  ) : disabled ? (
+    <ActivityIndicator size="small" color="#fff" />
+  ) : (
+    <Text className={`${classNameText || 'text-center text-xl font-bold text-white'}`}>
+      {title}
+    </Text>
+  );
+
   const buttonContent = (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -42,20 +54,12 @@ export const ButtonCmp = ({
       onPress={onPress}
       className={`${className || ''}`}
       disabled={disabled}>
-      {disabled ? (
-        <ActivityIndicator size="small" color="#fff" />
-      ) : (
-        <Text className={`${classNameText || 'text-center text-xl font-bold text-white'}`}>
-          {title}
-        </Text>
-      )}
+      {content}
     </TouchableOpacity>
   );
 
   if (animated) {
-    return (
-      <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>{buttonContent}</Animated.View>
-    );
+    return <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>{buttonContent}</Animated.View>;
   }
 
   return <View>{buttonContent}</View>;

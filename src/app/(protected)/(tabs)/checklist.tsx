@@ -1,24 +1,14 @@
 import { useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+
 import SectionTitle from '~/components/ui/SectionTitle';
-import CheckListCard from '~/components/cards/CheckListCard';
-import MarkCompleteModal from '~/components/modals/MarkCompleteModal';
-import dayjs from 'dayjs';
-import 'dayjs/locale/es';
+import ConfirmationModal from '~/components/modals/Confirmation';
+import ButtonCmp from '~/components/ui/ButtonCmp';
 
-dayjs.locale('es');
-
-type ChecklistItem = {
-  type: string;
-  iconName: string;
-  iconType: 'material-community' | 'font-awesome-5' | 'ionicons';
-  lastDone: string;
-  interval: string;
-  status: 'Vencido' | 'Nunca hecho' | 'Al día';
-};
-
-const initialChecklistData: ChecklistItem[] = [
+const initialChecklistData = [
   {
     type: 'Cambio de Aceite',
     iconName: 'oil',
@@ -69,12 +59,41 @@ const initialChecklistData: ChecklistItem[] = [
   },
 ];
 
+const getColorByStatus = (status: string) => {
+  switch (status) {
+    case 'Vencido':
+      return '#dc2626'; // rojo
+    case 'Nunca hecho':
+      return '#facc15'; // amarillo
+    case 'Al día':
+    default:
+      return '#22c55e'; // verde
+  }
+};
+
+const getIconComponent = (
+  iconType: string,
+  iconName: string,
+  color: string
+) => {
+  switch (iconType) {
+    case 'material-community':
+      return <MaterialCommunityIcons name={iconName as any} size={24} color={color} />;
+    case 'font-awesome-5':
+      return <FontAwesome5 name={iconName as any} size={20} color={color} />;
+    case 'ionicons':
+      return <Ionicons name={iconName as any} size={24} color={color} />;
+    default:
+      return null;
+  }
+};
+
 export default function ChecklistScreen() {
-  const [checklist, setChecklist] = useState<ChecklistItem[]>(initialChecklistData);
+  const [data, setData] = useState([...initialChecklistData]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleCardPress = (index: number) => {
+  const handlePress = (index: number) => {
     setSelectedIndex(index);
     setModalVisible(true);
   };
@@ -82,34 +101,72 @@ export default function ChecklistScreen() {
   const handleConfirm = () => {
     if (selectedIndex === null) return;
 
-    const updatedChecklist = [...checklist];
-    const today = dayjs().format('MMM D, YYYY');
+    const updated = [...data];
+    const today = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
 
-    updatedChecklist[selectedIndex] = {
-      ...updatedChecklist[selectedIndex],
+    updated[selectedIndex] = {
+      ...updated[selectedIndex],
       lastDone: today,
       status: 'Al día',
     };
 
-    setChecklist(updatedChecklist);
+    setData(updated);
     setModalVisible(false);
+    setSelectedIndex(null);
   };
 
   return (
     <SafeAreaView className="flex-1 bg-color-bg dark:bg-color-bg-dark">
       <ScrollView className="flex-1 px-4 py-6">
         <SectionTitle title="Checklist de Mantenimiento" className="mb-6 text-center" />
-        {checklist.map((item, index) => (
-          <CheckListCard key={index} {...item} onPress={() => handleCardPress(index)} />
-        ))}
+        {data.map((item, index) => {
+          const color = getColorByStatus(item.status);
+          return (
+            <ButtonCmp key={index} onPress={() => handlePress(index)} animated>
+              <View
+                className="mb-4 w-full rounded-xl border border-color-border dark:border-color-border-dark bg-white dark:bg-color-bg-dark p-4 flex-row items-center"
+                style={{ borderLeftWidth: 5, borderLeftColor: color }}
+              >
+                <View className="mr-4">
+                  {getIconComponent(item.iconType, item.iconName, color)}
+                </View>
+
+                <View className="flex-1">
+                  <Text className="text-lg font-semibold text-color-title dark:text-color-title-dark">
+                    {item.type}
+                  </Text>
+                  <Text className="text-sm text-gray-500 dark:text-gray-400">
+                    Última vez: {item.lastDone}
+                  </Text>
+                  <Text className="text-xs text-gray-400 dark:text-gray-500">
+                    Recomendado {item.interval}
+                  </Text>
+                </View>
+
+                <View className="bg-gray-800 rounded-full px-3 py-1 min-w-[80px] items-center">
+                  <Text className="text-xs text-white text-center">{item.status}</Text>
+                </View>
+              </View>
+            </ButtonCmp>
+          );
+        })}
       </ScrollView>
 
-      <MarkCompleteModal
-        visible={modalVisible}
-        title={selectedIndex !== null ? checklist[selectedIndex].type : ''}
-        onClose={() => setModalVisible(false)}
-        onConfirm={handleConfirm}
-      />
+      {selectedIndex !== null && (
+        <ConfirmationModal
+          visible={modalVisible}
+          taskName={data[selectedIndex].type}
+          onConfirm={handleConfirm}
+          onCancel={() => {
+            setModalVisible(false);
+            setSelectedIndex(null);
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 }
