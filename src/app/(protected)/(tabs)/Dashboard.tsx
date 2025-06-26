@@ -45,6 +45,7 @@ const Dashboard = () => {
 
     return vehicles.map((vehicle: any) => (
       <Card
+        type={vehicle.type}
         id={vehicle._id}
         key={vehicle._id}
         kilometers={vehicle.kilometers || 0}
