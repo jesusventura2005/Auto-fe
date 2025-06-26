@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Clock from '../../assets/clock.svg';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 interface CardProps {
   id: string;
@@ -10,15 +11,19 @@ interface CardProps {
   lastService: string;
   brand: string;
   model: string;
+  type?: string;
 }
 
-export const Card = ({ id, kilometers, lastService, age, brand, model }: CardProps) => {
+export const Card = ({ id, kilometers, lastService, age, brand, model , type }: CardProps) => {
   return (
     <TouchableOpacity
       onPress={() => router.push(`/details/${id}`)}
       className="flex h-[240px]  w-11/12 flex-col rounded-xl bg-color-bg dark:bg-color-bg-dark dark:border dark:border-color-border-dark shadow-md">
       <View className=" flex items-center justify-center rounded-t-xl bg-[#005ee2] p-3">
-        <Ionicons name="car-outline" size={86} color="white" />
+        {
+          type === 'Camioneta' ? ( <Ionicons name='car-outline' size={86} color='white'/> ) : type === 'Carro' ? ( <Ionicons name='car-sport' size={86} color='white'/> ) : type === 'Moto' ? ( <MaterialCommunityIcons name="motorbike" size={86} color="white" /> ) : ''
+        }
+        
         <Text className="font-bold text-color-bg dark:text-color-text-dark">
           {age} {brand}
         </Text>

@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 import Calendar from '../modals/Calendar';
 import { VehicleTypeModal } from '../modals/VehicleTypeModal';
 import useAddMaintenance from '~/app/hooks/useAddMaintenance';
+import { Picker } from '@react-native-picker/picker';
 
 // Interfaz para el formulario de mantenimiento
 interface MaintenanceFormData {
@@ -294,6 +295,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 </View>
 
                 <View>
+
+                <Picker></Picker>
+
                   <Input
                     isNumeric={true}
                     label="Kilómetros"
