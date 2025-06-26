@@ -2,10 +2,13 @@ import { Text } from 'react-native';
 
 type Props = {
   title: string;
+  className?: string;
 };
 
-const SectionTitle = ({ title }: Props) => (
-  <Text className="text-2xl font-bold text-black mt-6 mb-2 dark:text-color-title-dark">{title}</Text>
-);
-
-export default SectionTitle;
+export default function SectionTitle({ title, className = '' }: Props) {
+  return (
+    <Text className={`text-2xl font-bold text-color-primary text-center mb-6 ${className}`}>
+      {title}
+    </Text>
+  );
+}
