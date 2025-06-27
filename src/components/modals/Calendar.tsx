@@ -19,7 +19,6 @@ function getValidDate(val: any, fallback: Date) {
 }
 
 const Calendar = ({ control, name, rules, valueDate }: CalendarProps) => {
-
   return (
     <Controller
       control={control}
@@ -29,6 +28,8 @@ const Calendar = ({ control, name, rules, valueDate }: CalendarProps) => {
       render={({ field: { value, onChange } }) => (
         <View>
           <DateTimePicker
+            mode="date"
+            minimumDate={new Date()}
             value={getValidDate(value, valueDate || new Date())}
             onChange={(event, selectedDate) => {
               if (event.type === 'set' && selectedDate) {

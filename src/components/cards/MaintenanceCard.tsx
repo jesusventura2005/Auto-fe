@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   Switch,
+  Button,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -21,6 +22,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { VehicleTypeModal } from '../modals/VehicleTypeModal';
 import Calendar from '../modals/Calendar';
 import { usePatchMaintenance } from '../../app/hooks/usePatchMaintenance';
+import MarkCompleteModal from '../modals/MarkCompleteModal';
 
 interface maintenance {
   id: string;
@@ -65,6 +67,7 @@ const MaintenanceCard = ({
 }: maintenance) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [maintenanceTypeModalVisible, setMaintenanceTypeModalVisible] = useState(false);
+  const [modalCompleted, setModalComplete] = useState(false);
 
   const { control, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
@@ -114,7 +117,7 @@ const MaintenanceCard = ({
       <TouchableOpacity
         className="flex min-h-32 w-full flex-row items-center  justify-around rounded-xl bg-white p-4 shadow-lg dark:border dark:border-color-border-dark dark:bg-color-bg-dark "
         disabled={completed === true}
-        onPress={() => setModalOpen(true)}>
+        onPress={() => setModalComplete(true)}>
         <View className="mb-4 mt-4 flex gap-4">
           <View className="flex flex-row items-center gap-4">
             <View className="rounded-full bg-[#daf0fd] p-2">
@@ -157,6 +160,12 @@ const MaintenanceCard = ({
         <View className="flex flex-row">
           <Badge isCompleted={completed || false} />
         </View>
+
+        {!completed ? <TouchableOpacity
+          className="absolute bottom-4 left-[312px]  rounded-full"
+          onPress={() => setModalOpen(true)}>
+          <Ionicons name="settings-outline" size={24} color="white" />
+        </TouchableOpacity> : ''}
       </TouchableOpacity>
 
       <Modal visible={modalOpen} transparent animationType="slide">
@@ -255,7 +264,7 @@ const MaintenanceCard = ({
                   />
                 </View>
 
-                <View className="mb-4">
+                {/* <View className="mb-4">
                   <Text className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                     Completado
                   </Text>
@@ -272,7 +281,7 @@ const MaintenanceCard = ({
                       </View>
                     )}
                   />
-                </View>
+                </View> */}
 
                 <TouchableOpacity
                   onPress={handleSubmit(onSubmit)}
@@ -293,6 +302,23 @@ const MaintenanceCard = ({
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
       </Modal>
+
+      <Controller
+        control={control}
+        name="completed"
+        defaultValue={false}
+        render={({ field: { onChange, value } }) => (
+          <MarkCompleteModal
+            title="Marcar como completado"
+            visible={modalCompleted}
+            onClose={() => setModalComplete(false)}
+            onConfirm={() => {
+              onChange(true);
+              handleSubmit(onSubmit)();
+            }}
+          />
+        )}
+      />
     </>
   );
 };

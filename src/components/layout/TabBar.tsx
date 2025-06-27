@@ -267,7 +267,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 <TouchableOpacity
                   onPress={() => setMaintenanceTypeModalVisible(true)}
                   className="rounded-lg border border-gray-200 bg-white p-4 dark:border-color-border-dark dark:bg-color-bg-dark">
-                  <Text className="text-gray-500">Marca</Text>
+                  <Text className="text-gray-500">Mantenimiento</Text>
                   <Text
                     className={`font-medium text-gray-800 ${maintenanceValue ? ' text-color-alternative-dark dark:text-color-title-dark' : ''}`}>
                     {maintenanceValue || 'Seleccionar tipo'}
@@ -296,7 +296,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
                 <View>
 
-                <Picker></Picker>
 
                   <Input
                     isNumeric={true}

@@ -156,7 +156,7 @@ export default function ChecklistScreen() {
         })}
       </ScrollView>
 
-      {selectedIndex !== null && (
+      {/* {selectedIndex !== null && (
         <ConfirmationModal
           visible={modalVisible}
           taskName={data[selectedIndex].type}
@@ -166,7 +166,7 @@ export default function ChecklistScreen() {
             setSelectedIndex(null);
           }}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 }
