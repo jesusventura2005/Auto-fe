@@ -1,6 +1,6 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { ButtonCmp } from '~/components/ui/ButtonCmp';
+import  ButtonCmp  from '~/components/ui/ButtonCmp';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';

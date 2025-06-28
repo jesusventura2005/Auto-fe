@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ScrollView, Text, View, TouchableOpacity, useColorScheme, Modal } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import { ButtonCmp } from '~/components/ui/ButtonCmp';
+import  ButtonCmp  from '~/components/ui/ButtonCmp';
 import { useState } from 'react';
 import EditProfileModal from '~/components/modals/EditProfileModal';
 import { useQuery } from '@tanstack/react-query';
