@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Appearance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-
+import { useQuery } from '@tanstack/react-query';
 import SectionTitle from '~/components/ui/SectionTitle';
-import ConfirmationModal from '~/components/modals/Confirmation';
 import ButtonCmp from '~/components/ui/ButtonCmp';
+
 
 const initialChecklistData = [
   {
@@ -76,6 +76,7 @@ const getIconComponent = (
   iconName: string,
   color: string
 ) => {
+
   switch (iconType) {
     case 'material-community':
       return <MaterialCommunityIcons name={iconName as any} size={24} color={color} />;

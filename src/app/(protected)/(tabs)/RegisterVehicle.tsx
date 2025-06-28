@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Appearance } from 'react-native';
 import { VehicleTypeModal } from '~/components/modals/VehicleTypeModal';
 import { useForm } from 'react-hook-form';
-import { ButtonCmp } from '~/components/ui/ButtonCmp';
+import  ButtonCmp  from '~/components/ui/ButtonCmp';
 import  Input  from '~/components/ui/Input';
 import useAddVehicle from '~/app/hooks/useAddVehicle';
 import { router } from 'expo-router';

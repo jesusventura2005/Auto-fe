@@ -11,7 +11,7 @@ type ButtonProps = {
   children?: React.ReactNode;
 };
 
-export const ButtonCmp = ({
+const ButtonCmp = ({
   title,
   onPress,
   className,

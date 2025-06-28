@@ -7,8 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  Switch,
-  Button,
+  Appearance,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -79,6 +78,9 @@ const MaintenanceCard = ({
       completed: false,
     },
   });
+
+  const colorScheme = Appearance.getColorScheme()
+
 
   const patchMaintenance = usePatchMaintenance();
 
@@ -164,7 +166,7 @@ const MaintenanceCard = ({
         {!completed ? <TouchableOpacity
           className="absolute bottom-4 left-[312px]  rounded-full"
           onPress={() => setModalOpen(true)}>
-          <Ionicons name="settings-outline" size={24} color="white" />
+          <Ionicons name="settings-outline" size={24} color={colorScheme === 'dark' ? 'white' : 'black' } />
         </TouchableOpacity> : ''}
       </TouchableOpacity>
 
