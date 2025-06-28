@@ -22,6 +22,7 @@ import { VehicleTypeModal } from '../modals/VehicleTypeModal';
 import Calendar from '../modals/Calendar';
 import { usePatchMaintenance } from '../../app/hooks/usePatchMaintenance';
 import MarkCompleteModal from '../modals/MarkCompleteModal';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface maintenance {
   id: string;
@@ -67,6 +68,7 @@ const MaintenanceCard = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [maintenanceTypeModalVisible, setMaintenanceTypeModalVisible] = useState(false);
   const [modalCompleted, setModalComplete] = useState(false);
+  const queryclient = useQueryClient();
 
   const { control, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
@@ -79,8 +81,7 @@ const MaintenanceCard = ({
     },
   });
 
-  const colorScheme = Appearance.getColorScheme()
-
+  const colorScheme = Appearance.getColorScheme();
 
   const patchMaintenance = usePatchMaintenance();
 
@@ -108,6 +109,7 @@ const MaintenanceCard = ({
 
     patchMaintenance.mutate(maintenanceData, {
       onSuccess: () => {
+        queryclient.invalidateQueries({ queryKey: ['check'] });
         setModalOpen(false);
         reset();
       },
@@ -163,11 +165,19 @@ const MaintenanceCard = ({
           <Badge isCompleted={completed || false} />
         </View>
 
-        {!completed ? <TouchableOpacity
-          className="absolute bottom-4 left-[312px]  rounded-full"
-          onPress={() => setModalOpen(true)}>
-          <Ionicons name="settings-outline" size={24} color={colorScheme === 'dark' ? 'white' : 'black' } />
-        </TouchableOpacity> : ''}
+        {!completed ? (
+          <TouchableOpacity
+            className="absolute bottom-4 left-[340px]  rounded-full"
+            onPress={() => setModalOpen(true)}>
+            <Ionicons
+              name="settings-outline"
+              size={24}
+              color={colorScheme === 'dark' ? 'white' : 'black'}
+            />
+          </TouchableOpacity>
+        ) : (
+          ''
+        )}
       </TouchableOpacity>
 
       <Modal visible={modalOpen} transparent animationType="slide">
