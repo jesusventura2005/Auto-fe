@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ScrollView, Text, View, TouchableOpacity, useColorScheme, Modal } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import  ButtonCmp  from '~/components/ui/ButtonCmp';
+import ButtonCmp from '~/components/ui/ButtonCmp';
 import { useState } from 'react';
 import EditProfileModal from '~/components/modals/EditProfileModal';
 import { useQuery } from '@tanstack/react-query';
@@ -65,7 +65,7 @@ export default function ProfileScreen() {
           showsVerticalScrollIndicator={false}>
           <View className="w-11/12 items-center rounded-2xl bg-white p-4 shadow-md dark:border dark:border-color-border-dark  dark:bg-color-bg-dark">
             <Text className="mb-1 text-lg font-bold text-gray-900 dark:text-color-title-dark">
-              Profile
+              Perfil
             </Text>
             <Ionicons
               name="person-circle"
@@ -77,12 +77,12 @@ export default function ProfileScreen() {
             </Text>
             <Text className="text-gray-600 dark:text-gray-300">{user?.email}</Text>
             <Text className="mt-1 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-              Vehicle Owner
+              Dueño de vehiculo
             </Text>
 
             <View className="mt-4 w-full">
               <ButtonCmp
-                title="Edit Profile"
+                title="Editar Perfil"
                 onPress={() => setModalVisible(true)}
                 animated
                 className="rounded-xl bg-color-primary py-2"
@@ -92,7 +92,9 @@ export default function ProfileScreen() {
           </View>
 
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-2 shadow-md dark:border dark:border-color-border-dark  dark:bg-color-bg-dark">
-            <Text className="mb-4 text-lg font-bold text-gray-800 dark:text-white">Stats</Text>
+            <Text className="mb-4 text-lg font-bold text-gray-800 dark:text-white">
+              Estadisticas
+            </Text>
             <View className="flex-row justify-between">
               <TouchableOpacity
                 onPress={() => router.push('Dashboard')}
@@ -100,13 +102,15 @@ export default function ProfileScreen() {
                 <Text className="text-xl font-bold text-white dark:text-color-text-dark">
                   {cars?.length}
                 </Text>
-                <Text className="text-white dark:text-color-title-dark">Vehicles</Text>
+                <Text className="text-white dark:text-color-title-dark">Vehiculos</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           <View className="mt-6 w-11/12 rounded-2xl bg-white p-3 shadow-md dark:border dark:border-color-border-dark  dark:bg-color-bg-dark">
-            <Text className="mb-4 text-lg font-bold text-gray-800 dark:text-white">Settings</Text>
+            <Text className="mb-4 text-lg font-bold text-gray-800 dark:text-white">
+              Configuración
+            </Text>
 
             <View className="mb-3 flex-row items-center justify-between">
               <View className="flex-row items-center">
@@ -116,7 +120,7 @@ export default function ProfileScreen() {
                   color={colorScheme === 'dark' ? '#fff' : '#222'}
                   style={{ marginRight: 8 }}
                 />
-                <Text className="text-base text-gray-800 dark:text-white">Theme</Text>
+                <Text className="text-base text-gray-800 dark:text-white">Tema</Text>
               </View>
               <TouchableOpacity
                 onPress={() => setThemeMenuVisible(true)}
@@ -146,14 +150,14 @@ export default function ProfileScreen() {
                   <TouchableOpacity
                     onPress={() => setThemeMenuVisible(false)}
                     className="mt-2 py-2">
-                    <Text className="text-center text-gray-500 dark:text-gray-300">Cancel</Text>
+                    <Text className="text-center text-gray-500 dark:text-gray-300">Cancelar</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </Modal>
 
             <ButtonCmp
-              title="Sign Out"
+              title="Cerrar sesión"
               onPress={() => {
                 onLogout?.();
                 router.push('/');

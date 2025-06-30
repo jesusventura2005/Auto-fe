@@ -162,7 +162,7 @@ const RegisterScreen = () => {
           error={isSubmitted ? errors.passwordConfirm : undefined}
         />
 
-        <View className="my-2">
+        <View className="my-2 hidden">
           <Text className="mb-3 font-semibold text-color-text dark:text-color-text-dark">
             Soy un:
           </Text>

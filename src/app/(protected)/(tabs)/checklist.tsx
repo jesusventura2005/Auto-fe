@@ -13,7 +13,7 @@ const checklistdataReview = [
     type: 'Cambio de aceite',
     iconName: 'oil',
     iconType: 'material-community',
-    interval: 3 ,
+    interval: 3,
   },
   {
     name: 'Rotación de Neumáticos',
@@ -27,7 +27,6 @@ const checklistdataReview = [
     type: 'Freno',
     iconName: 'car-brake-alert',
     iconType: 'material-community',
-    lastDone: '2026-06-27T00:06:06.000Z',
     interval: 12,
   },
   {
@@ -35,7 +34,6 @@ const checklistdataReview = [
     type: 'Filtro',
     iconName: 'filter-outline',
     iconType: 'ionicons',
-    lastDone: '2026-06-27T00:06:06.000Z',
     interval: 12,
   },
   {
@@ -95,7 +93,7 @@ export default function ChecklistScreen() {
     });
 
     if (isLoading) {
-      console.log(vehicleId)
+      console.log(vehicleId);
       return <Text>Cargando...</Text>;
     }
 
@@ -117,7 +115,7 @@ export default function ChecklistScreen() {
         // Si existe mantenimiento para este tipo, usar esos datos
         return {
           ...checklistItem,
-          lastDone: maintenanceItem.date,
+          lastDone: maintenanceItem.date ?? undefined,
           date: maintenanceItem.date,
         };
       } else {
@@ -129,7 +127,6 @@ export default function ChecklistScreen() {
     });
 
     return combinedData.map((item, index) => {
-
       return (
         <CheckListCard
           key={index}

@@ -16,7 +16,7 @@ const LoginScreen = () => {
       if (!onLogin) throw new Error('Metodo onLogin no definido');
       const response = await onLogin(email, password);
       if (response.error) {
-        throw new Error(response.msg);
+        throw new Error(response.msg || 'Credenciales invalidas');
       }
       return response;
     },
@@ -25,7 +25,11 @@ const LoginScreen = () => {
       router.push('Dashboard'); // Redirigir al dashboard después de iniciar sesión
     },
     onError: (error) => {
-      setServerError(error.message || 'Error al iniciar sesión');
+      if (error.message === 'Credenciales invalidas') {
+        setServerError('Error: Credenciales inválidas');
+      } else {
+        setServerError(error.message || 'Error al iniciar sesión');
+      }
       console.error('Error:', error);
     },
   });

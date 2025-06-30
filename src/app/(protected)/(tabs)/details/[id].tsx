@@ -35,7 +35,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <View className="flex h-screen items-center justify-center">
-        <Text>Loading...</Text>
+        <Text>Cargando...</Text>
       </View>
     );
   }
@@ -87,7 +87,7 @@ export default function Home() {
               size={24}
               color={colorScheme === 'dark' ? '#ffffff' : '#000000'}
             />
-            <Text className="text-lg font-semibold text-gray-600">Upcoming Maintenance</Text>
+            <Text className="text-lg font-semibold text-gray-600">Siguientes mantenimientos</Text>
           </View>
         </ScrollView>
       </SafeAreaView>

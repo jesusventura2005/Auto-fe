@@ -1,6 +1,6 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { useForm } from 'react-hook-form';
-import  ButtonCmp  from '~/components/ui/ButtonCmp';
+import ButtonCmp from '~/components/ui/ButtonCmp';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -55,7 +55,7 @@ export default function EditProfileModal({
       console.log('Profile updated successfully');
       Toast.show({
         type: 'success',
-        text1: 'Profile updated successfully',
+        text1: 'Perfil actualizado correctamente',
       });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       onClose();
@@ -63,7 +63,7 @@ export default function EditProfileModal({
     onError: (error) => {
       Toast.show({
         type: 'error',
-        text1: 'Error updating profile',
+        text1: 'Error actualizando el perfil',
         text2: error instanceof Error ? error.message : 'An unexpected error occurred',
       });
       console.error('Error updating profile:', error);
@@ -116,18 +116,16 @@ export default function EditProfileModal({
     <Modal visible={visible} animationType="slide" transparent>
       <View className="flex-1 items-center justify-center bg-black/50">
         <View className=" w-11/12 rounded-2xl bg-white p-6 shadow-lg dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
-          <Text className="mb-4 text-center text-xl font-bold dark:text-white">
-            Edit Your Profile
-          </Text>
+          <Text className="mb-4 text-center text-xl font-bold dark:text-white">Editar Perfil</Text>
 
           <View key={'Name'}>
             <Input
               name={'name'}
               control={control}
-              placeholder={`Enter Name`}
-              label={'Name'}
+              placeholder={`Ingresar nombre`}
+              label={'Nombre'}
               rules={{
-                required: `Name is required`,
+                required: `Nombre es requerido`,
               }}
               error={isSubmitted ? errors.name : undefined}
             />
@@ -136,10 +134,10 @@ export default function EditProfileModal({
             <Input
               name={'lastName'}
               control={control}
-              placeholder={`Enter Last Name`}
-              label={'Last Name'}
+              placeholder={`Ingresar apellido`}
+              label={'Apellido'}
               rules={{
-                required: `Last Name is required`,
+                required: `Apellido es requerido`,
               }}
               error={isSubmitted ? errors.lastName : undefined}
             />
@@ -148,13 +146,13 @@ export default function EditProfileModal({
             <Input
               name={'email'}
               control={control}
-              placeholder={`Enter email`}
+              placeholder={`Ingresar email`}
               label={'Email'}
               rules={{
-                required: `Email is required`,
+                required: `Email es requerido`,
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: 'Invalid email format',
+                  message: 'Formato de email inválido',
                 },
               }}
               error={isSubmitted ? errors.email : undefined}
@@ -164,12 +162,12 @@ export default function EditProfileModal({
             <Input
               name={'password'}
               control={control}
-              placeholder={`Enter password`}
-              label={'Password'}
+              placeholder={`Ingresar contraseña`}
+              label={'Contraseña'}
               rules={{
                 validate: (value: string) => {
                   if (value && value.length < 6) {
-                    return 'Password must be at least 6 characters';
+                    return 'La contraseña debe tener al menos 6 caracteres';
                   }
                   return true;
                 },
@@ -181,12 +179,12 @@ export default function EditProfileModal({
             <Input
               name={'confirmPassword'}
               control={control}
-              placeholder={`Confirm password`}
-              label={'Confirm Password'}
+              placeholder={`Confirmar contraseña`}
+              label={'Confirmar Contraseña'}
               rules={{
                 validate: (value: string) => {
                   if (watch('password') !== value) {
-                    return 'Passwords do not match';
+                    return 'Las contraseñas no coinciden';
                   }
                 },
               }}
@@ -196,14 +194,14 @@ export default function EditProfileModal({
 
           <ButtonCmp
             animated
-            title="Update Profile"
+            title="Actualizar Perfil"
             onPress={handleSubmit(onSubmit)}
             className="mt-4 rounded-xl bg-color-primary px-6 py-3 text-white"
             disabled={isPending}
           />
 
           <Pressable onPress={onClose} className="mt-4" disabled={isPending}>
-            <Text className="text-center text-blue-500">Cancel</Text>
+            <Text className="text-center text-blue-500">Cancelar</Text>
           </Pressable>
         </View>
       </View>
