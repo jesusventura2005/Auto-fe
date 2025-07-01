@@ -46,6 +46,7 @@ const useAddVehicle = () => {
         const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/cars`, requestData);
         return response;
       } catch (error) {
+        console.error('Error adding vehicle:', error);
         throw error;
       }
     },
@@ -57,7 +58,7 @@ const useAddVehicle = () => {
       router.push('/Dashboard');
     },
     onError: (error) => {
-      console.error('Mutation error:', error);
+      console.error('Mutation error:', error.message);
     },
   });
 

@@ -20,8 +20,6 @@ interface CarRegister {
 
 const colorScheme = Appearance.getColorScheme();
 
-console.log(colorScheme);
-
 const hasSpecialCharacters = (value: string) => {
   if (!value) return 'Este campo no puede estar vacío';
   const regex = /^[a-zA-Z0-9\s]+$/;
@@ -86,7 +84,7 @@ const RegisterVehicle = () => {
             label="Placa"
             control={control}
             name="plate"
-            placeholder="192j9ejs"
+            placeholder="Ej: ABC-1234"
             rules={{
               required: 'Este campo es obligatorio',
               validate: {
@@ -99,9 +97,13 @@ const RegisterVehicle = () => {
             label="Serial"
             control={control}
             name="serial"
-            placeholder="192j9ejs"
+            placeholder="Ej: 1G1FJ4B08H7345678"
             rules={{
               required: 'Este campo es obligatorio',
+              minLength: {
+                value: 17,
+                message: 'El serial debe tener al menos 17 caracteres',
+              },
               validate: {
                 SpecialCharacters: (value) => hasSpecialCharacters(value),
                 spacedChars: (value) => hasSpacedCharacters(value),
@@ -112,9 +114,13 @@ const RegisterVehicle = () => {
             label="Año"
             control={control}
             name="age"
-            placeholder="192j9ejs"
+            placeholder="Ej: 2020"
             rules={{
               required: 'Este campo es obligatorio',
+              pattern: {
+                value: /^\d{4}$/,
+                message: 'El año debe ser un número de 4 dígitos',
+              },
               validate: {
                 SpecialCharacters: (value) => hasSpecialCharacters(value),
                 spacedChars: (value) => hasSpacedCharacters(value),
@@ -125,7 +131,7 @@ const RegisterVehicle = () => {
             label="Modelo del Vehículo"
             control={control}
             name="carModel"
-            placeholder="192j9ejs"
+            placeholder="Ej: Corolla"
             rules={{
               required: 'Este campo es obligatorio',
               validate: {
