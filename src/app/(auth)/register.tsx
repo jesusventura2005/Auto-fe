@@ -10,6 +10,7 @@ import { useState } from 'react';
 const RegisterScreen = () => {
   const { onRegister } = useAuth();
   const [userType, setUserType] = useState<'owner' | 'mechanic'>('owner');
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({
@@ -28,14 +29,19 @@ const RegisterScreen = () => {
       if (!onRegister) throw new Error('Metodo onRegister no definido');
       const response = await onRegister(name, lastName, email, password, userType);
       if (response.error) {
-        throw new Error(response.msg);
+        throw new Error(response.msg || 'Error al registrar usuario');
       }
       return response;
     },
-    onSuccess: (response) => {
+    onSuccess: () => {
       router.push('(protected)/(tabs)/Dashboard'); // Redirigir al dashboard después de registrarse
     },
     onError: (error) => {
+      if (error.message === 'Error al registrar usuario') {
+        setServerError('Error: Ya existe un usuario con ese correo electrónico');
+      } else {
+        setServerError(error.message || 'Error al registrar usuario');
+      }
       console.error('Error:', error);
     },
   });
@@ -193,6 +199,12 @@ const RegisterScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
+
+        {serverError && (
+          <Text className="mb-4 rounded-lg bg-color-alert py-2 text-center text-white">
+            {serverError}
+          </Text>
+        )}
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
