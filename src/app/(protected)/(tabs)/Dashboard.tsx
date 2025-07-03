@@ -49,8 +49,9 @@ const Dashboard = () => {
         id={vehicle._id}
         key={vehicle._id}
         kilometers={vehicle.kilometers || 0}
-        age={vehicle.age}
-        lastService={vehicle.plate}
+        plate={vehicle.plate}
+        year={vehicle.year}
+        lastService={vehicle.maintenance?.date}
         brand={vehicle.brand}
         model={vehicle.carModel}
       />
@@ -58,8 +59,8 @@ const Dashboard = () => {
   };
 
   return (
-    <SafeAreaProvider >
-      <SafeAreaView className='dark:bg-color-bg-dark' edges={['top']}>
+    <SafeAreaProvider>
+      <SafeAreaView className="dark:bg-color-bg-dark" edges={['top']}>
         <ScrollView
           className="flex h-screen  bg-color-bg dark:bg-color-bg-dark"
           contentContainerStyle={{

@@ -12,7 +12,7 @@ interface CarRegister {
   type: string;
   brand: string;
   carModel: string;
-  age: number;
+  year: number;
   owner: string;
   plate: string;
   serial: string;
@@ -40,7 +40,7 @@ const RegisterVehicle = () => {
       type: '',
       brand: '',
       carModel: '',
-      age: 0,
+      year: 0,
       owner: '',
       plate: '',
       serial: '',
@@ -113,7 +113,7 @@ const RegisterVehicle = () => {
           <Input
             label="Año"
             control={control}
-            name="age"
+            name="year"
             placeholder="Ej: 2020"
             rules={{
               required: 'Este campo es obligatorio',

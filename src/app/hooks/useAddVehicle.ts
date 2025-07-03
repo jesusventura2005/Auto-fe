@@ -8,7 +8,7 @@ import { JwtPayload } from 'jsonwebtoken';
 interface AddVehicleParams {
   type: string;
   brand: string;
-  age: number;
+  year: number;
   carModel: string;
   serial: string;
   plate: string;
@@ -19,7 +19,7 @@ const useAddVehicle = () => {
   const { authState } = useAuth();
 
   const addVehicleMutation = useMutation({
-    mutationFn: async ({ type, brand, age, carModel, serial, plate }: AddVehicleParams) => {
+    mutationFn: async ({ type, brand, year, carModel, serial, plate }: AddVehicleParams) => {
       const toDecode = authState?.token;
       if (!toDecode) {
         throw new Error('No authentication token found');
@@ -36,7 +36,7 @@ const useAddVehicle = () => {
         type,
         brand,
         owner,
-        age,
+        year,
         carModel,
         serial,
         plate,

@@ -1,7 +1,8 @@
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function HealthCard() {
+export default function HealthCard({ lastService }: { lastService?: string }) {
+  console.log('lastService', lastService);
   return (
     <View className="flex w-11/12 flex-col overflow-hidden rounded-xl border-2 border-gray-200 dark:border-color-border-dark">
       <View className="flex w-full flex-row items-center gap-2 bg-[#005ee2]">
@@ -13,12 +14,36 @@ export default function HealthCard() {
           Condición Actual del Vehículo
         </Text>
         <Text className="text-base text-gray-600">
-          Esta tarjeta proporciona una visión general del estado de salud del vehículo, incluidos
-          los diagnósticos y el mantenimiento.
+          {(() => {
+            if (!lastService) {
+              return 'No hay registro del último servicio. ¡Por favor, revisa tu vehículo pronto!';
+            }
+            const last = new Date(lastService);
+            const now = new Date();
+            const diffMonths =
+              (now.getFullYear() - last.getFullYear()) * 12 + (now.getMonth() - last.getMonth());
+
+            if (diffMonths <= 4) {
+              return '¡Todo está en orden! El mantenimiento está al día.';
+            } else if (diffMonths > 4 && diffMonths <= 8) {
+              return 'Hace un tiempo desde el último servicio. Considera programar un chequeo pronto.';
+            } else {
+              return '¡Atención! Han pasado más de 8 meses desde el último servicio. Es recomendable revisar tu vehículo.';
+            }
+          })()}{' '}
         </Text>
         <View className="flex flex-row items-center gap-2">
           <Ionicons name="calendar-outline" size={24} color="#65768a" />
-          <Text className="text-[#65768a]">Último chequeo: 2023-10-01</Text>
+          <Text className="text-[#65768a]">
+            Último chequeo:{' '}
+            {lastService
+              ? new Date(lastService).toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })
+              : 'N/A'}
+          </Text>
         </View>
       </View>
     </View>
