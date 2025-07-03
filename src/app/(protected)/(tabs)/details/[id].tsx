@@ -80,6 +80,7 @@ export default function Home() {
             type={vehicle.type}
             brand={vehicle.brand}
             kilometers={vehicle.kilometers || 0}
+            plate={vehicle.plate}
           />
           <HealthCard />
           <View className="flex w-full flex-row items-center gap-2 rounded-lg px-6">

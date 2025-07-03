@@ -49,8 +49,9 @@ const Dashboard = () => {
         id={vehicle._id}
         key={vehicle._id}
         kilometers={vehicle.kilometers || 0}
+        plate={vehicle.plate}
         year={vehicle.year}
-        lastService={vehicle.plate}
+        lastService={vehicle.maintenance?.date}
         brand={vehicle.brand}
         model={vehicle.carModel}
       />

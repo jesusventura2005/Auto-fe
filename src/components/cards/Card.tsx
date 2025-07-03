@@ -57,7 +57,16 @@ export const Card = ({
 
         <View className="flex flex-row items-center rounded-md bg-color-alternative p-1.5  dark:bg-color-alternative-dark">
           <Ionicons className="mx-2" name="speedometer-outline" size={16} color="#65768a" />
-          <Text className="text-[#65768a]">Ultimo servicio: {lastService}</Text>
+          <Text className="text-[#65768a]">
+            Ultimo servicio:{' '}
+            {lastService
+              ? new Date(lastService).toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })
+              : 'N/A'}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
