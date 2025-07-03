@@ -48,6 +48,8 @@ export default function Home() {
     );
   }
 
+  console.log('vehicle', vehicle);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['top']} className="flex h-screen bg-white dark:bg-color-bg-dark">
@@ -82,7 +84,7 @@ export default function Home() {
             kilometers={vehicle.kilometers || 0}
             plate={vehicle.plate}
           />
-          <HealthCard />
+          <HealthCard lastService={vehicle.maintenance?.date} />
           <View className="flex w-full flex-row items-center gap-2 rounded-lg px-6">
             <Ionicons
               name="flash-outline"
