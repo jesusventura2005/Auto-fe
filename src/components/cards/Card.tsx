@@ -6,15 +6,25 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 interface CardProps {
   id: string;
-  age: number;
+  year: number;
   kilometers: number;
   lastService: string;
   brand: string;
   model: string;
   type?: string;
+  plate?: string;
 }
 
-export const Card = ({ id, kilometers, lastService, age, brand, model, type }: CardProps) => {
+export const Card = ({
+  id,
+  kilometers,
+  lastService,
+  year,
+  brand,
+  model,
+  type,
+  plate,
+}: CardProps) => {
   return (
     <TouchableOpacity
       onPress={() => router.push(`/details/${id}`)}
@@ -31,9 +41,10 @@ export const Card = ({ id, kilometers, lastService, age, brand, model, type }: C
         )}
 
         <Text className="font-bold text-color-bg dark:text-color-text-dark">
-          {age} {brand}
+          {year} {brand}
         </Text>
         <Text className="text-white ">{model}</Text>
+        <Text className="text-white ">{plate}</Text>
       </View>
 
       <View className="gap-3 p-4">
