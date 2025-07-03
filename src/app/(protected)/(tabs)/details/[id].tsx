@@ -77,6 +77,7 @@ export default function Home() {
           </View>
           <DisplayCard
             model={vehicle.carModel}
+            type={vehicle.type}
             brand={vehicle.brand}
             kilometers={vehicle.kilometers || 0}
           />
