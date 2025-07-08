@@ -32,6 +32,19 @@ export default function Home() {
       return response.data;
     },
   });
+
+  const { data: maintenances } = useQuery({
+    queryKey: ['maintenances', id],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${process.env.EXPO_PUBLIC_API_URL}/maintenance/car/${id}?completed=false&limit=3`
+      );
+      return response.data;
+    },
+  });
+
+  console.log('maintenances', maintenances);
+
   if (isLoading) {
     return (
       <View className="flex h-screen items-center justify-center">
@@ -94,15 +107,15 @@ export default function Home() {
             <Text className="text-lg font-semibold text-gray-600">Siguientes mantenimientos</Text>
           </View>
           <View className="flex w-full flex-col items-center gap-4 px-6">
-            {vehicle.maintenance?.nextServices?.map((service: any, index: number) => (
+            {maintenances?.map((maintenance: any, index: number) => (
               <View
                 key={index}
                 className="w-full rounded-lg bg-gray-100 p-4 shadow-sm dark:bg-color-bg-dark">
                 <Text className="text-lg font-semibold text-gray-800 dark:text-color-text-dark">
-                  {service.description}
+                  {maintenance.description}
                 </Text>
                 <Text className="text-sm text-gray-600 dark:text-color-text-dark">
-                  Fecha: {new Date(service.date).toLocaleDateString()}
+                  Fecha: {new Date(maintenance.date).toLocaleDateString()}
                 </Text>
               </View>
             ))}

@@ -225,7 +225,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
       <Modal visible={modalVisible} transparent={false} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             className="flex-1">
             <View className="flex-1 flex-col items-center">
               <ScrollView className="flex h-full w-full flex-col rounded-xl bg-white p-6 dark:border-t-4 dark:bg-[#111823]">
