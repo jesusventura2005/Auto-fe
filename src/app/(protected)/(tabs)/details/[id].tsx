@@ -93,6 +93,20 @@ export default function Home() {
             />
             <Text className="text-lg font-semibold text-gray-600">Siguientes mantenimientos</Text>
           </View>
+          <View className="flex w-full flex-col items-center gap-4 px-6">
+            {vehicle.maintenance?.nextServices?.map((service: any, index: number) => (
+              <View
+                key={index}
+                className="w-full rounded-lg bg-gray-100 p-4 shadow-sm dark:bg-color-bg-dark">
+                <Text className="text-lg font-semibold text-gray-800 dark:text-color-text-dark">
+                  {service.description}
+                </Text>
+                <Text className="text-sm text-gray-600 dark:text-color-text-dark">
+                  Fecha: {new Date(service.date).toLocaleDateString()}
+                </Text>
+              </View>
+            ))}
+          </View>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>

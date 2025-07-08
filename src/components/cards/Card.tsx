@@ -28,7 +28,7 @@ export const Card = ({
   return (
     <TouchableOpacity
       onPress={() => router.push(`/details/${id}`)}
-      className="flex h-[240px]  w-11/12 flex-col rounded-xl bg-color-bg shadow-md dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
+      className="flex h-[260px]  w-11/12 flex-col rounded-xl bg-color-bg shadow-md dark:border dark:border-color-border-dark dark:bg-color-bg-dark">
       <View className=" flex items-center justify-center rounded-t-xl bg-[#005ee2] p-3">
         {type === 'Camioneta' ? (
           <Ionicons name="car-outline" size={86} color="white" />

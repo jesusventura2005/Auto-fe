@@ -23,8 +23,8 @@ export default function DisplayCard({ model, type, brand, kilometers, plate }: D
       )}
       <Text className="text-2xl font-bold text-white">{brand}</Text>
       <Text className="text-lg text-white">{model}</Text>
-      <Text className="text-lg text-white">{kilometers} kilometers</Text>
-      <Text className="text-lg text-white">Plate: {plate}</Text>
+      <Text className="text-lg text-white">{kilometers} Kilometros</Text>
+      <Text className="text-lg text-white">Placa: {plate}</Text>
     </View>
   );
 }
