@@ -35,7 +35,11 @@ const hasSpacedCharacters = (value: string) => {
 };
 
 const RegisterVehicle = () => {
-  const { control, handleSubmit } = useForm<CarRegister>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitted },
+  } = useForm<CarRegister>({
     defaultValues: {
       type: '',
       brand: '',
@@ -58,7 +62,20 @@ const RegisterVehicle = () => {
   const [modalBrandVisible, setModalBrandVisible] = useState(false);
   const [modalTypeVisible, setModalTypeVisible] = useState(false);
 
-  const brands = ['Nissan', 'Toyota', 'Chevrolet', 'Ford', 'Hyundai'];
+  const brands = [
+    'Nissan',
+    'Toyota',
+    'Chevrolet',
+    'Ford',
+    'Hyundai',
+    'Honda',
+    'Kia',
+    'Volkswagen',
+    'Mazda',
+    'Mitsubishi',
+    'Renault',
+    'Peugeot',
+  ];
   const types = ['Carro', 'Camioneta', 'Moto'];
 
   return (
@@ -87,11 +104,16 @@ const RegisterVehicle = () => {
             placeholder="Ej: ABC-1234"
             rules={{
               required: 'Este campo es obligatorio',
+              maxLength: {
+                value: 7,
+                message: 'La placa no puede tener más de 7 caracteres',
+              },
               validate: {
                 SpecialCharacters: (value) => hasSpecialCharacters(value),
                 spacedChars: (value) => hasSpacedCharacters(value),
               },
             }}
+            error={isSubmitted ? errors.plate : undefined}
           />
           <Input
             label="Serial"
@@ -109,6 +131,7 @@ const RegisterVehicle = () => {
                 spacedChars: (value) => hasSpacedCharacters(value),
               },
             }}
+            error={isSubmitted ? errors.serial : undefined}
           />
           <Input
             label="Año"
@@ -126,6 +149,7 @@ const RegisterVehicle = () => {
                 spacedChars: (value) => hasSpacedCharacters(value),
               },
             }}
+            error={isSubmitted ? errors.year : undefined}
           />
           <Input
             label="Modelo del Vehículo"
@@ -139,6 +163,7 @@ const RegisterVehicle = () => {
                 spacedChars: (value) => hasSpacedCharacters(value),
               },
             }}
+            error={isSubmitted ? errors.carModel : undefined}
           />
           <TouchableOpacity
             onPress={() => setModalTypeVisible(true)}
@@ -149,6 +174,11 @@ const RegisterVehicle = () => {
               {control._formValues.type || 'Seleccionar Tipo'}
             </Text>
           </TouchableOpacity>
+          {errors.type && (
+            <Text className=" text-sm text-red-500">
+              {errors.type.message || 'Este campo es obligatorio'}
+            </Text>
+          )}
 
           <TouchableOpacity
             onPress={() => setModalBrandVisible(true)}
@@ -159,13 +189,18 @@ const RegisterVehicle = () => {
               {control._formValues.brand || 'Seleccionar Marca'}
             </Text>
           </TouchableOpacity>
+          {errors.brand && (
+            <Text className=" text-sm text-red-500">
+              {errors.brand.message || 'Este campo es obligatorio'}
+            </Text>
+          )}
         </View>
 
         <ButtonCmp
           title="Guardar Vehículo"
           onPress={handleSubmit((data) => onSubmit(data))}
           className="mt-8 rounded-xl bg-color-primary py-4"
-          animated
+          disabled={addVehicle.isPending}
         />
 
         <VehicleTypeModal

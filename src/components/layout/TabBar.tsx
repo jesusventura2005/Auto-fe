@@ -33,7 +33,13 @@ interface MaintenanceFormData {
 
 const VISIBLE_TABS = ['maintenance/[id]', 'profile', 'details/[id]', 'checklist'];
 
-const noVisibleScreens = ['(auth)/register', '(auth)/login', 'index', 'Dashboard' , 'RegisterVehicle'];
+const noVisibleScreens = [
+  '(auth)/register',
+  '(auth)/login',
+  'index',
+  'Dashboard',
+  'RegisterVehicle',
+];
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const visibleRoutes = state.routes.filter((route) => VISIBLE_TABS.includes(route.name));
@@ -43,8 +49,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const [maintenanceTypeModalVisible, setMaintenanceTypeModalVisible] = useState(false);
   const { vehicleId } = useVehicleId();
   const addMaintenanceMutation = useAddMaintenance();
-
-
 
   const vehicleTypes = [
     'Cambio de aceite',
@@ -115,7 +119,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         className={`absolute bottom-10 mx-5 w-11/12 flex-1
        flex-row items-center justify-around rounded-3xl bg-white p-4 shadow-md shadow-black blur-xl dark:border 
        dark:border-color-border-dark dark:bg-color-bg-dark `}>
-        <View className="flex-row gap-2 items-center">
+        <View className="flex-row items-center gap-2">
           {leftRoutes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -171,7 +175,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
           isFocused={false}
         />
 
-        <View className="flex-row gap-2 items-center">
+        <View className="flex-row items-center gap-2">
           {rightRoutes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -218,7 +222,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         </View>
       </View>
 
-      <Modal visible={modalVisible} transparent animationType="slide">
+      <Modal visible={modalVisible} transparent={false} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -274,9 +278,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                   </Text>
                 </TouchableOpacity>
 
-                <View className='mb-6'>
+                <View className="mb-6">
                   <VehicleTypeModal
-                    text='Selecciona el tipo'
+                    text="Selecciona el tipo"
                     visible={maintenanceTypeModalVisible}
                     vehicleTypes={vehicleTypes}
                     control={control}
@@ -286,7 +290,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                   />
                 </View>
 
-                <View className='mb-6'>
+                <View className="mb-6">
                   <Calendar
                     control={control}
                     name="fecha"
@@ -295,8 +299,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 </View>
 
                 <View>
-
-
                   <Input
                     isNumeric={true}
                     label="Kilómetros"
@@ -325,7 +327,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 <TouchableOpacity
                   onPress={() => {
                     setModalVisible(false);
-                    reset(); 
+                    reset();
                   }}
                   className="mb-4 mt-4 rounded-xl bg-color-alert px-4 py-3">
                   <Text className="text-center text-lg font-bold text-white">Cancelar</Text>

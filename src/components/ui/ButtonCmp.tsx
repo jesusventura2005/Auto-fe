@@ -59,7 +59,9 @@ const ButtonCmp = ({
   );
 
   if (animated) {
-    return <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>{buttonContent}</Animated.View>;
+    return (
+      <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>{buttonContent}</Animated.View>
+    );
   }
 
   return <View>{buttonContent}</View>;
